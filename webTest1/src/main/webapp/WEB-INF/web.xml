@@ -4,7 +4,7 @@
 
     <context-param>
         <param-name>log4jConfigLocation</param-name>
-        <param-value>classpath:com/birlax/logging/log4j.xml</param-value>
+        <param-value>classpath:com/birlax/logging/webTest_log4j.xml</param-value>
     </context-param>
 
     <listener>
