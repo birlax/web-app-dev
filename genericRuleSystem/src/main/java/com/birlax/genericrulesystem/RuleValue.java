@@ -1,9 +1,9 @@
 package com.birlax.genericrulesystem;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -18,8 +18,8 @@ public class RuleValue {
 
     private Object ruleValue;
 
-    private List<Pair<Object, Object>> listOfRanges;
-    private List<Object>               listOfValues;
+    private Set<Pair<Object, Object>> listOfRanges;
+    private Set<Object>               listOfValues;
 
     public int returnRank() {
         int rk = 0;
@@ -64,10 +64,10 @@ public class RuleValue {
             return;
 
         if (ruleCriteria.getSpecialValued() == RuleValueAttributes.SpecialValued.LIST_OF_RANGES) {
-            this.listOfRanges = new ArrayList<>();
+            this.listOfRanges = new TreeSet<>();
         }
         if (ruleCriteria.getSpecialValued() == RuleValueAttributes.SpecialValued.LIST_OF_VALUES) {
-            this.listOfValues = new ArrayList<>();
+            this.listOfValues = new TreeSet<>();
         }
 
         // Simple single values can be validated against data-type
@@ -213,11 +213,11 @@ public class RuleValue {
         return ruleValue;
     }
 
-    public List<Pair<Object, Object>> getListOfRanges() {
+    public Set<Pair<Object, Object>> getListOfRanges() {
         return listOfRanges;
     }
 
-    public List<Object> getListOfValues() {
+    public Set<Object> getListOfValues() {
         return listOfValues;
     }
 

@@ -2,7 +2,6 @@ package com.birlax.genericrulesystem;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -43,12 +42,12 @@ public class RuleEvaluator {
             return ruleValue.getRuleValue().equals(inputValue);
         }
 
-        if (ruleCriteria.getSpecialValued() == RuleValueAttributes.SpecialValued.LIST_OF_VALUES) {
-            List<Object> list = ruleValue.getListOfValues();
+        if (inputValue != null && ruleCriteria.getSpecialValued() == RuleValueAttributes.SpecialValued.LIST_OF_VALUES) {
+            Set<Object> list = ruleValue.getListOfValues();
             return list.contains(inputValue);
         }
         if (ruleCriteria.getSpecialValued() == RuleValueAttributes.SpecialValued.LIST_OF_RANGES) {
-            List<Pair<Object, Object>> ranges = ruleValue.getListOfRanges();
+            Set<Pair<Object, Object>> ranges = ruleValue.getListOfRanges();
             for (Pair<Object, Object> range : ranges) {
                 if (evaluateSingleRange(range, inputValue, ruleCriteria.getRuleValueType())) {
                     return true;

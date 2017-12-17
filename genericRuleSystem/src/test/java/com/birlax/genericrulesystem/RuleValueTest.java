@@ -1,8 +1,9 @@
 package com.birlax.genericrulesystem;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Assert;
@@ -161,16 +162,22 @@ public class RuleValueTest {
     public void testIntegerListRangeValueTakesAllValue() {
         RuleValue rv = new RuleValue("22:67;89:90", l2);
         Assert.assertEquals(null, rv.getRuleValue());
-        Assert.assertEquals(Arrays.asList(Pair.of(22, 67), Pair.of(89, 90)), rv.getListOfRanges());
+        Set<Pair<Integer, Integer>> setOfRanges = new TreeSet<>();
+        setOfRanges.addAll(Arrays.asList(Pair.of(22, 67), Pair.of(89, 90)));
+        Assert.assertEquals(setOfRanges, rv.getListOfRanges());
         Assert.assertEquals(null, rv.getListOfValues());
     }
 
     @Test
     public void testDoubleListRangeValueTakesAllPair() {
         RuleValue rv = new RuleValue("23.009:7789.99;78.78:90.99;:345.5;45.77:INF", l1);
+
+        Set<Pair<Double, Double>> setOfRanges = new TreeSet<>();
+        setOfRanges.addAll(Arrays.asList(Pair.of(23.009, 7789.99), Pair.of(78.78, 90.99), Pair.of(null, 345.5),
+                Pair.of(45.77, null)));
         Assert.assertEquals(null, rv.getRuleValue());
-        Assert.assertEquals(Arrays.asList(Pair.of(23.009, 7789.99), Pair.of(78.78, 90.99), Pair.of(null, 345.5),
-                Pair.of(45.77, null)), rv.getListOfRanges());
+
+        Assert.assertEquals(setOfRanges, rv.getListOfRanges());
         Assert.assertEquals(null, rv.getListOfValues());
     }
 
@@ -179,7 +186,10 @@ public class RuleValueTest {
         RuleValue rv = new RuleValue("22;89;90", v2);
         Assert.assertEquals(null, rv.getRuleValue());
         Assert.assertEquals(null, rv.getListOfRanges());
-        Assert.assertEquals(new ArrayList<Object>(Arrays.asList(22, 89, 90)), rv.getListOfValues());
+        Set<Integer> setOfRanges = new TreeSet<>();
+        setOfRanges.addAll(Arrays.asList(22, 89, 90));
+
+        Assert.assertEquals(setOfRanges, rv.getListOfValues());
 
     }
 
@@ -188,7 +198,10 @@ public class RuleValueTest {
         RuleValue rv = new RuleValue("23.009;7789.99;78.78;90.99", v1);
         Assert.assertEquals(null, rv.getRuleValue());
         Assert.assertEquals(null, rv.getListOfRanges());
-        Assert.assertEquals(Arrays.asList(23.009, 7789.99, 78.78, 90.99), rv.getListOfValues());
+        Set<Double> setOfRanges = new TreeSet<>();
+        setOfRanges.addAll(Arrays.asList(23.009, 7789.99, 78.78, 90.99));
+
+        Assert.assertEquals(setOfRanges, rv.getListOfValues());
     }
 
     @Test(expected = IllegalArgumentException.class)
