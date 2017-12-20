@@ -7,12 +7,14 @@ import java.util.TreeSet;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-/** Internal class to be used only with Rule. and Rule Evaluation. <br>
+/**
+ * Internal class to be used only with Rule. and Rule Evaluation. <br>
  * <br>
  * For String : Leading and Trailing spaces will always be removed before rule evaluation. <br>
  * <br>
  * 
- * @author birlax */
+ * @author birlax
+ */
 
 public class RuleValue {
 
@@ -76,11 +78,13 @@ public class RuleValue {
             this.ruleValue = value;
             return;
         }
-        /** If you have reached here then value is not NUL and as Special Values can be represented only in STRING we
-         * can cast it blindly or throw exception. */
+        /**
+         * If you have reached here then value is not NUL and as Special Values can be represented only in STRING we can
+         * cast it blindly or throw exception.
+         */
         if (!(value instanceof String)) {
             throw new IllegalArgumentException(MessageFormat.format(
-                    "Special Valued Type like : {0} of ({1}) should be represented like : {2}{3}{4}{5}{6}{7}{8}",
+                    "Special Valued Type like : {0} of ({1}) should be represented as STRING like : {2}{3}{4}{5}{6}{7}{8}",
                     ruleCriteria.getSpecialValued(), ruleCriteria.getRuleValueType(), 2.67,
                     RuleSystemConstant.RANGE_DELIMITER, 67.89, RuleSystemConstant.LIST_DELIMITER, 24,
                     RuleSystemConstant.RANGE_DELIMITER, 69));
@@ -155,7 +159,8 @@ public class RuleValue {
 
     }
 
-    /** @param l
+    /**
+     * @param l
      * @param r
      */
     private <T extends Number> void validateRange(T l, T r) {
@@ -178,8 +183,10 @@ public class RuleValue {
         }
     }
 
-    /** @param v
-     * @return */
+    /**
+     * @param v
+     * @return
+     */
     private boolean isNullEmptyOrInfinity(String v) {
         if (v == null) {
             return true;

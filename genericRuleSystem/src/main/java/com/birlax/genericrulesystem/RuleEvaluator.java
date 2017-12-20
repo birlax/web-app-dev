@@ -14,7 +14,7 @@ public class RuleEvaluator {
     public static String evaluate(Map<String, Object> inputs, Rule rule) {
 
         Set<Boolean> ruleEvaluationResult = new HashSet<>(2);
-
+        // rule criteria will be oder of criteria ranking.
         for (Map.Entry<RuleCriteria, RuleValue> entry : rule.getRuleValues().entrySet()) {
             RuleCriteria rc = entry.getKey();
             Object inputValue = inputs.get(rc.getRuleCriteriaName());
@@ -62,24 +62,25 @@ public class RuleEvaluator {
 
         boolean result = false;
         switch (dataType) {
-        case DATE:
-            result = validateInputAgainstDateRange((Date) range.getLeft(), (Date) range.getRight(), (Date) inputValue);
-            break;
+            case DATE:
+                result = validateInputAgainstDateRange((Date) range.getLeft(), (Date) range.getRight(),
+                        (Date) inputValue);
+                break;
 
-        case STRING:
-            result = validateInputAgainstStringRange((String) range.getLeft(), (String) range.getRight(),
-                    (String) inputValue);
-            break;
+            case STRING:
+                result = validateInputAgainstStringRange((String) range.getLeft(), (String) range.getRight(),
+                        (String) inputValue);
+                break;
 
-        case INTEGER:
-            result = validateInputAgainstRange((Integer) range.getLeft(), (Integer) range.getRight(),
-                    (Integer) inputValue);
-            break;
+            case INTEGER:
+                result = validateInputAgainstRange((Integer) range.getLeft(), (Integer) range.getRight(),
+                        (Integer) inputValue);
+                break;
 
-        case DOUBLE:
-            result = validateInputAgainstRange((Double) range.getLeft(), (Double) range.getRight(),
-                    (Double) inputValue);
-            break;
+            case DOUBLE:
+                result = validateInputAgainstRange((Double) range.getLeft(), (Double) range.getRight(),
+                        (Double) inputValue);
+                break;
         }
 
         return result;

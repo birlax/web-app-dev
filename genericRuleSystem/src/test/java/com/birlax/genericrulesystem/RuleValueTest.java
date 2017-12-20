@@ -85,7 +85,8 @@ public class RuleValueTest {
 
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(
+            expected = IllegalArgumentException.class)
     public void testDataTypeForSingleValuedFields() {
         int count = 0;
         try {
@@ -144,7 +145,8 @@ public class RuleValueTest {
 
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(
+            expected = IllegalArgumentException.class)
     public void testIntegerSingleRangeValueNegTest() {
         RuleValue rv = new RuleValue(22, r2);
     }
@@ -204,7 +206,8 @@ public class RuleValueTest {
         Assert.assertEquals(setOfRanges, rv.getListOfValues());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(
+            expected = IllegalArgumentException.class)
     public void testDoubleListValueTakesValuesRangeValidations() {
         int count = 0;
         try {

@@ -86,7 +86,7 @@ public class RuleEvaluatorTest {
         rvs.put(priceRuleCriteria, priceRule);
         rvs.put(volumeRuleCriteria, volumeRule);
 
-        Rule rule = new Rule("basic rule", "rule-id-23", rvs);
+        Rule rule = new Rule("rule-id-23", rvs);
 
         Map<String, Object> inputs = new HashMap<>();
         inputs.put("price", 2.9);

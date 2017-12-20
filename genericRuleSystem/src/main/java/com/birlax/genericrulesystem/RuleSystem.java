@@ -5,13 +5,16 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Class represents a rule-system. A rule system can hold many rules. When evaluate on a rule system is called it will
+/**
+ * Class represents a rule-system. A rule system can hold many rules. When evaluate on a rule system is called it will
  * return the rule-id of the rule which matches the given input.<br>
  * <br>
  * <ul>
@@ -19,7 +22,8 @@ import org.slf4j.LoggerFactory;
  * <li>If no rules satisfy input conditions, constant string <b>"NO_MATCHING_RULES"</b> will be returned.</li>
  * </ul>
  * 
- * @author birlax */
+ * @author birlax
+ */
 public class RuleSystem {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -35,91 +39,73 @@ public class RuleSystem {
 
     private String ruleOutputColumnName;
 
-    private String columnStoringRuleName = "ruleName";
+    /**
+     * Providing column name that is to be used to source the ranking for rules, where rules are provided as
+     * {@link RuleSystem#rules } is Mandatory, Value for this field it-self in the rule can be null, in that case
+     * default rank of {@link Integer.MAX_VALUE} will be used, so that these rules run last in evaluation. <br>
+     * <br>
+     * Negative values are reserved for the internal use, hence users are forced to provide {@code ruleRank >= 0 }<br>
+     * <br>
+     * Why are ruleRank <b><i>values</i></b> optional in the rule ?<br>
+     * <br>
+     */
+    private String ruleRankColumnName;
 
-    private String ruleRankColumnName = "ruleRank";
-
-    /** @param ruleSystemName
+    /**
+     * @param ruleSystemName
      * @param ruleInputsAndRank
      */
-    public RuleSystem(final String ruleSystemName, final Set<RuleCriteria> ruleCriteria,
-            final String ruleOutputColumnName, final String columnStoringRuleName, final String ruleRankColumnName) {
+    private RuleSystem() {
         super();
+    }
+
+    public RuleSystem(final String ruleSystemName, final Set<RuleCriteria> ruleCriteria,
+            final String ruleOutputColumnName, final String ruleRankColumnName, final Set<Map<String, Object>> rules) {
+        super();
+
+        Objects.requireNonNull(ruleSystemName, "Rule System Name is Mandatory");
+        Objects.requireNonNull(ruleCriteria, "Rule Criteria or Fields are Mandatory");
+        Objects.requireNonNull(ruleOutputColumnName, "Rule Output Column is Mandatory");
+        Objects.requireNonNull(ruleRankColumnName, "Rule Criteria or Fields are Mandatory");
+        Objects.requireNonNull(rules, "Rules are Mandatory");
+        if (rules.isEmpty()) {
+            throw new IllegalArgumentException("RuleSystem can be initialized with zero set of rules.");
+        }
+
         this.ruleSystemName = ruleSystemName;
-        this.ruleCriteria = ruleCriteria;
+        // Keep the rule criterias in the sorted order.
+        this.ruleCriteria = new TreeSet<>();
+        this.ruleCriteria.addAll(ruleCriteria);
         this.ruleOutputColumnName = ruleOutputColumnName;
-        this.columnStoringRuleName = columnStoringRuleName;
         this.ruleRankColumnName = ruleRankColumnName;
         // need to keep the rules in map in the order of their evaluation ranking.
         this.rules = new TreeMap<>();
+
+        init(rules);
     }
 
-    public String evaluate(Map<String, Object> input) {
-        for (Map.Entry<Integer, Set<Rule>> entry : rules.entrySet()) {
-            for (Rule rule : entry.getValue()) {
-                String result = RuleEvaluator.evaluate(input, rule);
-                if (!RuleEvaluator.NO_MATCHING_RULES.equals(result)) {
-                    return result;
-                }
-            }
-        }
-        return RuleEvaluator.NO_MATCHING_RULES;
-    }
-
-    /** Instantiates the rule-system with provided rules. If provided rules do not have the rule criteria for which
-     * input ranks were provided all inputs will be ranked with equal weight of 1.
+    /**
+     * Instantiates the rule-system with provided rules. If provided rules do not have the rule criteria for which input
+     * ranks were provided all inputs will be ranked with equal weight of 1.
      * 
      * @param rules
-     * @return */
-
-    private Integer validateRuleRank(Object ruleRank) {
-        Integer ruleRankInt = 1;
-        if (ruleRank != null && !(ruleRank instanceof Integer)) {
-            throw new IllegalArgumentException(
-                    "Only Integer values allowed for ruleRank column : " + ruleRankColumnName);
-        } else {
-            ruleRankInt = (Integer) ruleRank;
-        }
-        return ruleRankInt;
-    }
-
-    private String validateMandatroyStringFields(Object ruleName, String fielName, String ruleOutputColumnName) {
-        String ruleNameStr = "SysGenRule-" + System.currentTimeMillis();
-        if (ruleName != null && !(ruleName instanceof String)) {
-            throw new IllegalArgumentException(
-                    "Only String values allowed for " + fielName + " column : " + ruleOutputColumnName);
-        } else {
-            ruleNameStr = (String) ruleName;
-        }
-        return ruleNameStr;
-    }
-
-    public boolean init(Set<Map<String, Object>> rules) {
+     * @return
+     */
+    private boolean init(Set<Map<String, Object>> rules) {
 
         logger.info("Starting reloading of rules. Rules to be loaded : {} ", rules.size());
 
-        List<RuleCriteria> rcs = new ArrayList<>(ruleCriteria);
+        List<RuleCriteria> rcs = new ArrayList<>(this.ruleCriteria);
         Collections.sort(rcs);
         for (Map<String, Object> rule : rules) {
-            String ruleName = validateMandatroyStringFields(rule.get(columnStoringRuleName), "ruleName",
-                    columnStoringRuleName);
 
-            Integer ruleRank = validateRuleRank(rule.get(ruleRankColumnName));
+            validateRuleOutputAndRuleRankColumn(rule.get(ruleRankColumnName), rule.get(ruleOutputColumnName));
 
-            String ruleId = validateMandatroyStringFields(rule.get(ruleOutputColumnName), "ruleId",
-                    ruleOutputColumnName);
+            Integer ruleRank = (Integer) rule.get(ruleRankColumnName);
+            ruleRank = ruleRank == null ? Integer.MAX_VALUE : ruleRank;
 
-            if (ruleName == null) {
-                // Generate a warning ...
-            }
+            String ruleId = (String) rule.get(ruleOutputColumnName);
 
-            if (ruleRank == null) {
-                // Generate a warning ...
-            }
-            if (ruleId == null) {
-                throw new IllegalArgumentException("Column/Field : [" + ruleOutputColumnName
-                        + "] is mandatory input as that is the ouput of the rule-system");
-            }
             Map<RuleCriteria, RuleValue> ruleValues = new TreeMap<>();
 
             Integer finalRank = 0;
@@ -144,7 +130,7 @@ public class RuleSystem {
                     ruleValues.put(rc, rv);
                 }
             }
-            Rule ruleObj = new Rule(ruleName, ruleId, ruleValues);
+            Rule ruleObj = new Rule(ruleId, ruleValues);
 
             int rank = (-1 * finalRank);
             this.rules.putIfAbsent(rank, new HashSet<>());
@@ -156,12 +142,46 @@ public class RuleSystem {
 
     }
 
+    /**
+     * @param input
+     * @return
+     */
+    public String evaluate(Map<String, Object> input) {
+        for (Map.Entry<Integer, Set<Rule>> entry : rules.entrySet()) {
+            for (Rule rule : entry.getValue()) {
+                String result = RuleEvaluator.evaluate(input, rule);
+                if (!RuleEvaluator.NO_MATCHING_RULES.equals(result)) {
+                    return result;
+                }
+            }
+        }
+        return RuleEvaluator.NO_MATCHING_RULES;
+    }
+
+    private void validateRuleOutputAndRuleRankColumn(Object ruleRank, Object ruleOutput) {
+
+        if (ruleRank != null && (!(ruleRank instanceof Integer) || ((Integer) ruleRank < 0))) {
+            throw new IllegalArgumentException(
+                    "Only non-negative integer values allowed for ruleRank column : " + this.ruleRankColumnName);
+        }
+        if (ruleOutput == null || !(ruleOutput instanceof String)) {
+            throw new IllegalArgumentException(
+                    "Rule output column is Mandatory and only String values allowed : " + this.ruleOutputColumnName);
+        }
+    }
+
     public String getRuleSystemName() {
         return ruleSystemName;
     }
 
     public void setRuleSystemName(String ruleSystemName) {
         this.ruleSystemName = ruleSystemName;
+    }
+
+    @Override
+    public String toString() {
+        return "RuleSystem [ruleSystemName=" + ruleSystemName + ", ruleOutputColumnName=" + ruleOutputColumnName
+                + ", ruleRankColumnName=" + ruleRankColumnName + ", ruleCriteria=" + ruleCriteria + "]";
     }
 
 }

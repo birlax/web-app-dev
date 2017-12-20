@@ -28,7 +28,7 @@ public class RuleTest {
         rvs.put(priceRuleCriteria, priceRule);
         rvs.put(volumeRuleCriteria, volumeRule);
 
-        Rule rule = new Rule("basic rule", "rule-id-23", rvs);
+        Rule rule = new Rule("rule-id-23", rvs);
 
         System.out.println(rule);
 

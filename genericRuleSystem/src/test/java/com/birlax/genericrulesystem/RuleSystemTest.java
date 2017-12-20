@@ -23,8 +23,6 @@ public class RuleSystemTest {
         Set<RuleCriteria> ruleCriterias = new HashSet<>(Arrays.asList(priceRuleCriteria, volumeRuleCriteria));
         String ruleSystemName = "firstEverRule";
 
-        RuleSystem ruleSystem = new RuleSystem(ruleSystemName, ruleCriterias, "id", "ruleNameTTKHA", "myRanking");
-
         Set<Map<String, Object>> rules = new HashSet<>();
         rules.add(new HashMap<String, Object>() {
             {
@@ -66,7 +64,8 @@ public class RuleSystemTest {
                 // put("myRanking", 34.89);
             }
         });
-        ruleSystem.init(rules);
+        RuleSystem ruleSystem = new RuleSystem(ruleSystemName, ruleCriterias, "id", "myRanking", rules);
+
         // System.out.println(re.evaluate(map, rule));
         Map<String, Object> map = new HashMap<>();
         map.put("price", 7.9);
@@ -89,8 +88,6 @@ public class RuleSystemTest {
 
         Set<RuleCriteria> ruleCriterias = new HashSet<>(Arrays.asList(priceRuleCriteria, volumeRuleCriteria));
         String ruleSystemName = "firstEverRule";
-
-        RuleSystem ruleSystem = new RuleSystem(ruleSystemName, ruleCriterias, "id", "ruleName", "ruleRank");
 
         Set<Map<String, Object>> rules = new HashSet<>();
         rules.add(new HashMap<String, Object>() {
@@ -128,7 +125,7 @@ public class RuleSystemTest {
                 // put("myRanking", 34.89);
             }
         });
-        // ruleSystem.init(rules);
+        RuleSystem ruleSystem = new RuleSystem(ruleSystemName, ruleCriterias, "id", "ruleRank", rules);
         // System.out.println(re.evaluate(map, rule));
 
     }
@@ -147,8 +144,6 @@ public class RuleSystemTest {
 
         Set<RuleCriteria> ruleCriterias = new HashSet<>(Arrays.asList(priceRuleCriteria, volumeRuleCriteria));
         String ruleSystemName = "firstEverRule";
-
-        RuleSystem ruleSystem = new RuleSystem(ruleSystemName, ruleCriterias, "id", "ruleName", "ruleRank");
 
         Set<Map<String, Object>> rules = new HashSet<>();
         rules.add(new HashMap<String, Object>() {
@@ -192,7 +187,7 @@ public class RuleSystemTest {
                 // put("myRanking", 34.89);
             }
         });
-        // ruleSystem.init(rules);
+        RuleSystem ruleSystem = new RuleSystem(ruleSystemName, ruleCriterias, "id", "ruleRank", rules);
 
         Map<String, Object> map = new HashMap<>();
         map.put("price", 2.9);
@@ -202,7 +197,8 @@ public class RuleSystemTest {
     }
 
     @SuppressWarnings("serial")
-    @Test(expected = IllegalArgumentException.class)
+    @Test(
+            expected = IllegalArgumentException.class)
     public void testRuleSystemEvaluateValidationsRuleId() {
 
         RuleCriteria priceRuleCriteria = new RuleCriteria("price", RuleValueAttributes.DataType.DOUBLE,
@@ -214,8 +210,6 @@ public class RuleSystemTest {
         Set<RuleCriteria> ruleCriterias = new HashSet<>(Arrays.asList(priceRuleCriteria, volumeRuleCriteria));
         String ruleSystemName = "firstEverRule";
 
-        RuleSystem ruleSystem = new RuleSystem(ruleSystemName, ruleCriterias, "unknow", "ruleName", "ruleRank");
-
         Set<Map<String, Object>> rules = new HashSet<>();
         rules.add(new HashMap<String, Object>() {
             {
@@ -226,40 +220,12 @@ public class RuleSystemTest {
 
             }
         });
-
-        ruleSystem.init(rules);
+        RuleSystem ruleSystem = new RuleSystem(ruleSystemName, ruleCriterias, "unknow", "ruleRank", rules);
     }
 
     @SuppressWarnings("serial")
-    @Test(expected = IllegalArgumentException.class)
-    public void testRuleSystemEvaluateValidationsRuleName() {
-
-        RuleCriteria priceRuleCriteria = new RuleCriteria("price", RuleValueAttributes.DataType.DOUBLE,
-                RuleValueAttributes.SpecialValued.SIMPLE_SINGLE_VALUE, (byte) 1);
-
-        RuleCriteria volumeRuleCriteria = new RuleCriteria("volume", RuleValueAttributes.DataType.INTEGER,
-                RuleValueAttributes.SpecialValued.SIMPLE_SINGLE_VALUE, (byte) 2);
-
-        Set<RuleCriteria> ruleCriterias = new HashSet<>(Arrays.asList(priceRuleCriteria, volumeRuleCriteria));
-        String ruleSystemName = "firstEverRule";
-
-        RuleSystem ruleSystem = new RuleSystem(ruleSystemName, ruleCriterias, "id", "ruleName", "ruleRank");
-
-        Set<Map<String, Object>> rules = new HashSet<>();
-        rules.add(new HashMap<String, Object>() {
-            {
-                put("price", 34.0);
-                put("volume", 700);
-                put("id", "34.0 is price");
-                put("ruleName", 5.66); // invalid rule name
-            }
-        });
-
-        ruleSystem.init(rules);
-    }
-
-    @SuppressWarnings("serial")
-    @Test(expected = IllegalArgumentException.class)
+    @Test(
+            expected = IllegalArgumentException.class)
     public void testRuleSystemEvaluateValidationsRuleRank() {
         RuleCriteria priceRuleCriteria = new RuleCriteria("price", RuleValueAttributes.DataType.DOUBLE,
                 RuleValueAttributes.SpecialValued.SIMPLE_SINGLE_VALUE, (byte) 1);
@@ -269,8 +235,6 @@ public class RuleSystemTest {
 
         Set<RuleCriteria> ruleCriterias = new HashSet<>(Arrays.asList(priceRuleCriteria, volumeRuleCriteria));
         String ruleSystemName = "firstEverRule";
-
-        RuleSystem ruleSystem = new RuleSystem(ruleSystemName, ruleCriterias, "id", "ruleName", "ruleRank");
 
         Set<Map<String, Object>> rules = new HashSet<>();
         rules.add(new HashMap<String, Object>() {
@@ -283,7 +247,7 @@ public class RuleSystemTest {
 
             }
         });
+        RuleSystem ruleSystem = new RuleSystem(ruleSystemName, ruleCriterias, "id", "ruleRank", rules);
 
-        ruleSystem.init(rules);
     }
 }
