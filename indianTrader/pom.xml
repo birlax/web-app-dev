@@ -27,7 +27,7 @@
         <org.aspectj-version>1.8.0</org.aspectj-version>
         <cglib.version>2.2.2</cglib.version>
         <org.slf4j-version>1.7.25</org.slf4j-version>
-        <jackson.databind-version>2.2.3</jackson.databind-version>
+        <jackson.databind-version>2.12.7.1</jackson.databind-version>
         <log4j2.version>2.11.0</log4j2.version>
         <org.graylog2.version>1.1.7</org.graylog2.version>
         <junit.version>4.12</junit.version>
@@ -76,7 +76,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.5</version>
+            <version>2.12.7.1</version>
         </dependency>
         <!-- AspectJ -->
         <dependency>
