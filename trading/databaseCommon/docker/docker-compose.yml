@@ -1,0 +1,15 @@
+# Database container for running tests locally.
+version: '2'
+
+services:
+  cass-svc:
+    container_name: database-common-db
+    image: postgres:11.6
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: database_common
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
