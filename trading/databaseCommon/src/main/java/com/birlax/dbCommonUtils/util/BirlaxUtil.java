@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
@@ -50,14 +51,16 @@ public class BirlaxUtil {
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public static String getFormattedStringDate(Date date, String format) {
+    public static String getFormattedStringDate(LocalDate date, String format) {
         DateFormat formatter = new SimpleDateFormat(format);
         return formatter.format(date);
     }
 
-    public static long diffInDays(Date secondDate, Date firstDate) {
+    public static long diffInDays(LocalDate secondDate, LocalDate firstDate) {
         try {
-            return ChronoUnit.DAYS.between(secondDate.toInstant(), firstDate.toInstant());
+            return ChronoUnit.DAYS.between(
+                    secondDate.atStartOfDay().toInstant(ZoneOffset.UTC),
+                    firstDate.atStartOfDay().toInstant(ZoneOffset.UTC));
         } catch (Exception e) {
             throw new RuntimeException(
                     "Something went wrong, secondDate :  " + secondDate + ", firstDate : " + firstDate, e);

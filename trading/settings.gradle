@@ -1,2 +1,5 @@
 rootProject.name = 'trading'
 include 'databaseCommon'
+include 'nseTrading'
+include 'feedCapture'
+

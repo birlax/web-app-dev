@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.1'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":databaseCommon")
+    testImplementation project(":databaseCommon")
+    implementation project(":feedCapture")
+    testImplementation project(":feedCapture")
+
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.16.1'
+
+    implementation 'org.springframework:spring-context:6.1.2'
+    implementation 'org.springframework:spring-web:6.1.2'
+
+    // https://mvnrepository.com/artifact/org.mybatis/mybatis-spring
+    implementation 'org.mybatis:mybatis-spring:3.0.3'
+
+    // https://mvnrepository.com/artifact/org.mybatis/mybatis
+    implementation 'org.mybatis:mybatis:3.5.15'
+
+    implementation 'org.slf4j:slf4j-api:2.0.10'
+    implementation 'org.slf4j:slf4j-simple:2.0.10'
+
+    implementation 'org.springframework.boot:spring-boot-autoconfigure:3.2.1'
+
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework:spring-test:6.1.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
+
+
+}
+
+test {
+    useJUnitPlatform()
+}
