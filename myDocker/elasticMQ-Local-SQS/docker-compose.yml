@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+ sqs:
+  image: roribio16/alpine-sqs:latest
+  container_name: elasticMQ-SQS
+  restart: always
+  volumes:
+    - ./config:/opt/custom
+    - ./logs:/opt/elasticmq/log
+  ports:
+    - 9324:9324
+    - 9325:9325

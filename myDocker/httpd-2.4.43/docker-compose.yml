@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+  httpd:
+    image: httpd:2.4.43
+    container_name: httpd
+    restart: always
+    volumes:
+      - ./httpd-htdocs:/usr/local/apache2/htdocs/
+      - ./my-httpd.conf:/usr/local/apache2/conf/httpd.conf
+    ports:
+      - 80:80
+
+# Get the config from the images it-self 
+# docker run --rm httpd:2.4.43 cat /usr/local/apache2/conf/httpd.conf > my-httpd.conf

@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+ postgres:
+  image: postgres:11.8
+  container_name: postgres
+  restart: always
+  environment:
+   POSTGRES_PASSWORD: postgres
+  ports:
+    - 5432:5432
+#Post Migration of Docker-Desktop ( volumn mounting is not working with Comlina ) 
+#  volumes:
+#    - $HOME/DATABASE_DIR/PG_DATA_DIR/postgres-11.8:/var/lib/postgresql/data
