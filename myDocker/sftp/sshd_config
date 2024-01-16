@@ -1,0 +1,13 @@
+
+
+PasswordAuthentication no
+# ChallengeResponseAuthentication no
+# UsePAM no
+StrictModes no
+
+RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile /home/user/.ssh/authorized_keys
+
+Subsystem sftp internal-sftp
+LogLevel DEBUG3

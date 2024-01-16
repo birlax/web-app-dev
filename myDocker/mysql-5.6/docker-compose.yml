@@ -1,0 +1,18 @@
+version: "3.1"
+
+services:
+  mysql-56:
+    container_name: mysql-56
+    image: mysql:5.6
+    command: --lower_case_table_names=1
+    restart: always
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+     # MYSQL_ROOT_PASSWORD: 'test_pass'
+     # MYSQL_USER: 'test'
+     # MYSQL_PASS: 'pass'
+    ports:
+      - "3307:3306"
+#Post Migration of Docker-Desktop ( volumn mounting is not working with Comlina ) 
+#    volumes:
+#      - $HOME/DATABASE_DIR/MYSQL_DATA_DIR/mysql-56:/var/lib/mysql

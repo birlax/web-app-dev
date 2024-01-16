@@ -1,0 +1,16 @@
+version: '3.2'
+
+services:
+    sftp:
+        image: atmoz/sftp
+        volumes:
+            - ./data-dir/upload:/home/user/upload:rw
+            - ./config/users.conf:/etc/sftp/users.conf:rw
+            - ./config/authorized_keys:/home/user/.ssh/authorized_keys:rwrwrw
+#            - ./secrets/ssh_host_ed25519_key:/etc/ssh/ssh_host_ed25519_key:rwrwrw
+#            - ./secrets/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key:rwrwrw
+            - ./sshd_config:/etc/ssh/sshd_config:rwrwrw
+        ports:
+            - "2222:22"
+#        command: sh -c 'chmod -Rf 777 /etc/ssh ;  chmod -Rf 600 /etc/ssh/* chmod -Rf 777 /home/user/.ssh ; chmod 777   /home/user/.ssh/authorized_keys ; who ; /usr/sbin/sshd -D -e'
+
