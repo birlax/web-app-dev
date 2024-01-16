@@ -30,7 +30,7 @@
         <jackson.databind-version>2.12.7.1</jackson.databind-version>
         <log4j2.version>2.11.0</log4j2.version>
         <org.graylog2.version>1.1.7</org.graylog2.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <mockito.version>1.9.0</mockito.version>
         <mail.version>1.4.4</mail.version>
         <org.springframework-version>5.2.20.RELEASE</org.springframework-version>
