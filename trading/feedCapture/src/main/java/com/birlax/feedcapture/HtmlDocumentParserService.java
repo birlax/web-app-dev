@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,24 +16,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class HtmlDocumentParserService {
 
-  public Document getHtmlDocument(String uri, DataSourceType type) throws IOException {
+  public Document getHtmlDocument(String uri, DataSourceType type) {
     log.info("Using url : {} ", uri);
     if (DataSourceType.URL == type) {
       return getHtmlDocumentFromUrl(uri);
     }
-
     return getHtmlDocumentFromFile(uri);
   }
 
-  private Document getHtmlDocumentFromFile(String uri) throws IOException {
-
+  @SneakyThrows
+  private Document getHtmlDocumentFromFile(String uri) {
     File html = new File(uri);
-    Document doc = Jsoup.parse(html, Common.CHAR_ENCODING);
-
-    return doc;
+    return Jsoup.parse(html, Common.CHAR_ENCODING);
   }
 
-  private Document getHtmlDocumentFromUrl(String uri) throws IOException {
+  @SneakyThrows
+  private Document getHtmlDocumentFromUrl(String uri) {
     URL url = null;
     try {
       url = new URL(uri);
@@ -42,9 +41,7 @@ public class HtmlDocumentParserService {
     if (url == null) {
       throw new IllegalArgumentException("Unable to create the URL");
     }
-
-    int timeoutMillis = 10000;
-    Document doc = Jsoup.parse(url, timeoutMillis);
-    return doc;
+    int timeoutMillis = 10_000;
+    return Jsoup.parse(url, timeoutMillis);
   }
 }

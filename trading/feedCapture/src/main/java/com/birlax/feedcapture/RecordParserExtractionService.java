@@ -18,10 +18,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class RecordParserExtractionService {
 
-  /** Parse set of raw records against a configuration. */
-  public static List<Map<String, Object>> rawParser(
-      List<Map<Integer, String>> indexToDataMap, RecordParserConfig recordParserConfig)
-      throws IOException {
+  /** Parse set of raw records against a configuration */
+  public List<Map<String, Object>> rawParser(
+      List<Map<Integer, String>> indexToDataMap, RecordParserConfig recordParserConfig) {
 
     List<Map<String, Object>> parserData = new ArrayList<>();
     int pkId = 0;
@@ -54,7 +53,7 @@ public class RecordParserExtractionService {
     return parserData;
   }
 
-  private static Map<String, Object> parserSingleRecord(
+  private Map<String, Object> parserSingleRecord(
       Map<Integer, String> rawRecord, RecordParserConfig recordParserConfig) {
 
     Map<String, Object> dm = new HashMap<>();

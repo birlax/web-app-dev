@@ -28,6 +28,19 @@ dependencies {
     implementation 'org.springframework:spring-context:6.1.2'
     testImplementation 'org.springframework:spring-test:6.1.2'
 
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.2.2'
+
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+
+
+    configurations {
+        all {
+            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+            exclude group: 'ch.qos.logback', module: 'logback-classic'
+            exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+        }
+    }
+
     implementation 'co.birlax:databasecommon:1.0-SNAPSHOT'
 
     runtimeOnly 'org.aspectj:aspectjrt:1.9.21'
