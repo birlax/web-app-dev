@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -23,8 +24,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class CSVFileDocumentParserService {
 
-  public List<Map<Integer, String>> parser(String fileNameOrData, DataSourceType dataSourceType)
-      throws IOException {
+  @SneakyThrows
+  public List<Map<Integer, String>> parser(String fileNameOrData, DataSourceType dataSourceType) {
 
     if (DataSourceType.FILE == dataSourceType) {
       Reader csvData = new FileReader(fileNameOrData);

@@ -19,6 +19,8 @@ public class NseFAndOListParser {
 
   private CSVFileDocumentParserService csvFileDocumentParserService;
 
+  private RecordParserExtractionService recordParserExtractionService;
+
   public List<Map<String, Object>> getDataFromCSVFileNSEDownloaded(String fileName)
       throws IOException {
 
@@ -41,7 +43,7 @@ public class NseFAndOListParser {
       }
       recordsOfInterest.add(record);
     }
-    return RecordParserExtractionService.rawParser(recordsOfInterest, getParserConfig());
+    return recordParserExtractionService.rawParser(recordsOfInterest, getParserConfig());
   }
 
   private RecordParserConfig getParserConfig() {

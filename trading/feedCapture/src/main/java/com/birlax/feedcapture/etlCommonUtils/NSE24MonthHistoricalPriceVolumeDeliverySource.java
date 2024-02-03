@@ -15,6 +15,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
+import com.birlax.feedcapture.etlCommonUtils.domain.SymbolAndCount;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -37,16 +41,19 @@ public class NSE24MonthHistoricalPriceVolumeDeliverySource {
 
   private HtmlDocumentParserService htmlDocumentParserService;
 
-  public List<Map<String, Object>> getDataFromNSE(String nseSymbol) throws IOException {
+  private RecordParserExtractionService recordParserExtractionService;
+
+  public List<Map<String, Object>> getDataFromNSE(String nseSymbol) {
 
     List<Map<Integer, String>> rawData =
         csvFileDocumentParserService.parser(getHTMLContent(nseSymbol), DataSourceType.STRING);
 
-    return RecordParserExtractionService.rawParser(rawData, getParserConfig());
+    return recordParserExtractionService.rawParser(rawData, getParserConfig());
   }
 
+  @SneakyThrows
   public List<Map<String, Object>> getDataFromNSEForDateRange(
-      String nseSymbol, LocalDate startDate, LocalDate endDate) throws IOException {
+      String nseSymbol, LocalDate startDate, LocalDate endDate) {
 
     List<Map<Integer, String>> rawData =
         csvFileDocumentParserService.parser(
@@ -56,37 +63,29 @@ public class NSE24MonthHistoricalPriceVolumeDeliverySource {
                 BirlaxUtil.getFormattedStringDate(endDate, "dd-MM-yyyy")),
             DataSourceType.STRING);
 
-    return RecordParserExtractionService.rawParser(rawData, getParserConfig());
+    return recordParserExtractionService.rawParser(rawData, getParserConfig());
   }
 
-  public List<Map<String, Object>> getDataFromCSVFileNSEDownloaded(String fileName)
-      throws IOException {
+  public List<Map<String, Object>> getDataFromCSVFileNSEDownloaded(String fileName) {
     List<Map<Integer, String>> rawData =
         csvFileDocumentParserService.parser(fileName, DataSourceType.FILE);
 
-    return RecordParserExtractionService.rawParser(rawData, getParserConfig());
+    return recordParserExtractionService.rawParser(rawData, getParserConfig());
   }
 
   /** Returns the data from the Webpage as String. */
-  private String getHTMLContent(String nseSymbol) throws IOException {
+  @SneakyThrows
+  private String getHTMLContent(String nseSymbol) {
 
-    if (nseSymbol == null || nseSymbol.isEmpty()) {
-      throw new IllegalArgumentException("Invalid NSE Symbol...");
-    }
-    nseSymbol = URLEncoder.encode(nseSymbol, Common.CHAR_ENCODING);
-    Document doc =
-        htmlDocumentParserService.getHtmlDocument(
-            SYMBOL_COUNT_URL + "?symbol=" + nseSymbol, DataSourceType.URL);
-    // Get the symbol count it's received as HTML with value in the body. Parse it.
-    String securityCount = doc.getElementsByTag("body").text();
+    SymbolAndCount result = getValidateAndExecute(nseSymbol);
 
     String url =
         HISTORICAL_DATA_URL
             + "?symbol="
-            + nseSymbol
+            + result.getNseSymbol()
             + SEGMENT_LINK_FILTER
             + "&symbolCount="
-            + securityCount
+            + result.getSecurityCount()
             + SERIES_FILTER
             + DATE_RANGE_NAMED_FILTER
             + DATE_RANGE_SPECIFIC_FILTER
@@ -94,6 +93,24 @@ public class NSE24MonthHistoricalPriceVolumeDeliverySource {
 
     Document dc1 = htmlDocumentParserService.getHtmlDocument(url, DataSourceType.URL);
     return captureAndParserCSV(dc1);
+  }
+
+  @SneakyThrows
+  private SymbolAndCount getValidateAndExecute(String nseSymbol) {
+    if (Objects.isNull(nseSymbol)) {
+      throw new IllegalArgumentException("Invalid NSE Symbol...");
+    }
+    nseSymbol = URLEncoder.encode(nseSymbol, Common.CHAR_ENCODING);
+    Document doc =
+        htmlDocumentParserService.getHtmlDocument(buildUrl(nseSymbol), DataSourceType.URL);
+
+    // Get the symbol count it's received as HTML with value in the body. Parse it.
+    String securityCount = doc.getElementsByTag("body").text();
+    return SymbolAndCount.builder().securityCount(securityCount).nseSymbol(nseSymbol).build();
+  }
+
+  private String buildUrl(String nseSymbol) {
+    return SYMBOL_COUNT_URL + "?symbol=" + nseSymbol;
   }
 
   /** Returns the data from the Webpage as String. */
@@ -105,8 +122,7 @@ public class NSE24MonthHistoricalPriceVolumeDeliverySource {
     }
     nseSymbol = URLEncoder.encode(nseSymbol, Common.CHAR_ENCODING);
     Document doc =
-        htmlDocumentParserService.getHtmlDocument(
-            SYMBOL_COUNT_URL + "?symbol=" + nseSymbol, DataSourceType.URL);
+        htmlDocumentParserService.getHtmlDocument(buildUrl(nseSymbol), DataSourceType.URL);
     // Get the symbol count it's received as HTML with value in the body. Parse it.
     String securityCount = doc.getElementsByTag("body").text();
 
