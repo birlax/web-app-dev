@@ -23,9 +23,7 @@ import java.util.Deque;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author birlax
- */
+
 public class StrategyTwoSingleCandleTest extends BaseIntegerationTest {
 
     @Inject

@@ -6,9 +6,7 @@ package com.birlax.etlCommonUtils.domain;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * @author birlax
- */
+
 public class RecordParserConfig {
 
     // TODO Make this more generic in future.

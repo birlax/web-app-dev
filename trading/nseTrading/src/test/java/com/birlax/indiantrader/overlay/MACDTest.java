@@ -18,9 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author birlax
- */
+
 public class MACDTest extends BaseIntegerationTest {
 
     @Inject

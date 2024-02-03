@@ -19,9 +19,7 @@ import com.birlax.indiantrader.domain.IndicatorResultHolder;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil;
 import com.birlax.indiantrader.service.HistoricalPriceVolumnService;
 
-/**
- * @author birlax
- */
+
 @Named
 public class SimpleMovingAverage implements IndicatorOverlayService {
 

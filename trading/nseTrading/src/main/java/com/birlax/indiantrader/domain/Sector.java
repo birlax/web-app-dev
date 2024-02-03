@@ -12,9 +12,7 @@ import com.birlax.dbCommonUtils.service.SingleTemporalDAO;
 import com.birlax.dbCommonUtils.util.ReflectionHelper;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
-/**
- * @author birlax
- */
+
 @JsonAutoDetect
 public class Sector implements SingleTemporalDAO {
 

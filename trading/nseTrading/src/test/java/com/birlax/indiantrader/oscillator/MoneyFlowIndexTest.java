@@ -19,9 +19,7 @@ import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author birlax
- */
+
 public class MoneyFlowIndexTest extends BaseIntegerationTest {
 
     @Inject

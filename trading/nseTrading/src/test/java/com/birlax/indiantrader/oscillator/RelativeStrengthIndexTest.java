@@ -22,9 +22,7 @@ import com.birlax.indiantrader.service.NSEFuturesAndOptionsService;
 import com.birlax.indiantrader.service.SecurityService;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author birlax
- */
+
 public class RelativeStrengthIndexTest extends BaseIntegerationTest {
 
     @Inject

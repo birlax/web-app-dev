@@ -3,9 +3,7 @@
  */
 package com.birlax.etlCommonUtils.domain;
 
-/**
- * @author birlax
- */
+
 public class RecordFieldConfig {
 
     private int index;

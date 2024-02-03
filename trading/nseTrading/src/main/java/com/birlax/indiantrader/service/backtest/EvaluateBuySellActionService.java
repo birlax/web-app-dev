@@ -13,9 +13,7 @@ import com.birlax.indiantrader.indicator.events.BuySellEvent;
 import com.birlax.indiantrader.indicator.events.BuySellEvent.ActionType;
 import org.springframework.stereotype.Service;
 
-/**
- * @author birlax
- */
+
 @Service
 public class EvaluateBuySellActionService {
 

@@ -19,9 +19,7 @@ import com.birlax.indiantrader.domain.Security;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author birlax
- */
+
 public class HistoricalPriceVolumnServiceTest extends BaseIntegerationTest {
 
     @Inject

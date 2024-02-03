@@ -1,8 +1,6 @@
 package com.birlax.dbCommonUtils.spring;
 
 import jakarta.inject.Inject;
-import java.util.Properties;
-import javax.sql.DataSource;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -14,6 +12,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+
+import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 @MapperScan(basePackages = "com.birlax.dbCommonUtils")
@@ -42,8 +43,7 @@ public class DataAccessContext {
         driverProperties.put("datasource.password",
                 environment.getRequiredProperty(contextName + "datasource.password"));
 
-        DataSource dataSource = new PooledDataSource(driver, url, driverProperties);
-        return dataSource;
+        return new PooledDataSource(driver, url, driverProperties);
     }
 
     @Bean
@@ -72,14 +72,12 @@ public class DataAccessContext {
 
     @Bean
     public SqlSessionTemplate sessionTemplate() throws Exception {
-        SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(sqlSessionFactory(), ExecutorType.BATCH);
-        return sessionTemplate;
+        return new SqlSessionTemplate(sqlSessionFactory(), ExecutorType.BATCH);
     }
 
     @Bean
     public DataSourceTransactionManager transactionManager() throws Exception {
-        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(dataSource());
-        return transactionManager;
+        return new DataSourceTransactionManager(dataSource());
     }
 
 }

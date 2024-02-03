@@ -1,30 +1,21 @@
-package com.birlax.dbCommonUtils.dao;
+package com.birlax.dbCommonUtils;
 
+import com.birlax.dbCommonUtils.service.DatabaseMetadataService;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.io.IOException;
-import java.io.StringReader;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.postgresql.copy.CopyManager;
 import org.postgresql.core.BaseConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DataSourceUtils;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.birlax.dbCommonUtils.mapper.StagingUtilMapper;
-import com.birlax.dbCommonUtils.service.DatabaseMetadataService;
+import java.io.IOException;
+import java.io.StringReader;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Named("stagingUtilDao")
 public class StagingUtilDao {

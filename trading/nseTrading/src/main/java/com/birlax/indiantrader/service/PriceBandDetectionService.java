@@ -13,9 +13,7 @@ import java.util.Map;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
-/**
- * @author birlax
- */
+
 @Service
 public class PriceBandDetectionService {
 

@@ -31,9 +31,7 @@ import com.birlax.indiantrader.indicator.util.IndicatorUtil;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil.PriceType;
 import com.birlax.indiantrader.service.HistoricalPriceVolumnService;
 
-/**
- * @author birlax
- */
+
 @Named
 public class MACD implements IndicatorOverlayService {
 

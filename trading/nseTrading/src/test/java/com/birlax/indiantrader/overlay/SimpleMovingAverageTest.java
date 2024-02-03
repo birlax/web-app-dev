@@ -20,9 +20,7 @@ import com.birlax.indiantrader.service.HistoricalPriceVolumnService;
 import com.birlax.indiantrader.service.SecurityService;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author birlax
- */
+
 public class SimpleMovingAverageTest extends BaseIntegerationTest {
 
     @Inject

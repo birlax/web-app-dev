@@ -5,9 +5,7 @@ package com.birlax.indiantrader.domain;
 
 import com.birlax.indiantrader.indicator.util.IndicatorUtil.PriceType;
 
-/**
- * @author birlax
- */
+
 public class IndicatorComputationOptions {
 
     private Integer fastLeg;

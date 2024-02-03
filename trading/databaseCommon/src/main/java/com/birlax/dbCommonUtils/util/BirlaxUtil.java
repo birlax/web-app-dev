@@ -1,5 +1,7 @@
 package com.birlax.dbCommonUtils.util;
 
+import lombok.experimental.UtilityClass;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -10,14 +12,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@UtilityClass
 public class BirlaxUtil {
 
-
-    public static final String YYYYMMDD_DATE_FORMAT = "yyyyMMdd";
-    static Logger LOGGER = LoggerFactory.getLogger(BirlaxUtil.class);
+    public static String YYYYMMDD_DATE_FORMAT = "yyyyMMdd";
 
     public static LocalDate getDateFromString(String strDate) {
 
@@ -51,7 +50,7 @@ public class BirlaxUtil {
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public static String getFormattedStringDate(LocalDate date, String format) {
+    public String getFormattedStringDate(LocalDate date, String format) {
         DateFormat formatter = new SimpleDateFormat(format);
         return formatter.format(date);
     }
@@ -62,8 +61,9 @@ public class BirlaxUtil {
                     secondDate.atStartOfDay().toInstant(ZoneOffset.UTC),
                     firstDate.atStartOfDay().toInstant(ZoneOffset.UTC));
         } catch (Exception e) {
-            throw new RuntimeException(
-                    "Something went wrong, secondDate :  " + secondDate + ", firstDate : " + firstDate, e);
+            final String errorMsg = String.format("Something went wrong, secondDate : [%s], firstDate : [%s]"
+                    , secondDate, firstDate);
+            throw new RuntimeException(errorMsg, e);
         }
     }
 

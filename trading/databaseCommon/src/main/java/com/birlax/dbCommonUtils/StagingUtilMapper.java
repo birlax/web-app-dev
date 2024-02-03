@@ -1,11 +1,11 @@
-package com.birlax.dbCommonUtils.mapper;
+package com.birlax.dbCommonUtils;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface StagingUtilMapper {

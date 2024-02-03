@@ -25,9 +25,7 @@ import com.birlax.indiantrader.domain.Security;
 import com.birlax.indiantrader.feedcapture.NseFAndOListParser;
 import org.springframework.stereotype.Service;
 
-/**
- * @author birlax
- */
+
 @Service
 public class NSEFuturesAndOptionsService {
 
