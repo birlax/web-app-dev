@@ -11,6 +11,7 @@ import com.birlax.dbCommonUtils.service.TemporalService;
 import com.birlax.dbCommonUtils.util.ReflectionHelper;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.DigestUtils;
@@ -21,9 +22,8 @@ import java.util.*;
 
 
 @Named("singleTemporalService")
+@Slf4j
 public class SingleTemporalServiceImpl implements TemporalService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SingleTemporalServiceImpl.class);
 
     @Inject
     private StagingUtilDao stagingUtilDao;
@@ -41,7 +41,7 @@ public class SingleTemporalServiceImpl implements TemporalService {
 
         String fullyQualifiedParentTableName = records.iterator().next().getFullyQualifiedTableName();
 
-        LOGGER.info("Started in deleting records : {} from table : {}", records.size(), fullyQualifiedParentTableName);
+        log.info("Started in deleting records : {} from table : {}", records.size(), fullyQualifiedParentTableName);
         List<Map<String, Object>> dataList = new ArrayList<>();
         for (SingleTemporalDAO record : records) {
             Map<String, Object> map = record.getDAOFlatView();
@@ -60,7 +60,7 @@ public class SingleTemporalServiceImpl implements TemporalService {
 
         stagingUtilDao.dropTempTable(tempTableName);
 
-        LOGGER.info("Completed deleting records : {} from table : {}", records.size(), fullyQualifiedParentTableName);
+        log.info("Completed deleting records : {} from table : {}", records.size(), fullyQualifiedParentTableName);
         return deletedRecords;
     }
 
@@ -71,7 +71,7 @@ public class SingleTemporalServiceImpl implements TemporalService {
 
         String fullyQualifiedParentTableName = records.iterator().next().getFullyQualifiedTableName();
 
-        LOGGER.info("Started in inserting records : {} from table : {}", records.size(), fullyQualifiedParentTableName);
+        log.info("Started in inserting records : {} from table : {}", records.size(), fullyQualifiedParentTableName);
         List<Map<String, Object>> dataList = new ArrayList<>();
         for (SingleTemporalDAO record : records) {
             Map<String, Object> map = record.getDAOFlatView();
@@ -89,7 +89,7 @@ public class SingleTemporalServiceImpl implements TemporalService {
         List<Map<String, Object>> insertedRecords = singleTemporalMapper.insertRecords(tempTableName,
                 fullyQualifiedParentTableName, insertColName);
         stagingUtilDao.dropTempTable(tempTableName);
-        LOGGER.info("Completed inserting records : {} from table : {}", records.size(), fullyQualifiedParentTableName);
+        log.info("Completed inserting records : {} from table : {}", records.size(), fullyQualifiedParentTableName);
         return insertedRecords;
 
     }
@@ -102,7 +102,7 @@ public class SingleTemporalServiceImpl implements TemporalService {
 
         String fullyQualifiedParentTableName = records.iterator().next().getFullyQualifiedTableName();
 
-        LOGGER.info("Started in inserting records : {} from table : {}", records.size(), fullyQualifiedParentTableName);
+        log.info("Started in inserting records : {} from table : {}", records.size(), fullyQualifiedParentTableName);
 
         Map<Long, T> inputRecordToInternalIdMap = new HashMap<>();
         Map<String, Long> inputRecordKeyMD5SumToInternalIdMap = new HashMap<>();
@@ -136,7 +136,7 @@ public class SingleTemporalServiceImpl implements TemporalService {
         try {
             clazz = Class.forName(cs);
         } catch (ClassNotFoundException e) {
-            LOGGER.error("Class not found." + cs, e);
+            log.error("Class not found." + cs, e);
             throw new RuntimeException("Class not found." + cs, e);
         }
         // List<Map<String, Object>> dataAlreadyInDB = searchRecords(records, keySet);
@@ -178,15 +178,15 @@ public class SingleTemporalServiceImpl implements TemporalService {
                 insertOnly.add(inputRecordToInternalIdMap.get(inputRecordKeyMD5SumToInternalIdMap.get(entry.getKey())));
             }
         }
-        LOGGER.info("Only delete records : " + (deleteOnly.size()));
+        log.info("Only delete records : " + (deleteOnly.size()));
         if (!deleteOnly.isEmpty()) {
             deleteRecords(deleteOnly);
         }
-        LOGGER.info("Only insert records : " + insertOnly.size());
+        log.info("Only insert records : " + insertOnly.size());
         if (!insertOnly.isEmpty()) {
             insertRecords(insertOnly);
         }
-        LOGGER.info("Only update records : " + mergeOrUpdateOnly.size());
+        log.info("Only update records : " + mergeOrUpdateOnly.size());
         if (!mergeOrUpdateOnly.isEmpty()) {
             insertRecords(mergeOrUpdateOnly);
         }
@@ -228,7 +228,7 @@ public class SingleTemporalServiceImpl implements TemporalService {
             try {
                 list.add(ReflectionHelper.getDomainObject(flatView, clazz));
             } catch (InstantiationException | IllegalAccessException e) {
-                LOGGER.error("Failed to search.", e);
+                log.error("Failed to search.", e);
                 throw new RuntimeException("Failed to search.", e);
             }
         }
@@ -258,7 +258,7 @@ public class SingleTemporalServiceImpl implements TemporalService {
 
         String fullyQualifiedParentTableName = records.iterator().next().getFullyQualifiedTableName();
 
-        LOGGER.debug("Started in searching records : {} from table : {}", records.size(),
+        log.debug("Started in searching records : {} from table : {}", records.size(),
                 fullyQualifiedParentTableName);
         List<Map<String, Object>> dataList = new ArrayList<>();
         for (SingleTemporalDAO record : records) {
@@ -280,7 +280,7 @@ public class SingleTemporalServiceImpl implements TemporalService {
         List<Map<String, Object>> searchedRecords = singleTemporalMapper.searchRecords(tempTableName,
                 fullyQualifiedParentTableName, searchByColumns, defaultColumnsInObjectView);
         stagingUtilDao.dropTempTable(tempTableName);
-        LOGGER.debug("Completed searching records : {}, found records : {}, filtered by : {}, from table : {}",
+        log.debug("Completed searching records : {}, found records : {}, filtered by : {}, from table : {}",
                 records.size(), searchedRecords.size(), searchByColumns, fullyQualifiedParentTableName);
         return searchedRecords;
     }
@@ -327,7 +327,7 @@ public class SingleTemporalServiceImpl implements TemporalService {
 
         String fullyQualifiedParentTableName = records.iterator().next().getFullyQualifiedTableName();
 
-        LOGGER.debug("Started in searching records : {} from table : {}", records.size(),
+        log.debug("Started in searching records : {} from table : {}", records.size(),
                 fullyQualifiedParentTableName);
 
         if (effectiveDateColName == null || effectiveDateColName.isEmpty()) {
@@ -360,7 +360,7 @@ public class SingleTemporalServiceImpl implements TemporalService {
                 fullyQualifiedParentTableName, searchByColumns, retrieveColumns, effectiveDateColName, startDate,
                 endDate);
         stagingUtilDao.dropTempTable(tempTableName);
-        LOGGER.debug(
+        log.debug(
                 "Completed searching for \n Records : {}, \n Found records : {}, \n Filtered by : {}, \n From table : {} \n Retrieved Colum: {} :",
                 records.size(), searchedRecords.size(), searchByColumns, fullyQualifiedParentTableName,
                 retrieveColumns);
@@ -376,7 +376,7 @@ public class SingleTemporalServiceImpl implements TemporalService {
         try {
             cls = (T) clazz.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            LOGGER.error("Failed to instantiate class, or provide clazz does not implement SingleTemporalDAO." + clazz,
+            log.error("Failed to instantiate class, or provide clazz does not implement SingleTemporalDAO." + clazz,
                     e);
         }
         return cls.getFullyQualifiedTableName();
