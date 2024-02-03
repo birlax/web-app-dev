@@ -12,9 +12,9 @@ public interface SingleTemporalDAO {
     List<String> getDAOKey();
 
     default List<String> getDAOFacts() {
-        Set<String> facts = new HashSet<>();
-        facts.addAll(this.getDAOFlatView().keySet());
-        facts.removeAll(getDAOKey());
+        // Anything which is not a KEY is FACT
+        Set<String> facts = new HashSet<>(this.getDAOFlatView().keySet());
+        getDAOKey().forEach(facts::remove);
         return new ArrayList<>(facts);
     }
 
