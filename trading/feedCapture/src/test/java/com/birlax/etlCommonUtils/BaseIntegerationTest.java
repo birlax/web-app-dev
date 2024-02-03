@@ -8,6 +8,4 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Profile("test")
 @EnableMBeanExport(registration = RegistrationPolicy.REPLACE_EXISTING)
-public abstract class BaseIntegerationTest {
-
-}
+public abstract class BaseIntegerationTest {}

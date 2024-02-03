@@ -1,5 +1,4 @@
-package com.birlax.etlCommonUtils.spring;
-
+package com.birlax.etlCommonUtils;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -8,8 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = "com.birlax.etlCommonUtils")
 public class FeedCaptureApplication {
 
-    public static final String applicationContext() {
-        return "com.com.etlCommonUtils.";
-    }
-
+  public static final String applicationContext() {
+    return "com.com.etlCommonUtils.";
+  }
 }
