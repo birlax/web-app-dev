@@ -1,5 +1,6 @@
-package com.birlax.feedcapture.etlCommonUtils;
+package com.birlax.feedcapture;
 
+import com.birlax.dbCommonUtils.industryClassification.IndustrySector;
 import com.birlax.feedcapture.BaseIntegrationTest;
 import com.birlax.feedcapture.HtmlDocumentParserService;
 import com.birlax.feedcapture.etlCommonUtils.domain.DataSourceType;
@@ -8,8 +9,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HtmlDocumentParserServiceTest extends BaseIntegrationTest {
 
-  HtmlDocumentParserService htmlDocumentParserService;
+  @Autowired HtmlDocumentParserService htmlDocumentParserService;
 
   @BeforeEach
   void setUp() {}
@@ -32,47 +35,41 @@ class HtmlDocumentParserServiceTest extends BaseIntegrationTest {
   @Test
   void getHtmlDocument() throws IOException {
 
-    htmlDocumentParserService.getHtmlDocument(
-        "https://www.nseindia.com/get-quotes/equity?symbol=POWERGRID", DataSourceType.URL);
+    Document document =
+        htmlDocumentParserService.getHtmlDocument(
+            "https://www.nseindia.com/get-quotes/equity?symbol=POWERGRID", DataSourceType.URL);
+
+    Assertions.assertEquals("html", document.documentType().name());
   }
 
-  public static void main(String[] args) throws IOException {
-    // NSE24MonthHistoricalPriceVolumnDeliveryParser p = new
-    // NSE24MonthHistoricalPriceVolumnDeliveryParser();
-    // List<Map<Integer, String>> data = p.parser("HDFC");
-    Map<String, String> parsedData = new HashMap<>();
-    // extractSectors("/home/birlax/Desktop/Downloads_Win/sectors.html", parsedData,
-    // SOURCE_TYPE.FILE);
-  }
+  @Test
+  public void extractSectors() throws IOException {
 
-  // public static List<Sector> extractSectors(String uri, Map<String, String> parsedData,
-  // SOURCE_TYPE type)
-  // throws IOException {
-  // Document doc = HtmlParserService.getHtmlDocument(uri, type);
-  // Elements tables = doc.getElementsByClass("news_advice_sector");
-  // List<Sector> sectors = new ArrayList<>();
-  // for (Element e : tables) {
-  // Elements c2 = e.getElementsByTag("a");
-  // int i = 0;
-  // for (Element c3 : c2) {
-  // String sectorName = c3.text();
-  // String a[] = sectorName.split("-");
-  // //if(!a[0].trim().toUpperCase().equals("TEXTILES")) {
-  // // continue;
-  // // }
-  // Sector sector = new Sector();
-  // sector.setSectorId(++i);
-  // sector.setSectorNameMajor(a[0].trim().toUpperCase());
-  // if (a.length == 2) {
-  // sector.setSectorNameMinor(a[1].trim().toUpperCase());
-  // }
-  // sectors.add(sector);
-  // }
-  // }
-  // // System.out.println(sectors);
-  //
-  // return sectors;
-  // }
+    String uri = "/home/birlax/Desktop/Downloads_Win/sectors.html";
+    Document doc = htmlDocumentParserService.getHtmlDocument(uri, DataSourceType.URL);
+    Elements tables = doc.getElementsByClass("news_advice_sector");
+    List<IndustrySector> sectors = new ArrayList<>();
+    for (Element e : tables) {
+      Elements c2 = e.getElementsByTag("a");
+      int i = 0;
+      for (Element c3 : c2) {
+        String sectorName = c3.text();
+        String a[] = sectorName.split("-");
+        // if(!a[0].trim().toUpperCase().equals("TEXTILES")) {
+        // continue;
+        // }
+        IndustrySector sector =
+            IndustrySector.builder()
+                .sectorId(++i)
+                .sectorNameMajor(a[0].trim().toUpperCase())
+                .build();
+        if (a.length == 2) {
+          sector.setSectorNameMinor(a[1].trim().toUpperCase());
+        }
+        sectors.add(sector);
+      }
+    }
+  }
 
   public void testMonyControll(String[] args) throws IOException {
 
