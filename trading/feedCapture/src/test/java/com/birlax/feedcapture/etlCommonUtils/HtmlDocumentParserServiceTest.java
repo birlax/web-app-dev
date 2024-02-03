@@ -1,22 +1,40 @@
-package com.birlax.etlCommonUtils.parser;
+package com.birlax.feedcapture.etlCommonUtils;
 
-import com.birlax.etlCommonUtils.domain.DataSourceType;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.birlax.feedcapture.BaseIntegrationTest;
+import com.birlax.feedcapture.HtmlDocumentParserService;
+import com.birlax.feedcapture.etlCommonUtils.domain.DataSourceType;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class TestData {
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class HtmlDocumentParserServiceTest extends BaseIntegrationTest {
+
+  HtmlDocumentParserService htmlDocumentParserService;
+
+  @BeforeEach
+  void setUp() {}
+
+  @AfterEach
+  void tearDown() {}
+
+  @Test
+  void getHtmlDocument() throws IOException {
+
+    htmlDocumentParserService.getHtmlDocument(
+        "https://www.nseindia.com/get-quotes/equity?symbol=POWERGRID", DataSourceType.URL);
+  }
 
   public static void main(String[] args) throws IOException {
     // NSE24MonthHistoricalPriceVolumnDeliveryParser p = new
@@ -56,7 +74,7 @@ public class TestData {
   // return sectors;
   // }
 
-  public static void testMonyControll(String[] args) throws IOException {
+  public void testMonyControll(String[] args) throws IOException {
 
     Map<String, String> mcCodeToURLMap = new HashMap<>();
     // mcCodeToURLMap.put("AAR", "/home/birlax/crawler/AAR.html");
@@ -88,9 +106,9 @@ public class TestData {
     // "https://www.nseindia.com/products/dynaContent/common/productsSymbolMapping.jsp?symbol=FINCABLES&segmentLink=3&symbolCount=1&series=ALL&dateRange=15days&fromDate=&toDate=&dataType=PRICEVOLUMEDELIVERABLE"
   }
 
-  public static Map<String, String> doForThisHtml(
+  public Map<String, String> doForThisHtml(
       String uri, Map<String, String> parsedData, DataSourceType type) throws IOException {
-    Document doc = HtmlDocumentHelper.getHtmlDocument(uri, type);
+    Document doc = htmlDocumentParserService.getHtmlDocument(uri, type);
     Elements tables = doc.getElementsByClass("PB10");
     for (Element e : tables) {
       Elements c = e.getElementsByClass("gry10");
@@ -109,12 +127,12 @@ public class TestData {
     return parsedData;
   }
 
-  public static String handleNull(String a[], int index) {
+  public String handleNull(String a[], int index) {
     if (index >= a.length || index < 0 || a[index] == null) return null;
     else return a[index].trim();
   }
 
-  public static void htmlParser(String[] args) {
+  public void htmlParser(String[] args) {
 
     File html = new File("/home/birlax/A.html");
 
@@ -152,7 +170,7 @@ public class TestData {
     }
   }
 
-  public static void parserFile(String[] args) {
+  public void parserFile(String[] args) {
 
     File file = new File("/home/birlax/als.csv");
 
@@ -193,7 +211,7 @@ public class TestData {
     // System.out.println(data);
   }
 
-  public static String getSQLEncodedString(String val) {
+  public String getSQLEncodedString(String val) {
     return "'" + val + "'";
   }
 }

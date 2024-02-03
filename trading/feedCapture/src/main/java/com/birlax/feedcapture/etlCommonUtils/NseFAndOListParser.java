@@ -1,11 +1,11 @@
-package com.birlax.feedcapture;
+package com.birlax.feedcapture.etlCommonUtils;
 
-import com.birlax.etlCommonUtils.domain.DataSourceType;
-import com.birlax.etlCommonUtils.domain.FieldDataType;
-import com.birlax.etlCommonUtils.domain.RecordFieldConfig;
-import com.birlax.etlCommonUtils.domain.RecordParserConfig;
-import com.birlax.etlCommonUtils.parser.CSVFileDocumentHelper;
-import com.birlax.etlCommonUtils.parser.RecordParserExtractionService;
+import com.birlax.feedcapture.etlCommonUtils.domain.DataSourceType;
+import com.birlax.feedcapture.etlCommonUtils.domain.FieldDataType;
+import com.birlax.feedcapture.etlCommonUtils.domain.RecordFieldConfig;
+import com.birlax.feedcapture.etlCommonUtils.domain.RecordParserConfig;
+import com.birlax.feedcapture.CSVFileDocumentParserService;
+import com.birlax.feedcapture.RecordParserExtractionService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,13 +17,13 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class NseFAndOListParser {
 
-  private CSVFileDocumentHelper csvFileDocumentHelper;
+  private CSVFileDocumentParserService csvFileDocumentParserService;
 
   public List<Map<String, Object>> getDataFromCSVFileNSEDownloaded(String fileName)
       throws IOException {
 
     List<Map<Integer, String>> rawData =
-        csvFileDocumentHelper.parser(fileName, DataSourceType.FILE);
+        csvFileDocumentParserService.parser(fileName, DataSourceType.FILE);
 
     List<Map<Integer, String>> recordsOfInterest = new ArrayList<>();
     boolean firstIndexAssets = true;

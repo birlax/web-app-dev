@@ -1,10 +1,10 @@
 /** */
-package com.birlax.etlCommonUtils.parser;
+package com.birlax.feedcapture;
 
 import com.birlax.dbCommonUtils.util.BirlaxUtil;
-import com.birlax.etlCommonUtils.domain.FieldDataType;
-import com.birlax.etlCommonUtils.domain.RecordFieldConfig;
-import com.birlax.etlCommonUtils.domain.RecordParserConfig;
+import com.birlax.feedcapture.etlCommonUtils.domain.FieldDataType;
+import com.birlax.feedcapture.etlCommonUtils.domain.RecordFieldConfig;
+import com.birlax.feedcapture.etlCommonUtils.domain.RecordParserConfig;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
