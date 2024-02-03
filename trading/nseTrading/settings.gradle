@@ -1,4 +1,3 @@
 rootProject.name = 'nseTrading'
-include 'databaseCommon'
-include 'feedCapture'
+
 
