@@ -15,9 +15,7 @@ import com.birlax.indiantrader.domain.PriceVolumnDelivery;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil.PriceType;
 
-/**
- * @author birlax
- */
+
 @Named
 public class OpeningAbovePreviousHigh implements IndicatorOverlayService {
 

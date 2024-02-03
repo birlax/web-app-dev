@@ -6,10 +6,6 @@ import com.birlax.indiantrader.domain.PriceVolumnDelivery;
 import com.birlax.indiantrader.domain.Security;
 import com.birlax.indiantrader.feedcapture.NSE24MonthHistoricalPriceVolumnDeliverySource;
 import jakarta.inject.Inject;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,6 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/historicalPriceVolumnService", produces = {"application/json"})
@@ -52,7 +53,7 @@ public class HistoricalPriceVolumnService {
         List<Security> securities = securityService.getAllSecurities();
         retrieveColumns = new HashSet<>();
         retrieveColumns.add("spn");
-        List<PriceVolumnDelivery> priceVolumnDeliveries = temporalService.getAllRecords(retrieveColumns,
+        List<PriceVolumnDelivery> priceVolumnDeliveries = temporalService.fetchAllRecords(retrieveColumns,
                 PriceVolumnDelivery.class);
         log.info("Already synced securities  : {} ", priceVolumnDeliveries.size());
         Set<Integer> spns = priceVolumnDeliveries.stream().map(a -> a.getSpn()).collect(Collectors.toSet());

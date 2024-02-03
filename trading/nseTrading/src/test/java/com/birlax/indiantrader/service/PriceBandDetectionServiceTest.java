@@ -10,9 +10,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author birlax
- */
+
 public class PriceBandDetectionServiceTest extends BaseIntegerationTest {
 
     @Inject

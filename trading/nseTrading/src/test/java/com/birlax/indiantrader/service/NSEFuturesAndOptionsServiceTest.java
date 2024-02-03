@@ -10,9 +10,7 @@ import java.io.IOException;
 import com.birlax.indiantrader.BaseIntegerationTest;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author birlax
- */
+
 public class NSEFuturesAndOptionsServiceTest extends BaseIntegerationTest {
 
     @Inject

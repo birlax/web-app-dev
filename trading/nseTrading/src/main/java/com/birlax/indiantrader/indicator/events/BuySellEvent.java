@@ -9,9 +9,7 @@ import java.util.Date;
 import com.birlax.indiantrader.domain.IndicatorCautionType;
 import com.birlax.indiantrader.domain.IndicatorSignalType;
 
-/**
- * @author birlax
- */
+
 public class BuySellEvent {
 
     public static enum ActionType {

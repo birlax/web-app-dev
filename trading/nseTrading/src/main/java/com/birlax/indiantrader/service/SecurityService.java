@@ -3,23 +3,20 @@
  */
 package com.birlax.indiantrader.service;
 
+import com.birlax.dbCommonUtils.service.impl.SingleTemporalServiceImpl;
+import com.birlax.indiantrader.domain.Security;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.birlax.dbCommonUtils.service.impl.SingleTemporalServiceImpl;
-import com.birlax.indiantrader.domain.Security;
-
-/**
- * @author birlax
- */
 @Named
 public class SecurityService {
 
@@ -36,7 +33,7 @@ public class SecurityService {
         retrieveColumns.add("isin");
         retrieveColumns.add("spn");
 
-        List<Security> securities = temporalService.getAllRecords(retrieveColumns, Security.class);
+        List<Security> securities = temporalService.fetchAllRecords(retrieveColumns, Security.class);
         securities.sort((a, b) -> {
             if (a.getSpn() < b.getSpn()) {
                 return -1;

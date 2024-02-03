@@ -11,9 +11,7 @@ import java.util.Map;
 import com.birlax.dbCommonUtils.service.impl.SingleTemporalServiceImpl;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author birlax
- */
+
 public class SectorPopulatorTest extends BaseIntegerationTest {
 
     @Inject

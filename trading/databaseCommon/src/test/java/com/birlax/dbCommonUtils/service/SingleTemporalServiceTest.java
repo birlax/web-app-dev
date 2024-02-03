@@ -3,20 +3,18 @@
  */
 package com.birlax.dbCommonUtils.service;
 
-import com.birlax.dbCommonUtils.BaseIntegerationTest;
+import com.birlax.dbCommonUtils.BaseIntegrationTest;
 import com.birlax.dbCommonUtils.service.impl.SingleTemporalServiceImpl;
 import com.birlax.dbCommonUtils.util.BirlaxUtil;
 import com.birlax.dbCommonUtils.util.ReflectionHelper;
 import jakarta.inject.Inject;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.*;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author birlax
- */
-public class SingleTemporalServiceTest extends BaseIntegerationTest {
+import java.time.LocalDate;
+import java.util.*;
+
+
+public class SingleTemporalServiceTest extends BaseIntegrationTest {
 
     @Inject
     private SingleTemporalServiceImpl singleTemporalService;

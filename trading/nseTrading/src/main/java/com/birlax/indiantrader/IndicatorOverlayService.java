@@ -15,9 +15,7 @@ import com.birlax.indiantrader.domain.IndicatorResultHolder;
 import com.birlax.indiantrader.domain.PriceVolumnDelivery;
 import com.birlax.indiantrader.service.HistoricalPriceVolumnService;
 
-/**
- * @author birlax
- */
+
 public interface IndicatorOverlayService {
 
     Logger LOGGER = LoggerFactory.getLogger(IndicatorOverlayService.class);

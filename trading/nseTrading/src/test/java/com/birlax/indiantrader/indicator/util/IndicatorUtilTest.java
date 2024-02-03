@@ -6,9 +6,7 @@ package com.birlax.indiantrader.indicator.util;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author birlax
- */
+
 public class IndicatorUtilTest {
 
     @Test

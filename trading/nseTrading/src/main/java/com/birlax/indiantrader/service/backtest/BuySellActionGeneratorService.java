@@ -12,9 +12,7 @@ import com.birlax.indiantrader.indicator.events.BuySellEvent.ActionType;
 import com.birlax.indiantrader.indicator.events.GenericNotificationEvent;
 import com.birlax.indiantrader.indicator.events.SignalRack;
 
-/**
- * @author birlax
- */
+
 @Named
 public class BuySellActionGeneratorService {
 

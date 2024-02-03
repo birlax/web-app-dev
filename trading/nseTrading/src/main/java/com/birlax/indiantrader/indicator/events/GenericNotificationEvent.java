@@ -10,9 +10,7 @@ import com.birlax.indiantrader.domain.IndicatorCautionType;
 import com.birlax.indiantrader.domain.IndicatorEventType;
 import com.birlax.indiantrader.domain.IndicatorSignalType;
 
-/**
- * @author birlax
- */
+
 public class GenericNotificationEvent {
 
     private int index;

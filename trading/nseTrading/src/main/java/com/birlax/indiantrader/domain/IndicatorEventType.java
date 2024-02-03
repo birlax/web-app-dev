@@ -3,9 +3,7 @@
  */
 package com.birlax.indiantrader.domain;
 
-/**
- * @author birlax
- */
+
 public enum IndicatorEventType {
 
     // ------------- Un-Bounded/MIXED Oscillator Events ---------------//

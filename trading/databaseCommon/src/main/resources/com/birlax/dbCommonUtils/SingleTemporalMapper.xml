@@ -2,40 +2,90 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.birlax.dbCommonUtils.mapper.StagingUtilMapper">
+<mapper namespace="com.birlax.dbCommonUtils.SingleTemporalMapper">
 
-    <select id="createTempStageTable" resultType="String">
-        CREATE TABLE ${tempTableName} AS SELECT
-        <foreach collection="columnNames" item="item" index="index" open="" close="" separator=", ">
-            ${item} 
+    <select id="getAllRecords" parameterType="map" resultType="map">
+        SELECT
+        DISTINCT
+        <foreach collection="retrieveColumns" item="item" index="index" open="" close="" separator=",">
+            a.${item}
         </foreach>
-        FROM ${fullyQualifiedParentTableName} WHERE 1=2
-        ;
+        FROM ${mainTableName} a
+        WHERE 1=1
     </select>
 
-    <insert id="dummyStageRecords" parameterType="map">
-        INSERT INTO ${tempTableName} (
+    <select id="searchRecords" parameterType="map" resultType="map">
+        SELECT
+        <foreach collection="filterByColumns" item="item" index="index" open="" close="" separator=",">
+            a.${item}
+        </foreach>
+        <if test="retrieveColumns != null and !retrieveColumns.isEmpty()">
+            ,
+            <foreach collection="retrieveColumns" item="item" index="index" open="" close="" separator=",">
+                a.${item}
+            </foreach>
+        </if>
+        FROM ${mainTableName} a
+        JOIN ${tempTableName} b
+        ON 1=1
+        AND
+        <foreach collection="filterByColumns" item="item" index="index" open="" close="" separator="AND">
+            ( (a.${item} = b.${item})  OR ( a.${item} IS NULL AND b.${item} IS NULL) )
+        </foreach>
+    </select>
+
+    <select id="searchRecordsForDateRange" parameterType="map" resultType="map">
+        SELECT
+        <foreach collection="filterByColumns" item="item" index="index" open="" close="" separator=",">
+            a.${item}
+        </foreach>
+        <if test="retrieveColumns != null and !retrieveColumns.isEmpty()">
+            ,
+            <foreach collection="retrieveColumns" item="item" index="index" open="" close="" separator=",">
+                a.${item}
+            </foreach>
+        </if>
+        FROM ${mainTableName} a
+        JOIN ${tempTableName} b
+        ON 1=1
+        AND
+        <foreach collection="filterByColumns" item="item" index="index" open="" close="" separator="AND">
+            ( (a.${item} = b.${item})  OR ( a.${item} IS NULL AND b.${item} IS NULL) )
+        </foreach>
+        <if test="startDate !=null">
+            AND a.${effectiveDateColName} &gt;= #{startDate}
+        </if>
+        <if test="endDate !=null">
+            AND a.${effectiveDateColName} &lt; #{endDate}
+        </if>
+    </select>
+
+    <select id="deleteRecords" resultType="map">
+        DELETE
+        FROM ${mainTableName} a
+        USING ${tempTableName} b
+        WHERE 1=1
+        AND
+        <foreach collection="columnNames" item="item" index="index" open="" close="" separator="AND">
+            ( (a.${item} = b.${item})  OR ( a.${item} IS NULL AND b.${item} IS NULL) )
+        </foreach>
+        RETURNING a.*;
+    </select>
+
+
+    <select id="insertRecords" parameterType="map" resultType="map">
+        INSERT INTO ${mainTableName} (
         <foreach collection="columnNames" item="item" index="index" open="" close="" separator=",">
             ${item}
         </foreach>
-        <if test="jsonbColumnNames!=null and !jsonbColumnNames.isEmpty()">
-            ,
-            <foreach collection="jsonbColumnNames" item="item" index="index" open="" close="" separator=",">
-                ${item}
-            </foreach>
-        </if>
         ) SELECT
         <foreach collection="columnNames" item="item" index="index" open="" close="" separator=",">
-            #{record.${item}} 
+            ${item}
         </foreach>
-        <if test="jsonbColumnNames!=null and !jsonbColumnNames.isEmpty()">
-            ,
-            <foreach collection="jsonbColumnNames" item="item" index="index" open="to_json(" close="::jsonb)::jsonb"
-                separator=","> #{record.${item}} 
-            </foreach>
-        </if>
+        FROM ${tempTableName}
+        RETURNING id;
         ;
-    </insert>
+    </select>
 
     <insert id="dummyStageRecordsInBulk" parameterType="map">
         INSERT INTO ${tempTableName} (
@@ -52,12 +102,12 @@
         <foreach collection="records" item="record" separator="," open="" close="">
             (
             <foreach collection="columnNames" item="item" index="index" open="" close="" separator=",">
-                #{record.${item}} 
+                #{record.${item}}
             </foreach>
             <if test="jsonbColumnNames!=null and !jsonbColumnNames.isEmpty()">
                 ,
                 <foreach collection="jsonbColumnNames" item="item" index="index" open="to_json(" close="::jsonb)::jsonb"
-                    separator=","> #{record.${item}} 
+                         separator=",">#{record.${item}}
                 </foreach>
             </if>
             )
@@ -81,12 +131,12 @@
             <foreach collection="records" item="record" separator="," open="" close="">
                 (
                 <foreach collection="columnNames" item="item" index="index" open="" close="" separator=",">
-                    #{record.${item}} 
+                    #{record.${item}}
                 </foreach>
                 <if test="jsonbColumnNames!=null and !jsonbColumnNames.isEmpty()">
                     ,
                     <foreach collection="jsonbColumnNames" item="item" index="index" open="to_json(" close="::jsonb)::jsonb"
-                        separator=","> #{record.${item}} 
+                             separator=",">#{record.${item}}
                     </foreach>
                 </if>
                 )
@@ -109,7 +159,7 @@
     </select>
 
     <select id="dropTempTable" parameterType="String">
-        DROP TABLE IF EXISTS ${tempTableName}; 
+        DROP TABLE IF EXISTS ${tempTableName};
     </select>
 
     <select id="getColumnsDataType" parameterType="map" resultType="map">

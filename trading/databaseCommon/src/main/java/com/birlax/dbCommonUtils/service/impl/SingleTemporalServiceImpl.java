@@ -3,25 +3,23 @@
  */
 package com.birlax.dbCommonUtils.service.impl;
 
-import com.birlax.dbCommonUtils.dao.StagingUtilDao;
-import com.birlax.dbCommonUtils.mapper.SingleTemporalMapper;
+import com.birlax.dbCommonUtils.SingleTemporalMapper;
+import com.birlax.dbCommonUtils.StagingUtilDao;
 import com.birlax.dbCommonUtils.service.DatabaseMetadataService;
 import com.birlax.dbCommonUtils.service.SingleTemporalDAO;
 import com.birlax.dbCommonUtils.service.TemporalService;
 import com.birlax.dbCommonUtils.util.ReflectionHelper;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.DigestUtils;
 
-/**
- * @author birlax
- */
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.util.*;
+
+
 @Named("singleTemporalService")
 public class SingleTemporalServiceImpl implements TemporalService {
 
@@ -292,7 +290,7 @@ public class SingleTemporalServiceImpl implements TemporalService {
      * @see com.birlax.dbCommonUtils.service.TemporalService#searchRecordsForDomain(java.util.List, java.util.Set)
      */
     @Override
-    public <T extends SingleTemporalDAO> List<T> getAllRecords(Set<String> retrieveColumns, Class<?> clazz) {
+    public <T extends SingleTemporalDAO> List<T> fetchAllRecords(Set<String> retrieveColumns, Class<?> clazz) {
         List<Map<String, Object>> data = singleTemporalMapper.getAllRecords(getDatabaseTableFromPOJO(clazz),
                 retrieveColumns);
         return mapToObjectConvertor(data, clazz);

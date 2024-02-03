@@ -1,21 +1,17 @@
 /**
  *
  */
-package com.birlax.dbCommonUtils.mapper;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+package com.birlax.dbCommonUtils;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-/**
- * @author birlax
- */
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+
 @Mapper
 public interface SingleTemporalMapper {
 

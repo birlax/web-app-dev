@@ -9,9 +9,7 @@ import jakarta.inject.Inject;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author birlax
- */
+
 public class PercentagePriceOscillatorTest extends BaseIntegerationTest {
 
     @Inject

@@ -36,9 +36,7 @@ import com.birlax.indiantrader.service.backtest.BuySellActionGeneratorService;
 import com.birlax.indiantrader.service.backtest.EvaluateBuySellActionService;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author birlax
- */
+
 public class StrategyOneTest extends BaseIntegerationTest {
 
     @Inject

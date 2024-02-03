@@ -19,9 +19,7 @@ import com.birlax.indiantrader.domain.PriceVolumnDelivery;
 import com.birlax.indiantrader.domain.Security;
 import com.birlax.indiantrader.domain.SmoothCurve;
 
-/**
- * @author birlax
- */
+
 public class IndicatorUtil {
 
     private static Logger LOGGER = LoggerFactory.getLogger(IndicatorUtil.class);

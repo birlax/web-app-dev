@@ -8,9 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author birlax
- */
+
 public class IndicatorResultHolder {
 
     private Map<String, Double[]> holder;

@@ -26,9 +26,7 @@ import com.birlax.etlCommonUtils.domain.RecordFieldConfig;
 import com.birlax.etlCommonUtils.domain.RecordParserConfig;
 import com.birlax.etlCommonUtils.parser.RecordParserExtractionService;
 
-/**
- * @author birlax
- */
+
 public class CSVFileDocumentHelper {
 
     static Logger LOGGER = LoggerFactory.getLogger(CSVFileDocumentHelper.class);

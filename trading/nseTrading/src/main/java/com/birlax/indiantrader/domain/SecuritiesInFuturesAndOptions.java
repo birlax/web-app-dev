@@ -11,9 +11,7 @@ import java.util.Set;
 import com.birlax.dbCommonUtils.service.SingleTemporalDAO;
 import com.birlax.dbCommonUtils.util.ReflectionHelper;
 
-/**
- * @author birlax
- */
+
 public class SecuritiesInFuturesAndOptions implements SingleTemporalDAO {
 
     private String underlyingSymbol;

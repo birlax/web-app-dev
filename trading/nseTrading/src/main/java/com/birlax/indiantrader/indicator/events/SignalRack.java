@@ -6,9 +6,7 @@ package com.birlax.indiantrader.indicator.events;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-/**
- * @author birlax
- */
+
 public class SignalRack {
 
     private Deque<GenericNotificationEvent> buyNotificationEventsStack;

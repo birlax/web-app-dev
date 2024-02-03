@@ -17,9 +17,7 @@ import com.birlax.etlCommonUtils.domain.FieldDataType;
 import com.birlax.etlCommonUtils.domain.RecordFieldConfig;
 import com.birlax.etlCommonUtils.domain.RecordParserConfig;
 
-/**
- * @author birlax
- */
+
 public class RecordParserExtractionService {
 
     static Logger LOGGER = LoggerFactory.getLogger(RecordParserExtractionService.class);

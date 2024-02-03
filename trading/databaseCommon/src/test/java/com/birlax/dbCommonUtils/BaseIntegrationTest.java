@@ -16,6 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @ExtendWith(SpringExtension.class)
 @EnableMBeanExport(registration = RegistrationPolicy.REPLACE_EXISTING)
 @ContextConfiguration(classes = DbCommonUtilsApplicationContext.class)
-public abstract class BaseIntegerationTest {
+public abstract class BaseIntegrationTest {
 
 }
