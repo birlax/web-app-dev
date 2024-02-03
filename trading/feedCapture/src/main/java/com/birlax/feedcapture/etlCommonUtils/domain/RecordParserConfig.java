@@ -1,5 +1,5 @@
 /** */
-package com.birlax.etlCommonUtils.domain;
+package com.birlax.feedcapture.etlCommonUtils.domain;
 
 import java.util.ArrayList;
 import java.util.List;

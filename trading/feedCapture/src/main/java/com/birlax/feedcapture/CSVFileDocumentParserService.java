@@ -1,10 +1,10 @@
 /** */
-package com.birlax.etlCommonUtils.parser;
+package com.birlax.feedcapture;
 
-import com.birlax.etlCommonUtils.domain.DataSourceType;
-import com.birlax.etlCommonUtils.domain.FieldDataType;
-import com.birlax.etlCommonUtils.domain.RecordFieldConfig;
-import com.birlax.etlCommonUtils.domain.RecordParserConfig;
+import com.birlax.feedcapture.etlCommonUtils.domain.DataSourceType;
+import com.birlax.feedcapture.etlCommonUtils.domain.FieldDataType;
+import com.birlax.feedcapture.etlCommonUtils.domain.RecordFieldConfig;
+import com.birlax.feedcapture.etlCommonUtils.domain.RecordParserConfig;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -20,13 +21,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class CSVFileDocumentHelper {
+public class CSVFileDocumentParserService {
 
   public List<Map<Integer, String>> parser(String fileNameOrData, DataSourceType dataSourceType)
       throws IOException {
 
     if (DataSourceType.FILE == dataSourceType) {
-      Reader csvData = new FileReader(new File(fileNameOrData));
+      Reader csvData = new FileReader(fileNameOrData);
       CSVParser csvParser = CSVParser.parse(csvData, CSVFormat.DEFAULT);
       return parse(csvParser);
     }
@@ -36,7 +37,7 @@ public class CSVFileDocumentHelper {
       return parse(csvParser);
     }
 
-    return null;
+    return List.of();
   }
 
   private List<Map<Integer, String>> parse(CSVParser csvParser) {
@@ -64,10 +65,10 @@ public class CSVFileDocumentHelper {
 
   public static void main(String[] args) throws IOException {
 
-    CSVFileDocumentHelper csvFileDocumentHelper = new CSVFileDocumentHelper();
+    CSVFileDocumentParserService csvFileDocumentParserService = new CSVFileDocumentParserService();
 
     List<Map<Integer, String>> indexToDataMap =
-        csvFileDocumentHelper.parser(
+        csvFileDocumentParserService.parser(
             "/home/birlax/Desktop/Downloads_Win/EQUITY_L.csv", DataSourceType.FILE);
 
     List<RecordFieldConfig> recordsFields = new ArrayList<>();

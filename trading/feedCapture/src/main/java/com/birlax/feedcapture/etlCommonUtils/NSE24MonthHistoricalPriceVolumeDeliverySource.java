@@ -1,13 +1,14 @@
-package com.birlax.feedcapture;
+package com.birlax.feedcapture.etlCommonUtils;
 
 import com.birlax.dbCommonUtils.util.BirlaxUtil;
-import com.birlax.etlCommonUtils.domain.DataSourceType;
-import com.birlax.etlCommonUtils.domain.FieldDataType;
-import com.birlax.etlCommonUtils.domain.RecordFieldConfig;
-import com.birlax.etlCommonUtils.domain.RecordParserConfig;
-import com.birlax.etlCommonUtils.parser.CSVFileDocumentHelper;
-import com.birlax.etlCommonUtils.parser.HtmlDocumentHelper;
-import com.birlax.etlCommonUtils.parser.RecordParserExtractionService;
+import com.birlax.feedcapture.Common;
+import com.birlax.feedcapture.etlCommonUtils.domain.DataSourceType;
+import com.birlax.feedcapture.etlCommonUtils.domain.FieldDataType;
+import com.birlax.feedcapture.etlCommonUtils.domain.RecordFieldConfig;
+import com.birlax.feedcapture.etlCommonUtils.domain.RecordParserConfig;
+import com.birlax.feedcapture.CSVFileDocumentParserService;
+import com.birlax.feedcapture.HtmlDocumentParserService;
+import com.birlax.feedcapture.RecordParserExtractionService;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.time.LocalDate;
@@ -32,12 +33,14 @@ public class NSE24MonthHistoricalPriceVolumeDeliverySource {
   public static String DATE_RANGE_SPECIFIC_FILTER = "&fromDate=&toDate=";
   public static String DATA_TYPE_FILTER = "&dataType=PRICEVOLUMEDELIVERABLE";
 
-  private CSVFileDocumentHelper csvFileDocumentHelper;
+  private CSVFileDocumentParserService csvFileDocumentParserService;
+
+  private HtmlDocumentParserService htmlDocumentParserService;
 
   public List<Map<String, Object>> getDataFromNSE(String nseSymbol) throws IOException {
 
     List<Map<Integer, String>> rawData =
-        csvFileDocumentHelper.parser(getHTMLContent(nseSymbol), DataSourceType.STRING);
+        csvFileDocumentParserService.parser(getHTMLContent(nseSymbol), DataSourceType.STRING);
 
     return RecordParserExtractionService.rawParser(rawData, getParserConfig());
   }
@@ -46,7 +49,7 @@ public class NSE24MonthHistoricalPriceVolumeDeliverySource {
       String nseSymbol, LocalDate startDate, LocalDate endDate) throws IOException {
 
     List<Map<Integer, String>> rawData =
-        csvFileDocumentHelper.parser(
+        csvFileDocumentParserService.parser(
             getHTMLContentForRange(
                 nseSymbol,
                 BirlaxUtil.getFormattedStringDate(startDate, "dd-MM-yyyy"),
@@ -59,7 +62,7 @@ public class NSE24MonthHistoricalPriceVolumeDeliverySource {
   public List<Map<String, Object>> getDataFromCSVFileNSEDownloaded(String fileName)
       throws IOException {
     List<Map<Integer, String>> rawData =
-        csvFileDocumentHelper.parser(fileName, DataSourceType.FILE);
+        csvFileDocumentParserService.parser(fileName, DataSourceType.FILE);
 
     return RecordParserExtractionService.rawParser(rawData, getParserConfig());
   }
@@ -70,9 +73,9 @@ public class NSE24MonthHistoricalPriceVolumeDeliverySource {
     if (nseSymbol == null || nseSymbol.isEmpty()) {
       throw new IllegalArgumentException("Invalid NSE Symbol...");
     }
-    nseSymbol = URLEncoder.encode(nseSymbol, HtmlDocumentHelper.charsetName);
+    nseSymbol = URLEncoder.encode(nseSymbol, Common.CHAR_ENCODING);
     Document doc =
-        HtmlDocumentHelper.getHtmlDocument(
+        htmlDocumentParserService.getHtmlDocument(
             SYMBOL_COUNT_URL + "?symbol=" + nseSymbol, DataSourceType.URL);
     // Get the symbol count it's received as HTML with value in the body. Parse it.
     String securityCount = doc.getElementsByTag("body").text();
@@ -89,7 +92,7 @@ public class NSE24MonthHistoricalPriceVolumeDeliverySource {
             + DATE_RANGE_SPECIFIC_FILTER
             + DATA_TYPE_FILTER;
 
-    Document dc1 = HtmlDocumentHelper.getHtmlDocument(url, DataSourceType.URL);
+    Document dc1 = htmlDocumentParserService.getHtmlDocument(url, DataSourceType.URL);
     return captureAndParserCSV(dc1);
   }
 
@@ -100,9 +103,9 @@ public class NSE24MonthHistoricalPriceVolumeDeliverySource {
     if (nseSymbol == null || nseSymbol.isEmpty()) {
       throw new IllegalArgumentException("Invalid NSE Symbol...");
     }
-    nseSymbol = URLEncoder.encode(nseSymbol, HtmlDocumentHelper.charsetName);
+    nseSymbol = URLEncoder.encode(nseSymbol, Common.CHAR_ENCODING);
     Document doc =
-        HtmlDocumentHelper.getHtmlDocument(
+        htmlDocumentParserService.getHtmlDocument(
             SYMBOL_COUNT_URL + "?symbol=" + nseSymbol, DataSourceType.URL);
     // Get the symbol count it's received as HTML with value in the body. Parse it.
     String securityCount = doc.getElementsByTag("body").text();
@@ -122,7 +125,7 @@ public class NSE24MonthHistoricalPriceVolumeDeliverySource {
             + endDate
             + DATA_TYPE_FILTER;
     System.out.println(url);
-    Document dc1 = HtmlDocumentHelper.getHtmlDocument(url, DataSourceType.URL);
+    Document dc1 = htmlDocumentParserService.getHtmlDocument(url, DataSourceType.URL);
     return captureAndParserCSV(dc1);
   }
 
