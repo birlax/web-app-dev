@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,6 +24,13 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HtmlDocumentParserServiceTest extends BaseIntegrationTest {
+
+  /**
+   * Why don't we use : https://nsearchives.nseindia.com/content/historical/EQUITIES/2024/FEB/NSE_CM_bhavcopy_08022024.csv.zip
+   *
+   * Only have to change the date and value
+   * Unzip the file, parse the file, store in database
+   */
 
   @Autowired HtmlDocumentParserService htmlDocumentParserService;
 
@@ -42,6 +50,7 @@ class HtmlDocumentParserServiceTest extends BaseIntegrationTest {
     Assertions.assertEquals("html", document.documentType().name());
   }
 
+  @Disabled
   @Test
   public void extractSectors() throws IOException {
 
@@ -71,7 +80,9 @@ class HtmlDocumentParserServiceTest extends BaseIntegrationTest {
     }
   }
 
-  public void testMonyControll(String[] args) throws IOException {
+  @Disabled
+  @Test
+  public void testMonyControll() throws IOException {
 
     Map<String, String> mcCodeToURLMap = new HashMap<>();
     // mcCodeToURLMap.put("AAR", "/home/birlax/crawler/AAR.html");
@@ -103,6 +114,8 @@ class HtmlDocumentParserServiceTest extends BaseIntegrationTest {
     // "https://www.nseindia.com/products/dynaContent/common/productsSymbolMapping.jsp?symbol=FINCABLES&segmentLink=3&symbolCount=1&series=ALL&dateRange=15days&fromDate=&toDate=&dataType=PRICEVOLUMEDELIVERABLE"
   }
 
+  @Disabled
+  @Test
   public Map<String, String> doForThisHtml(
       String uri, Map<String, String> parsedData, DataSourceType type) throws IOException {
     Document doc = htmlDocumentParserService.getHtmlDocument(uri, type);
@@ -124,12 +137,15 @@ class HtmlDocumentParserServiceTest extends BaseIntegrationTest {
     return parsedData;
   }
 
-  public String handleNull(String a[], int index) {
+
+  private String handleNull(String a[], int index) {
     if (index >= a.length || index < 0 || a[index] == null) return null;
     else return a[index].trim();
   }
 
-  public void htmlParser(String[] args) {
+  @Disabled
+  @Test
+  public void htmlParser() {
 
     File html = new File("/home/birlax/A.html");
 
@@ -167,7 +183,8 @@ class HtmlDocumentParserServiceTest extends BaseIntegrationTest {
     }
   }
 
-  public void parserFile(String[] args) {
+  @Test
+  public void parserFile() {
 
     File file = new File("/home/birlax/als.csv");
 
@@ -208,7 +225,7 @@ class HtmlDocumentParserServiceTest extends BaseIntegrationTest {
     // System.out.println(data);
   }
 
-  public String getSQLEncodedString(String val) {
+  private String getSQLEncodedString(String val) {
     return "'" + val + "'";
   }
 }

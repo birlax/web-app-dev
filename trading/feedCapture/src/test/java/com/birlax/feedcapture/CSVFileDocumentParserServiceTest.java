@@ -17,11 +17,14 @@ class CSVFileDocumentParserServiceTest extends BaseIntegrationTest {
 
   @Autowired CSVFileDocumentParserService csvFileDocumentParserService;
 
+  @Autowired
+  RecordParserExtractionService recordParserExtractionService;
+
   @Test
   void parser_from_String() throws IOException {
 
     String dataInput = """
-      symbole,closePrice,open_price
+      symbol,closePrice,open_price
       TCS,3987.23,45900
     """;
     List<Map<Integer, String>> data =
@@ -63,7 +66,7 @@ class CSVFileDocumentParserServiceTest extends BaseIntegrationTest {
             .build();
 
     List<Map<String, Object>> data =
-        RecordParserExtractionService.rawParser(indexToDataMap, recordParserConfig);
+            recordParserExtractionService.rawParser(indexToDataMap, recordParserConfig);
 
     Assertions.assertEquals(572.4, data.get(1).get("High"));
     Assertions.assertEquals("BPCL", data.get(1).get("symbol"));

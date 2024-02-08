@@ -9,61 +9,55 @@ import com.birlax.feedcapture.etlCommonUtils.domain.RecordParserConfig;
 import com.birlax.feedcapture.CSVFileDocumentParserService;
 import com.birlax.feedcapture.HtmlDocumentParserService;
 import com.birlax.feedcapture.RecordParserExtractionService;
-import java.io.IOException;
-import java.net.URLEncoder;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import com.birlax.feedcapture.etlCommonUtils.domain.SymbolAndCount;
+import com.birlax.feedcapture.nse.NSEFeignClient;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
 @Slf4j
+@Service
 public class NSE24MonthHistoricalPriceVolumeDeliverySource {
 
-  public static String SYMBOL_COUNT_URL = "https://nseindia.com/marketinfo/sym_map/symbolCount.jsp";
-  public static String HISTORICAL_DATA_URL =
-      "https://nseindia.com/products/dynaContent/common/productsSymbolMapping.jsp";
-  public static String SEGMENT_LINK_FILTER = "&segmentLink=3"; // as of now 3 for all of us
-  public static String SERIES_FILTER = "&series=ALL";
-  public static String DATE_RANGE_NAMED_FILTER = "&dateRange=24month";
-  public static String DATE_RANGE_SPECIFIC_FILTER = "&fromDate=&toDate=";
-  public static String DATA_TYPE_FILTER = "&dataType=PRICEVOLUMEDELIVERABLE";
+  // https://www.nseindia.com/api/historical/cm/equity?symbol=BPCL&series=[%22EQ%22]&from=03-01-2024&to=03-02-2024
 
-  private CSVFileDocumentParserService csvFileDocumentParserService;
+  @Autowired private NSEFeignClient nseFeignClient;
 
-  private HtmlDocumentParserService htmlDocumentParserService;
+  // public static String NSE_BASE_URL = "https://www.nseindia.com/api/historical/cm/equity";
 
-  private RecordParserExtractionService recordParserExtractionService;
+  public static String NSE_BASE_URL = "https://www.google.com";
 
-  public List<Map<String, Object>> getDataFromNSE(String nseSymbol) {
+  // public static String SEGMENT_LINK_FILTER = "&segmentLink=3"; // as of now 3 for all of us
+  public static String SERIES_FILTER = "&series=[\"ALL\"]";
+  public static String FROM_DATE = "&from=";
+  public static String TO_DATE = "&to=";
+  // public static String DATE_RANGE_SPECIFIC_FILTER = "&fromDate=&toDate=";
+  // public static String DATA_TYPE_FILTER = "&dataType=PRICEVOLUMEDELIVERABLE";
 
-    List<Map<Integer, String>> rawData =
-        csvFileDocumentParserService.parser(getHTMLContent(nseSymbol), DataSourceType.STRING);
+  @Autowired private CSVFileDocumentParserService csvFileDocumentParserService;
 
-    return recordParserExtractionService.rawParser(rawData, getParserConfig());
-  }
+  @Autowired private HtmlDocumentParserService htmlDocumentParserService;
+
+  @Autowired private RecordParserExtractionService recordParserExtractionService;
 
   @SneakyThrows
   public List<Map<String, Object>> getDataFromNSEForDateRange(
       String nseSymbol, LocalDate startDate, LocalDate endDate) {
 
-    List<Map<Integer, String>> rawData =
-        csvFileDocumentParserService.parser(
-            getHTMLContentForRange(
-                nseSymbol,
-                BirlaxUtil.getFormattedStringDate(startDate, "dd-MM-yyyy"),
-                BirlaxUtil.getFormattedStringDate(endDate, "dd-MM-yyyy")),
-            DataSourceType.STRING);
+    List<Map<Integer, String>> rawData = List.of();
+    String dt = getHTMLContentForRange(nseSymbol, startDate, endDate);
 
-    return recordParserExtractionService.rawParser(rawData, getParserConfig());
+    System.out.println(dt);
+    return null;
   }
 
   public List<Map<String, Object>> getDataFromCSVFileNSEDownloaded(String fileName) {
@@ -74,75 +68,18 @@ public class NSE24MonthHistoricalPriceVolumeDeliverySource {
   }
 
   /** Returns the data from the Webpage as String. */
-  @SneakyThrows
-  private String getHTMLContent(String nseSymbol) {
+  private String getHTMLContentForRange(String nseSymbol, LocalDate startDate, LocalDate endDate) {
 
-    SymbolAndCount result = getValidateAndExecute(nseSymbol);
-
-    String url =
-        HISTORICAL_DATA_URL
-            + "?symbol="
-            + result.getNseSymbol()
-            + SEGMENT_LINK_FILTER
-            + "&symbolCount="
-            + result.getSecurityCount()
-            + SERIES_FILTER
-            + DATE_RANGE_NAMED_FILTER
-            + DATE_RANGE_SPECIFIC_FILTER
-            + DATA_TYPE_FILTER;
-
-    Document dc1 = htmlDocumentParserService.getHtmlDocument(url, DataSourceType.URL);
-    return captureAndParserCSV(dc1);
-  }
-
-  @SneakyThrows
-  private SymbolAndCount getValidateAndExecute(String nseSymbol) {
     if (Objects.isNull(nseSymbol)) {
       throw new IllegalArgumentException("Invalid NSE Symbol...");
     }
-    nseSymbol = URLEncoder.encode(nseSymbol, Common.CHAR_ENCODING);
-    Document doc =
-        htmlDocumentParserService.getHtmlDocument(buildUrl(nseSymbol), DataSourceType.URL);
 
-    // Get the symbol count it's received as HTML with value in the body. Parse it.
-    String securityCount = doc.getElementsByTag("body").text();
-    return SymbolAndCount.builder().securityCount(securityCount).nseSymbol(nseSymbol).build();
-  }
+    // log.info(url);
 
-  private String buildUrl(String nseSymbol) {
-    return SYMBOL_COUNT_URL + "?symbol=" + nseSymbol;
-  }
+    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyy");
 
-  /** Returns the data from the Webpage as String. */
-  private String getHTMLContentForRange(String nseSymbol, String startDate, String endDate)
-      throws IOException {
-
-    if (nseSymbol == null || nseSymbol.isEmpty()) {
-      throw new IllegalArgumentException("Invalid NSE Symbol...");
-    }
-    nseSymbol = URLEncoder.encode(nseSymbol, Common.CHAR_ENCODING);
-    Document doc =
-        htmlDocumentParserService.getHtmlDocument(buildUrl(nseSymbol), DataSourceType.URL);
-    // Get the symbol count it's received as HTML with value in the body. Parse it.
-    String securityCount = doc.getElementsByTag("body").text();
-
-    String url =
-        HISTORICAL_DATA_URL
-            + "?symbol="
-            + nseSymbol
-            + SEGMENT_LINK_FILTER
-            + "&symbolCount="
-            + securityCount
-            + SERIES_FILTER
-            + "&dateRange=+"
-            + "&fromDate="
-            + startDate
-            + "&toDate="
-            + endDate
-            + DATA_TYPE_FILTER;
-    System.out.println(url);
-    Document dc1 = htmlDocumentParserService.getHtmlDocument(url, DataSourceType.URL);
-    return captureAndParserCSV(dc1);
+    return nseFeignClient.fetchData(
+        nseSymbol, startDate.format(format), endDate.format(format));
   }
 
   private String captureAndParserCSV(Document dc1) {
