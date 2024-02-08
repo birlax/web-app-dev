@@ -3,7 +3,6 @@
  */
 package com.birlax.indiantrader.service.backtest;
 
-import jakarta.inject.Named;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -11,9 +10,12 @@ import com.birlax.indiantrader.indicator.events.BuySellEvent;
 import com.birlax.indiantrader.indicator.events.BuySellEvent.ActionType;
 import com.birlax.indiantrader.indicator.events.GenericNotificationEvent;
 import com.birlax.indiantrader.indicator.events.SignalRack;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 
-@Named
+@Service
+@Slf4j
 public class BuySellActionGeneratorService {
 
     public Deque<BuySellEvent> generateBuySellActions(SignalRack signals) {

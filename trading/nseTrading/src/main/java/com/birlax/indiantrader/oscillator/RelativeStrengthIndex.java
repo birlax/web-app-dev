@@ -3,10 +3,8 @@
  */
 package com.birlax.indiantrader.oscillator;
 
-import jakarta.inject.Named;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import com.birlax.indiantrader.IndicatorOverlayService;
@@ -15,6 +13,8 @@ import com.birlax.indiantrader.domain.IndicatorResultHolder;
 import com.birlax.indiantrader.domain.PriceVolumnDelivery;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil.PriceType;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 /**
  * Developed by J. Welles Wilder, the Relative Strength Index (RSI) is a momentum oscillator that measures the speed and
@@ -27,15 +27,13 @@ import com.birlax.indiantrader.indicator.util.IndicatorUtil.PriceType;
  * </br>
  * Look out for <b>Positive and Negative reversals</b> for RSI, & <b>Divergence</b>.
  */
-@Named
+@Service
+@Slf4j
 public class RelativeStrengthIndex implements IndicatorOverlayService {
 
     public static final String RSI = "RSI";
 
     /*
-     * (non-Javadoc)
-     * @see com.birlax.indiantrader.IndicatorOverlayService#compute(java.lang.String, java.util.Date, java.util.Date,
-     * com.birlax.indiantrader.domain.IndicatorComputationOptions)
      */
     @Override
     public IndicatorResultHolder compute(String securitySymbol, LocalDate startDate, LocalDate endDate,
@@ -60,12 +58,6 @@ public class RelativeStrengthIndex implements IndicatorOverlayService {
         return holder;
     }
 
-    /**
-     * @param priceVol
-     * @param lagDuration
-     * @param priceType
-     * @return
-     */
     public IndicatorResultHolder compute(Double[] rawMoney, List<PriceVolumnDelivery> priceVolumnDeliveries,
             IndicatorResultHolder holder, int lagDurationPeriod, String resultName) {
 

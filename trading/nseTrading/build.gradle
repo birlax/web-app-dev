@@ -7,11 +7,6 @@ plugins {
 group 'org.example'
 version '1.0-SNAPSHOT'
 
-java {
-    sourceCompatibility = '17'
-}
-
-
 repositories {
     mavenLocal()
     mavenCentral()
@@ -20,7 +15,7 @@ repositories {
 dependencies {
 
     implementation 'co.birlax:databasecommon:1.0-SNAPSHOT'
-  //  implementation 'co.birlax:feedcapture:1.0-SNAPSHOT'
+    implementation 'co.birlax:feedcapture:2.0-SNAPSHOT'
 
 
     compileOnly 'org.projectlombok:lombok:1.18.30'
@@ -46,6 +41,14 @@ dependencies {
     implementation 'org.slf4j:slf4j-simple:2.0.10'
 
     implementation 'org.springframework.boot:spring-boot-autoconfigure:3.2.1'
+
+    configurations {
+        all {
+            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+            exclude group: 'ch.qos.logback', module: 'logback-classic'
+            exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+        }
+    }
 
 
     implementation 'org.springframework.boot:spring-boot-starter'

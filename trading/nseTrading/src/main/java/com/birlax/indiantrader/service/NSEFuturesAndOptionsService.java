@@ -28,23 +28,24 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class NSEFuturesAndOptionsService {
 
-    Logger LOGGER = LoggerFactory.getLogger(NSEFuturesAndOptionsService.class);
+
+    private NSEFuturesAndOptionsService nseFuturesAndOptionsService;
 
     private SingleTemporalServiceImpl temporalService;
 
     private SecurityService securityService;
 
-    public void syncFuturesAndOptionsFromFile(String fileName) throws IOException {
-
-        List<Map<String, Object>> rawDataFacts = null;
-        try {
-            rawDataFacts = NseFAndOListParser.getDataFromCSVFileNSEDownloaded(fileName);
-        } catch (IOException e) {
-            log.error("Failed to sync Price/Volumn : {}", e);
-        }
-        List<SecuritiesInFuturesAndOptions> list = enrichedData(rawDataFacts);
-        temporalService.mergeRecords(list);
-    }
+//    public void syncFuturesAndOptionsFromFile(String fileName) throws IOException {
+//
+//        List<Map<String, Object>> rawDataFacts = null;
+//        try {
+//            rawDataFacts = nseFuturesAndOptionsService.getFNOSecuritiesByAssetType(fileName);
+//        } catch (IOException e) {
+//            log.error("Failed to sync Price/Volumn : {}", e);
+//        }
+//        List<SecuritiesInFuturesAndOptions> list = enrichedData(rawDataFacts);
+//        temporalService.mergeRecords(list);
+//    }
 
     private List<SecuritiesInFuturesAndOptions> enrichedData(List<Map<String, Object>> rawDataFacts) {
         List<SecuritiesInFuturesAndOptions> list = new ArrayList<>();

@@ -6,9 +6,9 @@ package com.birlax.indiantrader.indicator.util;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,9 +20,9 @@ import com.birlax.indiantrader.domain.Security;
 import com.birlax.indiantrader.domain.SmoothCurve;
 
 
+@Slf4j
 public class IndicatorUtil {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(IndicatorUtil.class);
 
     public static enum PriceType {
         OPENING, CLOSING, HIGH, LOW, HIGH_LOW_AVG, HIGH_LOW_CLOSE_AVG, TYPICAL_PRICE, OPEN_HIGH_LOW_CLOSE_AVG, VWAP, NO_TOTAL_TRADE, TOTAL_TRADED_QTY, RAW_MONEY_FLOW

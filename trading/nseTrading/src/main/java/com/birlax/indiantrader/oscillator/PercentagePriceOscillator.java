@@ -3,13 +3,13 @@
  */
 package com.birlax.indiantrader.oscillator;
 
-import jakarta.inject.Named;
 import java.time.LocalDate;
-import java.util.Date;
 
 import com.birlax.indiantrader.IndicatorOverlayService;
 import com.birlax.indiantrader.domain.IndicatorComputationOptions;
 import com.birlax.indiantrader.domain.IndicatorResultHolder;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 /**
  * The Percentage Price Oscillator (PPO) is a momentum oscillator that measures the difference between two
@@ -43,7 +43,8 @@ import com.birlax.indiantrader.domain.IndicatorResultHolder;
  *
  * @author birlax
  */
-@Named
+@Service
+@Slf4j
 public class PercentagePriceOscillator implements IndicatorOverlayService {
 
     /*
