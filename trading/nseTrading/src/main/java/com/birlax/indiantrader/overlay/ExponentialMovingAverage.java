@@ -3,33 +3,25 @@
  */
 package com.birlax.indiantrader.overlay;
 
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import java.time.LocalDate;
-import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import lombok.extern.slf4j.Slf4j;
 import com.birlax.dbCommonUtils.util.BirlaxUtil;
 import com.birlax.indiantrader.IndicatorOverlayService;
 import com.birlax.indiantrader.domain.IndicatorComputationOptions;
 import com.birlax.indiantrader.domain.IndicatorResultHolder;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil;
 import com.birlax.indiantrader.service.HistoricalPriceVolumnService;
+import org.springframework.stereotype.Service;
 
-
-@Named
+@Service
+@Slf4j
 public class ExponentialMovingAverage implements IndicatorOverlayService {
-
-    Logger LOGGER = LoggerFactory.getLogger(ExponentialMovingAverage.class);
 
     public static final String EMA = "EMA";
 
-    @Inject
     private HistoricalPriceVolumnService historicalPriceVolumnService;
 
-    @Inject
     private SimpleMovingAverage simpleMovingAverage;
 
     /**
@@ -47,7 +39,7 @@ public class ExponentialMovingAverage implements IndicatorOverlayService {
         int lagDurationPeriod = options.getLagDuration();
 
         if (BirlaxUtil.diffInDays(startDate, endDate) < lagDurationPeriod) {
-            LOGGER.warn("Analysis won't work as lagDuration > # of days for which data was provided.");
+            log.warn("Analysis won't work as lagDuration > # of days for which data was provided.");
             // throw new IllegalArgumentException("Analysis startDate can't be after endDate.");
         }
 
@@ -57,7 +49,7 @@ public class ExponentialMovingAverage implements IndicatorOverlayService {
                 holder, options);
 
         if (priceVolumnDeliveries.length < lagDurationPeriod) {
-            LOGGER.warn("Analysis won't work as lagDuration > # of days for which data was provided.");
+            log.warn("Analysis won't work as lagDuration > # of days for which data was provided.");
         }
 
         return compute(priceVolumnDeliveries, holder, options);
@@ -83,8 +75,6 @@ public class ExponentialMovingAverage implements IndicatorOverlayService {
 
     /**
      * @param priceVol
-     * @param lagDuration
-     * @param priceType
      * @return
      */
     public IndicatorResultHolder compute(Double[] priceVol, IndicatorResultHolder holder, int lagDurationPeriod,

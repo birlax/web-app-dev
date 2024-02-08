@@ -3,8 +3,6 @@
  */
 package com.birlax.indiantrader.service;
 
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +13,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,19 +21,17 @@ import com.birlax.dbCommonUtils.service.impl.SingleTemporalServiceImpl;
 import com.birlax.dbCommonUtils.util.ReflectionHelper;
 import com.birlax.indiantrader.domain.SecuritiesInFuturesAndOptions;
 import com.birlax.indiantrader.domain.Security;
-import com.birlax.indiantrader.feedcapture.NseFAndOListParser;
 import org.springframework.stereotype.Service;
 
 
 @Service
+@Slf4j
 public class NSEFuturesAndOptionsService {
 
     Logger LOGGER = LoggerFactory.getLogger(NSEFuturesAndOptionsService.class);
 
-    @Inject
     private SingleTemporalServiceImpl temporalService;
 
-    @Inject
     private SecurityService securityService;
 
     public void syncFuturesAndOptionsFromFile(String fileName) throws IOException {
@@ -43,7 +40,7 @@ public class NSEFuturesAndOptionsService {
         try {
             rawDataFacts = NseFAndOListParser.getDataFromCSVFileNSEDownloaded(fileName);
         } catch (IOException e) {
-            LOGGER.error("Failed to sync Price/Volumn : {}", e);
+            log.error("Failed to sync Price/Volumn : {}", e);
         }
         List<SecuritiesInFuturesAndOptions> list = enrichedData(rawDataFacts);
         temporalService.mergeRecords(list);
@@ -58,7 +55,7 @@ public class NSEFuturesAndOptionsService {
             try {
                 pvd = ReflectionHelper.getDomainObject(map, SecuritiesInFuturesAndOptions.class);
             } catch (InstantiationException | IllegalAccessException e) {
-                LOGGER.error("Error : {}", e);
+                log.error("Error : {}", e);
                 throw new RuntimeException(e);
             }
 
@@ -93,7 +90,7 @@ public class NSEFuturesAndOptionsService {
                 filtered.add(sec);
             }
         }
-        LOGGER.info("Found F&O Securities  : {} ", filtered.size());
+        log.info("Found F&O Securities  : {} ", filtered.size());
         return filtered;
     }
 }

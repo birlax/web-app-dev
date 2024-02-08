@@ -3,9 +3,7 @@
  */
 package com.birlax.indiantrader.candle;
 
-import jakarta.inject.Named;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import com.birlax.indiantrader.IndicatorOverlayService;
@@ -14,17 +12,15 @@ import com.birlax.indiantrader.domain.IndicatorResultHolder;
 import com.birlax.indiantrader.domain.PriceVolumnDelivery;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil.PriceType;
+import org.springframework.stereotype.Service;
 
 
-@Named
+@Service
 public class OpeningAbovePreviousHigh implements IndicatorOverlayService {
 
     public static final String OPENING_ABOVE_PREVIOUS_HIGH = "OPENING_ABOVE_PREVIOUS_HIGH";
 
     /*
-     * (non-Javadoc)
-     * @see com.birlax.indiantrader.IndicatorOverlayService#compute(java.lang.String, java.util.Date, java.util.Date,
-     * com.birlax.indiantrader.domain.IndicatorComputationOptions)
      */
     @Override
     public IndicatorResultHolder compute(String securitySymbol, LocalDate startDate, LocalDate endDate,

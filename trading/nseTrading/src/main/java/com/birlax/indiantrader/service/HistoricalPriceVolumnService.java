@@ -4,10 +4,10 @@ import com.birlax.dbCommonUtils.service.impl.SingleTemporalServiceImpl;
 import com.birlax.dbCommonUtils.util.ReflectionHelper;
 import com.birlax.indiantrader.domain.PriceVolumnDelivery;
 import com.birlax.indiantrader.domain.Security;
-import com.birlax.indiantrader.feedcapture.NSE24MonthHistoricalPriceVolumnDeliverySource;
-import jakarta.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,14 +21,12 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/historicalPriceVolumnService", produces = {"application/json"})
+@Slf4j
 public class HistoricalPriceVolumnService {
 
-    Logger log = LoggerFactory.getLogger(HistoricalPriceVolumnService.class);
-
-    @Inject
+    @Autowired
     private SingleTemporalServiceImpl temporalService;
 
-    @Inject
     private SecurityService securityService;
 
     public void syncPriceVolumnDeliveryForAllSecuritiesSingleDay(String fileName) throws IOException {
@@ -37,7 +35,7 @@ public class HistoricalPriceVolumnService {
 
         List<Map<String, Object>> rawDataFacts = null;
         try {
-            rawDataFacts = NSE24MonthHistoricalPriceVolumnDeliverySource.getDataFromCSVFileNSEDownloaded(fileName);
+            rawDataFacts = securityService.getDataFromCSVFileNSEDownloaded(fileName);
         } catch (IOException e) {
             log.error("Failed to sync Price/Volumn : {}", e);
         }

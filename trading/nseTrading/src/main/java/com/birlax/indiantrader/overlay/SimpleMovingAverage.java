@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,16 +19,16 @@ import com.birlax.indiantrader.domain.IndicatorComputationOptions;
 import com.birlax.indiantrader.domain.IndicatorResultHolder;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil;
 import com.birlax.indiantrader.service.HistoricalPriceVolumnService;
+import org.springframework.stereotype.Service;
 
 
-@Named
+@Service
+@Slf4j
 public class SimpleMovingAverage implements IndicatorOverlayService {
 
-    Logger LOGGER = LoggerFactory.getLogger(SimpleMovingAverage.class);
 
     public static final String SMA = "SMA";
 
-    @Inject
     private HistoricalPriceVolumnService historicalPriceVolumnService;
 
     /**
@@ -45,7 +46,7 @@ public class SimpleMovingAverage implements IndicatorOverlayService {
         int lagDurationPeriod = options.getLagDuration();
 
         if (BirlaxUtil.diffInDays(startDate, endDate) < lagDurationPeriod) {
-            LOGGER.warn("Analysis won't work as lagDuration > # of days for which data was provided.");
+            log.warn("Analysis won't work as lagDuration > # of days for which data was provided.");
             // throw new IllegalArgumentException("Analysis startDate can't be after endDate.");
         }
 
@@ -75,9 +76,6 @@ public class SimpleMovingAverage implements IndicatorOverlayService {
     }
 
     /**
-     * @param inputData
-     * @param lagDuration
-     * @param priceType
      * @return
      */
     public IndicatorResultHolder compute(Double[] inputData, IndicatorResultHolder holder, int lagDurationPeriod,
@@ -111,7 +109,7 @@ public class SimpleMovingAverage implements IndicatorOverlayService {
                 avg = tempSum / lagDurationPeriod;
                 // priceAverages.put(priceVol.get(dayOfPriceAction).getDate(), avg);
                 priceAverages[dayOfPriceAction] = avg;
-                // LOGGER.info("For:" + priceVol.get(dayOfPriceAction).getDate() + ",Avg:," + avg);
+                // log.info("For:" + priceVol.get(dayOfPriceAction).getDate() + ",Avg:," + avg);
                 continue;
             }
             sum += inputData[dayOfPriceAction];
@@ -123,7 +121,7 @@ public class SimpleMovingAverage implements IndicatorOverlayService {
                 sum = 0;
                 days = 0;
                 averagingStarted = true;
-                // LOGGER.info("For:" + priceVol.get(dayOfPriceAction).getDate() + ",Avg:," + avg);
+                // log.info("For:" + priceVol.get(dayOfPriceAction).getDate() + ",Avg:," + avg);
             }
         }
         // holder.addResult(SMA, priceAverages);
