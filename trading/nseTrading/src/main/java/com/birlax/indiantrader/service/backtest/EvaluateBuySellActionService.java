@@ -3,7 +3,6 @@
  */
 package com.birlax.indiantrader.service.backtest;
 
-import jakarta.inject.Named;
 import java.util.Deque;
 import java.util.List;
 

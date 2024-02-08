@@ -2,12 +2,10 @@ package com.birlax.indiantrader.service;
 
 import com.birlax.dbCommonUtils.service.impl.SingleTemporalServiceImpl;
 import com.birlax.dbCommonUtils.util.ReflectionHelper;
+import com.birlax.feedcapture.etlCommonUtils.NSE24MonthHistoricalPriceVolumeDeliverySource;
 import com.birlax.indiantrader.domain.PriceVolumnDelivery;
 import com.birlax.indiantrader.domain.Security;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,25 +22,26 @@ import java.util.stream.Collectors;
 @Slf4j
 public class HistoricalPriceVolumnService {
 
-    @Autowired
     private SingleTemporalServiceImpl temporalService;
 
     private SecurityService securityService;
 
-    public void syncPriceVolumnDeliveryForAllSecuritiesSingleDay(String fileName) throws IOException {
+    private NSE24MonthHistoricalPriceVolumeDeliverySource nse24MonthHistoricalPriceVolumeDeliverySource;
 
-        Map<String, Security> enricherSource = enricherSource();
-
-        List<Map<String, Object>> rawDataFacts = null;
-        try {
-            rawDataFacts = securityService.getDataFromCSVFileNSEDownloaded(fileName);
-        } catch (IOException e) {
-            log.error("Failed to sync Price/Volumn : {}", e);
-        }
-        List<PriceVolumnDelivery> priceVolDelivery = enrichedData(rawDataFacts, enricherSource);
-        temporalService.mergeRecords(priceVolDelivery);
-
-    }
+//    public void syncPriceVolumnDeliveryForAllSecuritiesSingleDay(String fileName) throws IOException {
+//
+//        Map<String, Security> enricherSource = enricherSource();
+//
+//        List<Map<String, Object>> rawDataFacts = null;
+//        try {
+//            rawDataFacts = nse24MonthHistoricalPriceVolumeDeliverySource.getDataFromCSVFileNSEDownloaded(fileName);
+//        } catch (IOException e) {
+//            log.error("Failed to sync Price/Volumn : {}", e);
+//        }
+//        List<PriceVolumnDelivery> priceVolDelivery = enrichedData(rawDataFacts, enricherSource);
+//        temporalService.mergeRecords(priceVolDelivery);
+//
+//    }
 
     @GetMapping(value = "/syncAllPriceVolumnDeliveryFor24Month", produces = {"application/json"})
     public void syncPriceVolumnDeliveryFor24Month() throws IOException {
@@ -87,24 +86,24 @@ public class HistoricalPriceVolumnService {
         log.info("Completed data sync for Security : {}", security);
     }
 
-    @RequestMapping(path = "/syncDataForSecurity", produces = {"application/json"})
-    public boolean syncDataForSecurity(String nseSecurity) throws IOException {
-
-        log.info("Starting the sync for the Security : {}", nseSecurity);
-        Map<String, Security> enricherSource = enricherSource(nseSecurity);
-        log.info("Download/Parsing done for the Security : {}", nseSecurity);
-        List<Map<String, Object>> rawDataFacts = null;
-        try {
-            rawDataFacts = NSE24MonthHistoricalPriceVolumnDeliverySource.getDataFromNSE(nseSecurity);
-        } catch (IOException e) {
-            log.error("Failed to sync Price/Volumn for the Security : {}", nseSecurity, e);
-        }
-
-        List<PriceVolumnDelivery> priceVolDelivery = enrichedData(rawDataFacts, enricherSource);
-        temporalService.mergeRecords(priceVolDelivery);
-        log.info("Completed the sync for the Security : {}", nseSecurity);
-        return true;
-    }
+//    @RequestMapping(path = "/syncDataForSecurity", produces = {"application/json"})
+//    public boolean syncDataForSecurity(String nseSecurity) throws IOException {
+//
+//        log.info("Starting the sync for the Security : {}", nseSecurity);
+//        Map<String, Security> enricherSource = enricherSource(nseSecurity);
+//        log.info("Download/Parsing done for the Security : {}", nseSecurity);
+//        List<Map<String, Object>> rawDataFacts = null;
+//        try {
+//            rawDataFacts = securityService.getDataFromNSE(nseSecurity);
+//        } catch (IOException e) {
+//            log.error("Failed to sync Price/Volumn for the Security : {}", nseSecurity, e);
+//        }
+//
+//        List<PriceVolumnDelivery> priceVolDelivery = enrichedData(rawDataFacts, enricherSource);
+//        temporalService.mergeRecords(priceVolDelivery);
+//        log.info("Completed the sync for the Security : {}", nseSecurity);
+//        return true;
+//    }
 
     @RequestMapping(path = "/syncPriceVolumnDelivery", produces = {"application/json"})
     public boolean syncPriceVolumnDelivery(String nseSecurity, LocalDate startDate, LocalDate endDate)
@@ -118,7 +117,7 @@ public class HistoricalPriceVolumnService {
         log.info("Download/Parsing done for the Security : {}", nseSecurity);
         List<Map<String, Object>> rawDataFacts = null;
         try {
-            rawDataFacts = NSE24MonthHistoricalPriceVolumnDeliverySource.getDataFromNSEForDateRange(nseSecurity,
+            rawDataFacts = nse24MonthHistoricalPriceVolumeDeliverySource.getDataFromNSEForDateRange(nseSecurity,
                     startDate, endDate);
         } catch (Exception e) {
             log.error("Failed to sync Price/Volumn for the Security : {}", nseSecurity, e);
@@ -138,8 +137,8 @@ public class HistoricalPriceVolumnService {
 
     @RequestMapping(path = "/getPriceVolumnForSecurity", produces = {"application/json"})
     public List<PriceVolumnDelivery> getPriceVolumnForSecurity(String securitySymbol, String series,
-            @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
-            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
+                                                               @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+                                                               @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
         if (endDate == null) {
             throw new IllegalArgumentException("Missing endDate.");
         }
@@ -187,7 +186,7 @@ public class HistoricalPriceVolumnService {
     }
 
     private List<PriceVolumnDelivery> enrichedData(List<Map<String, Object>> rawDataFacts,
-            Map<String, Security> enricherSource) {
+                                                   Map<String, Security> enricherSource) {
         List<PriceVolumnDelivery> priceVolDelivery = new ArrayList<>();
         for (Map<String, Object> map : rawDataFacts) {
 

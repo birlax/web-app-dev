@@ -12,10 +12,12 @@ import com.birlax.indiantrader.domain.IndicatorResultHolder;
 import com.birlax.indiantrader.domain.PriceVolumnDelivery;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil.PriceType;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
 @Service
+@Slf4j
 public class OpeningAbovePreviousHigh implements IndicatorOverlayService {
 
     public static final String OPENING_ABOVE_PREVIOUS_HIGH = "OPENING_ABOVE_PREVIOUS_HIGH";

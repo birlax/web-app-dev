@@ -63,6 +63,22 @@ dependencies {
 
 }
 
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'co.birlax'
+            artifactId = 'feedcapture'
+            version = '2.0-SNAPSHOT'
+            from components.java
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
+
+
 test {
     useJUnitPlatform()
 }

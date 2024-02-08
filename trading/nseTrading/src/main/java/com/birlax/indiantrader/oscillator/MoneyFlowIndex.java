@@ -3,10 +3,7 @@
  */
 package com.birlax.indiantrader.oscillator;
 
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 
@@ -17,6 +14,8 @@ import com.birlax.indiantrader.domain.PriceVolumnDelivery;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil.PriceType;
 import com.birlax.indiantrader.overlay.SimpleMovingAverage;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 /**
  * The Money Flow Index (MFI) is an oscillator that uses both price and volume to measure buying and selling pressure.
@@ -36,18 +35,15 @@ import com.birlax.indiantrader.overlay.SimpleMovingAverage;
  * differently than RSI. Theories suggest that volume leads prices. RSI is a momentum oscillator that already leads
  * prices. Incorporating volume can increase this lead time.
  */
-@Named
+@Service
+@Slf4j
 public class MoneyFlowIndex implements IndicatorOverlayService {
 
     public static final String MFI = "MFI";
 
-    @Inject
     private SimpleMovingAverage simpleMovingAverage;
 
     /*
-     * (non-Javadoc)
-     * @see com.birlax.indiantrader.IndicatorOverlayService#compute(java.lang.String, java.util.Date, java.util.Date,
-     * com.birlax.indiantrader.domain.IndicatorComputationOptions)
      */
     @Override
     public IndicatorResultHolder compute(String securitySymbol, LocalDate startDate, LocalDate endDate,
@@ -73,10 +69,6 @@ public class MoneyFlowIndex implements IndicatorOverlayService {
     }
 
     /**
-     * @param rawMoneyValues
-     * @param holder
-     * @param options
-     * @return
      */
     public IndicatorResultHolder compute(List<PriceVolumnDelivery> priceVolumnDeliveries, Double[] rawMoneyValues,
             IndicatorResultHolder holder, int lagDurationPeriod, String name) {
