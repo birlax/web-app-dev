@@ -3,17 +3,12 @@
  */
 package com.birlax.indiantrader.overlay;
 
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.birlax.dbCommonUtils.util.BirlaxUtil;
 import com.birlax.indiantrader.IndicatorOverlayService;
 import com.birlax.indiantrader.domain.Direction;
@@ -30,12 +25,12 @@ import com.birlax.indiantrader.indicator.events.SignalRack;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil;
 import com.birlax.indiantrader.indicator.util.IndicatorUtil.PriceType;
 import com.birlax.indiantrader.service.HistoricalPriceVolumnService;
+import org.springframework.stereotype.Service;
 
-
-@Named
+@Slf4j
+@Service
 public class MACD implements IndicatorOverlayService {
 
-    Logger LOGGER = LoggerFactory.getLogger(MACD.class);
 
     public static final String MACD_LINE = "MACD_LINE";
 
@@ -43,13 +38,10 @@ public class MACD implements IndicatorOverlayService {
 
     public static final String HISTROGRAM = "HISTROGRAM";
 
-    @Inject
     private HistoricalPriceVolumnService historicalPriceVolumnService;
 
-    @Inject
     private ExponentialMovingAverage exponentialMovingAverage;
 
-    @Inject
     private SimpleMovingAverage simpleMovingAverage;
 
     int fastMovingEMALag = 12;
@@ -58,12 +50,12 @@ public class MACD implements IndicatorOverlayService {
 
     @Override
     public IndicatorResultHolder compute(String securitySymbol, LocalDate startDate, LocalDate endDate,
-            IndicatorComputationOptions options) {
+                                         IndicatorComputationOptions options) {
 
         int lagDurationPeriod = options.getLagDuration();
 
         if (BirlaxUtil.diffInDays(startDate, endDate) < lagDurationPeriod) {
-            LOGGER.warn(
+            log.warn(
                     "Analysis won't work as lagDuration > # of days for which data was provided. Options : {}, {}, {}",
                     options, startDate, endDate);
             // throw new IllegalArgumentException("Analysis startDate can't be after endDate.");
@@ -79,7 +71,7 @@ public class MACD implements IndicatorOverlayService {
     }
 
     public IndicatorResultHolder compute(Double[] priceVolumnDeliveries, IndicatorResultHolder holder,
-            IndicatorComputationOptions options) {
+                                         IndicatorComputationOptions options) {
         for (int lagDuration : options.getDurations()) {
 
             if (priceVolumnDeliveries.length < lagDuration) {
@@ -115,7 +107,7 @@ public class MACD implements IndicatorOverlayService {
     }
 
     public IndicatorResultHolder compute(Double[] priceVol, IndicatorResultHolder holder, String fastEma,
-            String slowEma, String resultName) {
+                                         String slowEma, String resultName) {
 
         Double[] lineOne = holder.getResultList(fastEma);
 
@@ -225,7 +217,7 @@ public class MACD implements IndicatorOverlayService {
     }
 
     public SignalRack getBuySellSignals(int shortLookBack, int longLookBack, IndicatorResultHolder macdResults,
-            List<PriceVolumnDelivery> priceVolumnDeliveries) {
+                                        List<PriceVolumnDelivery> priceVolumnDeliveries) {
 
         Double[] signalLine = macdResults.getResultList(MACD.SIGNAL_LINE);
         Double[] macdLine = macdResults.getResultList(MACD.MACD_LINE);
@@ -256,9 +248,9 @@ public class MACD implements IndicatorOverlayService {
     }
 
     public SignalRack getSellSignals(IndicatorResultHolder macdResults, List<PriceVolumnDelivery> priceVolumnDeliveries,
-            Direction[] longSignalDirection, Direction[] longHistogramDirection, Direction[] longMACDDirection,
-            Direction[] shortSignalDirection, Direction[] shortHistogramDirection, Direction[] shortMACDDirection,
-            int shortLookBack, int longLookBack) {
+                                     Direction[] longSignalDirection, Direction[] longHistogramDirection, Direction[] longMACDDirection,
+                                     Direction[] shortSignalDirection, Direction[] shortHistogramDirection, Direction[] shortMACDDirection,
+                                     int shortLookBack, int longLookBack) {
 
         Double[] signalLine = macdResults.getResultList(MACD.SIGNAL_LINE);
         Double[] macdLine = macdResults.getResultList(MACD.MACD_LINE);

@@ -5,10 +5,8 @@ package com.birlax.indiantrader.service;
 
 import com.birlax.dbCommonUtils.service.impl.SingleTemporalServiceImpl;
 import com.birlax.indiantrader.domain.Security;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Arrays;
@@ -16,13 +14,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
-@Named
+@Slf4j
+@Service
 public class SecurityService {
 
-    Logger LOGGER = LoggerFactory.getLogger(HistoricalPriceVolumnService.class);
 
-    @Inject
     private SingleTemporalServiceImpl temporalService;
 
     @RequestMapping(path = "/getAllSecurities", produces = { "application/json" })
@@ -43,7 +39,7 @@ public class SecurityService {
             }
             return 0;
         });
-        LOGGER.info("Found Securities to Sync : {} ", securities.size());
+        log.info("Found Securities to Sync : {} ", securities.size());
         return securities;
     }
 
@@ -54,7 +50,7 @@ public class SecurityService {
             throw new IllegalArgumentException("Missing security symbol.");
         }
 
-        LOGGER.debug("Search for security with Symbol: {} ", symbol);
+        log.debug("Search for security with Symbol: {} ", symbol);
 
         Set<String> retrieveColumns = new HashSet<>();
         retrieveColumns.add("symbol");

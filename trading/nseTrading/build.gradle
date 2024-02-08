@@ -13,15 +13,24 @@ java {
 
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
-    implementation project(":databaseCommon")
-    testImplementation project(":databaseCommon")
-    implementation project(":feedCapture")
-    testImplementation project(":feedCapture")
 
+    implementation 'co.birlax:databasecommon:1.0-SNAPSHOT'
+  //  implementation 'co.birlax:feedcapture:1.0-SNAPSHOT'
+
+
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    runtimeOnly 'org.aspectj:aspectjrt:1.9.21'
+    implementation 'com.google.guava:guava:32.1.3-jre'
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
+    implementation 'org.slf4j:slf4j-api:2.0.10'
+    implementation 'org.slf4j:slf4j-simple:2.0.10'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.16.1'
 
     implementation 'org.springframework:spring-context:6.1.2'

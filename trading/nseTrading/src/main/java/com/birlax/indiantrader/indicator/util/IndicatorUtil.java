@@ -96,11 +96,11 @@ public class IndicatorUtil {
 
         if (lookBack <= 1) {
             lookBack = 2;
-            LOGGER.warn("Bad value for threshold : lookBack <= One : Will use this : {}", lookBack);
+            log.warn("Bad value for threshold : lookBack <= One : Will use this : {}", lookBack);
         }
         if (climbingDaysVSDecliningDaysThreshold <= 0 || climbingDaysVSDecliningDaysThreshold >= lookBack) {
             climbingDaysVSDecliningDaysThreshold = lookBack - 1;
-            LOGGER.debug(
+            log.debug(
                     "Bad value for threshold : climbingDaysVSDecliningDaysThreshold >= lookBack : Will use this : {}",
                     climbingDaysVSDecliningDaysThreshold);
         }
