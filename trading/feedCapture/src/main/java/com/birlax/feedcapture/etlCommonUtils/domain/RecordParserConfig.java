@@ -9,13 +9,12 @@ import lombok.Getter;
 import lombok.NonNull;
 
 @Data
-@Builder
 @Getter
 public class RecordParserConfig {
 
-  @NonNull public String parserGeneratedUniqueRecordIdFieldName;
+  public String parserGeneratedUniqueRecordIdFieldName;
 
-  @Builder.Default public boolean ignoreParserExceptions = false;
+  public boolean ignoreParserExceptions = false;
 
-  @Builder.Default public List<RecordFieldConfig> recordsFields = new ArrayList<>();
+  public List<RecordFieldConfig> recordsFields = new ArrayList<>();
 }

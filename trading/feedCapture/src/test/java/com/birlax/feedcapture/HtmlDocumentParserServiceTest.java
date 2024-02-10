@@ -31,8 +31,8 @@ class HtmlDocumentParserServiceTest extends BaseIntegrationTest {
    * Only have to change the date and value
    * Unzip the file, parse the file, store in database
    */
-
-  @Autowired HtmlDocumentParserService htmlDocumentParserService;
+  @Autowired
+  HtmlDocumentParserService htmlDocumentParserService;
 
   @BeforeEach
   void setUp() {}
