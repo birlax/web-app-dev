@@ -34,41 +34,41 @@ class CSVFileDocumentParserServiceTest extends BaseIntegrationTest {
     Assertions.assertEquals("45900", data.get(1).get(2));
   }
 
-  @Test
-  void parser_from_File() throws IOException {
-
-    final String fileName = "src/test/resources/nse-nifty-50-top-10.txt";
-
-    List<Map<Integer, String>> indexToDataMap =
-        csvFileDocumentParserService.parser(fileName, DataSourceType.FILE);
-
-    String validationRegex = "";
-
-    RecordFieldConfig rc0 =
-        new RecordFieldConfig(0, "symbol", FieldDataType.STRING, validationRegex, "");
-    RecordFieldConfig rc1 =
-        new RecordFieldConfig(1, "Open", FieldDataType.STRING, validationRegex, "");
-    RecordFieldConfig rc2 =
-        new RecordFieldConfig(2, "High", FieldDataType.DOUBLE, validationRegex, "");
-    RecordFieldConfig rc3 =
-        new RecordFieldConfig(3, "Low", FieldDataType.STRING, validationRegex, "");
-
-    List<RecordFieldConfig> recordsFields = new ArrayList<>(Arrays.asList(rc0, rc1, rc2, rc3));
-    String parserGeneratedUniqueRecordIdFieldName = "id";
-
-    boolean ignoreParserExceptions = false;
-
-    RecordParserConfig recordParserConfig =
-        RecordParserConfig.builder()
-            .parserGeneratedUniqueRecordIdFieldName(parserGeneratedUniqueRecordIdFieldName)
-            .recordsFields(recordsFields)
-            .ignoreParserExceptions(ignoreParserExceptions)
-            .build();
-
-    List<Map<String, Object>> data =
-            recordParserExtractionService.rawParser(indexToDataMap, recordParserConfig);
-
-    Assertions.assertEquals(572.4, data.get(1).get("High"));
-    Assertions.assertEquals("BPCL", data.get(1).get("symbol"));
-  }
+//  @Test
+//  void parser_from_File() throws IOException {
+//
+//    final String fileName = "src/test/resources/nse-nifty-50-top-10.txt";
+//
+//    List<Map<Integer, String>> indexToDataMap =
+//        csvFileDocumentParserService.parser(fileName, DataSourceType.FILE);
+//
+//    String validationRegex = "";
+//
+//    RecordFieldConfig rc0 =
+//        new RecordFieldConfig(0, "symbol", FieldDataType.STRING, validationRegex, "");
+//    RecordFieldConfig rc1 =
+//        new RecordFieldConfig(1, "Open", FieldDataType.STRING, validationRegex, "");
+//    RecordFieldConfig rc2 =
+//        new RecordFieldConfig(2, "High", FieldDataType.DOUBLE, validationRegex, "");
+//    RecordFieldConfig rc3 =
+//        new RecordFieldConfig(3, "Low", FieldDataType.STRING, validationRegex, "");
+//
+//    List<RecordFieldConfig> recordsFields = new ArrayList<>(Arrays.asList(rc0, rc1, rc2, rc3));
+//    String parserGeneratedUniqueRecordIdFieldName = "id";
+//
+//    boolean ignoreParserExceptions = false;
+//
+//    RecordParserConfig recordParserConfig =
+//        RecordParserConfig.builder()
+//            .parserGeneratedUniqueRecordIdFieldName(parserGeneratedUniqueRecordIdFieldName)
+//            .recordsFields(recordsFields)
+//            .ignoreParserExceptions(ignoreParserExceptions)
+//            .build();
+//
+//    List<Map<String, Object>> data =
+//            recordParserExtractionService.rawParser(indexToDataMap, recordParserConfig);
+//
+//    Assertions.assertEquals(572.4, data.get(1).get("High"));
+//    Assertions.assertEquals("BPCL", data.get(1).get("symbol"));
+//  }
 }

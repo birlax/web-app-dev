@@ -1,0 +1,20 @@
+{
+  "recordsFields": [
+    {
+      "index": 0,
+      "fieldName": "open_price",
+      "fieldDataType": "BIGDECIMAL",
+      "validationRegex": null,
+      "specialParsingFormat": null
+    },
+    {
+      "index": 1,
+      "fieldName": "close_price",
+      "fieldDataType": "STRING",
+      "validationRegex": null,
+      "specialParsingFormat": null
+    }
+  ],
+  "ignoreParserExceptions": "false",
+  "parserGeneratedUniqueRecordIdFieldName": "spn"
+}

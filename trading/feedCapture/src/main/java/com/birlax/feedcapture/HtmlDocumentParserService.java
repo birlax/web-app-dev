@@ -4,6 +4,7 @@ import com.birlax.feedcapture.etlCommonUtils.domain.DataSourceType;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 
 import lombok.SneakyThrows;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class HtmlDocumentParserService {
+
+  int timeoutMillis = 10_000;
 
   public Document getHtmlDocument(String uri, DataSourceType type) {
     log.info("Using url : {} ", uri);
@@ -32,16 +35,9 @@ public class HtmlDocumentParserService {
 
   @SneakyThrows
   private Document getHtmlDocumentFromUrl(String uri) {
-    URL url = null;
-    try {
-      url = new URL(uri);
-    } catch (MalformedURLException e1) {
-      log.error("Unable to parser URL : {}", uri, e1);
-    }
-    if (url == null) {
-      throw new IllegalArgumentException("Unable to create the URL");
-    }
-    int timeoutMillis = 10_000;
+
+    final URL url = URI.create(uri).toURL();
+
     return Jsoup.parse(url, timeoutMillis);
   }
 }
