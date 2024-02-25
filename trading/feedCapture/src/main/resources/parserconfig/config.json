@@ -2,14 +2,112 @@
   "recordsFields": [
     {
       "index": 0,
-      "fieldName": "open_price",
-      "fieldDataType": "BIGDECIMAL",
+      "fieldName": "SYMBOL",
+      "fieldDataType": "STRING",
       "validationRegex": null,
       "specialParsingFormat": null
     },
     {
       "index": 1,
-      "fieldName": "close_price",
+      "fieldName": "SERIES",
+      "fieldDataType": "STRING",
+      "validationRegex": null,
+      "specialParsingFormat": null
+    },
+    {
+      "index": 2,
+      "fieldName": "DATE1",
+      "fieldDataType": "DATE",
+      "validationRegex": null,
+      "specialParsingFormat": "dd-MMM-yyyy"
+    },
+    {
+      "index": 3,
+      "fieldName": "PREV_CLOSE",
+      "fieldDataType": "STRING",
+      "validationRegex": null,
+      "specialParsingFormat": null
+    },
+    {
+      "index": 4,
+      "fieldName": "OPEN_PRICE",
+      "fieldDataType": "STRING",
+      "validationRegex": null,
+      "specialParsingFormat": null
+    },
+    {
+      "index": 5,
+      "fieldName": "HIGH_PRICE",
+      "fieldDataType": "STRING",
+      "validationRegex": null,
+      "specialParsingFormat": null
+    },
+    {
+      "index": 6,
+      "fieldName": "LOW_PRICE",
+      "fieldDataType": "STRING",
+      "validationRegex": null,
+      "specialParsingFormat": null
+    },
+    {
+      "index": 7,
+      "fieldName": "LAST_PRICE",
+      "fieldDataType": "STRING",
+      "validationRegex": null,
+      "specialParsingFormat": null
+    },
+    {
+      "index": 8,
+      "fieldName": "CLOSE_PRICE",
+      "fieldDataType": "STRING",
+      "validationRegex": null,
+      "specialParsingFormat": null
+    },
+    {
+      "index": 9,
+      "fieldName": "AVG_PRICE",
+      "fieldDataType": "STRING",
+      "validationRegex": null,
+      "specialParsingFormat": null
+    },
+    {
+      "index": 10,
+      "fieldName": "TTL_TRD_QNTY",
+      "fieldDataType": "STRING",
+      "validationRegex": null,
+      "specialParsingFormat": null
+    },
+    {
+      "index": 11,
+      "fieldName": "TURNOVER_LACS",
+      "fieldDataType": "STRING",
+      "validationRegex": null,
+      "specialParsingFormat": null
+    },
+    {
+      "index": 12,
+      "fieldName": "NO_OF_TRADES",
+      "fieldDataType": "STRING",
+      "validationRegex": null,
+      "specialParsingFormat": null
+    },
+    {
+      "index": 13,
+      "fieldName": "DELIV_QTY",
+      "fieldDataType": "STRING",
+      "validationRegex": null,
+      "specialParsingFormat": null
+    },
+    {
+      "index": 14,
+      "fieldName": "DELIV_PER",
+      "fieldDataType": "STRING",
+      "validationRegex": null,
+      "specialParsingFormat": null
+    },
+    {
+      "index": 15,
+      "fieldName": "SERIES",
       "fieldDataType": "STRING",
       "validationRegex": null,
       "specialParsingFormat": null
