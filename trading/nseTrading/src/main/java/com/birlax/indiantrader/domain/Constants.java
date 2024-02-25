@@ -5,9 +5,11 @@ package com.birlax.indiantrader.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.tuple.Pair;
 
-
+@UtilityClass
 public class Constants {
 
     public static List<Pair<Double, Double>> getRanges(double lower, double upper, double incrementsOf) {
@@ -27,8 +29,4 @@ public class Constants {
         return ranges;
     }
 
-    public static void main(String[] args) {
-
-        System.out.println(getRanges(10, 8000, 100));
-    }
 }
