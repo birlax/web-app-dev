@@ -10,8 +10,15 @@ import java.util.Set;
 
 import com.birlax.dbCommonUtils.service.SingleTemporalDAO;
 import com.birlax.dbCommonUtils.util.ReflectionHelper;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
-
+@JsonAutoDetect
+@Data
+@Builder
+@AllArgsConstructor
 public class SecuritiesInFuturesAndOptions implements SingleTemporalDAO {
 
     private String underlyingSymbol;
@@ -20,10 +27,7 @@ public class SecuritiesInFuturesAndOptions implements SingleTemporalDAO {
 
     private String assetType;
 
-    /*
-     * (non-Javadoc)
-     * @see com.birlax.dbCommonUtils.service.SingleTemporalDAO#getDAOKey()
-     */
+
     @Override
     public List<String> getDAOKey() {
         Set<String> keys = new HashSet<>();
@@ -33,67 +37,11 @@ public class SecuritiesInFuturesAndOptions implements SingleTemporalDAO {
         return new ArrayList<>(keys);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.birlax.dbCommonUtils.service.SingleTemporalDAO#getFullyQualifiedTableName()
-     */
+
     @Override
     public String getFullyQualifiedTableName() {
         return "trade.nse_futures_and_options_list";
     }
 
-    /**
-     * @return the underlyingSymbol
-     */
-    public String getUnderlyingSymbol() {
-        return this.underlyingSymbol;
-    }
-
-    /**
-     * @param underlyingSymbol
-     *            the underlyingSymbol to set
-     */
-    public void setUnderlyingSymbol(String underlyingSymbol) {
-        this.underlyingSymbol = underlyingSymbol;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "SecuritiesInFuturesAndOptions [underlyingSymbol=" + this.underlyingSymbol + "]";
-    }
-
-    /**
-     * @return the underlyingName
-     */
-    public String getUnderlyingName() {
-        return this.underlyingName;
-    }
-
-    /**
-     * @param underlyingName
-     *            the underlyingName to set
-     */
-    public void setUnderlyingName(String underlyingName) {
-        this.underlyingName = underlyingName;
-    }
-
-    /**
-     * @return the assetType
-     */
-    public String getAssetType() {
-        return this.assetType;
-    }
-
-    /**
-     * @param assetType
-     *            the assetType to set
-     */
-    public void setAssetType(String assetType) {
-        this.assetType = assetType;
-    }
 
 }

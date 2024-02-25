@@ -300,7 +300,7 @@ public class MACD implements IndicatorOverlayService {
                 // THIS IS IS A STRONG SELL
                 signalRack.addSellNotificationEvent(
                         new GenericNotificationEvent(index, priceVolumnDeliveries.get(index).getTradeDate(),
-                                IndicatorSignalType.BEARISH, IndicatorCautionType.EXTREM, eventType, detail));
+                                IndicatorSignalType.BEARISH, IndicatorCautionType.EXTREME, eventType, detail));
 
             }
 

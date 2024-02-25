@@ -74,9 +74,10 @@ public class NSEFuturesAndOptionsService {
         Set<String> retrieveColumns = new HashSet<>();
         retrieveColumns.add("asset_type");
 
-        SecuritiesInFuturesAndOptions security = new SecuritiesInFuturesAndOptions();
-
-        security.setAssetType(assetType);
+        SecuritiesInFuturesAndOptions security = SecuritiesInFuturesAndOptions
+                .builder()
+                .assetType(assetType)
+                .build();
 
         List<SecuritiesInFuturesAndOptions> fnoSecurities = temporalService.searchRecords(Arrays.asList(security),
                 retrieveColumns, SecuritiesInFuturesAndOptions.class);

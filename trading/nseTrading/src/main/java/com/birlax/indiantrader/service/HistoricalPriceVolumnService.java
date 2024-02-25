@@ -67,7 +67,7 @@ public class HistoricalPriceVolumnService {
 
         Set<String> retrieveColumns = new HashSet<>();
         retrieveColumns.add("spn");
-        PriceVolumnDelivery r = new PriceVolumnDelivery();
+        PriceVolumnDelivery r = PriceVolumnDelivery.builder().build();
         r.setSpn(security.getSpn());
 
         List<PriceVolumnDelivery> priceVolumnDeliveries = temporalService.searchRecords(Arrays.asList(r),
@@ -81,9 +81,12 @@ public class HistoricalPriceVolumnService {
         try {
             syncDataForSecurity(security.getSymbol());
         } catch (Exception e) {
-            log.error("Something wrong happend moving on. : ", e);
+            log.error("Something wrong happened moving on. : ", e);
         }
         log.info("Completed data sync for Security : {}", security);
+    }
+
+    private void syncDataForSecurity(String symbol) {
     }
 
 //    @RequestMapping(path = "/syncDataForSecurity", produces = {"application/json"})
@@ -148,7 +151,7 @@ public class HistoricalPriceVolumnService {
         Security security = securityService.getSecurityBySymbol(securitySymbol);
         log.debug("Search requested for security : {} for Range :{} to {}", securitySymbol, startDate, endDate);
 
-        PriceVolumnDelivery priceVolumnDelivery = new PriceVolumnDelivery();
+        PriceVolumnDelivery priceVolumnDelivery = PriceVolumnDelivery.builder().build();
         priceVolumnDelivery.setSpn(security.getSpn());
 
         Set<String> retrieveColumns = new HashSet<>();

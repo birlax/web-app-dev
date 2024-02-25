@@ -14,7 +14,6 @@ import com.birlax.indiantrader.domain.PriceVolumnDelivery;
 import com.birlax.indiantrader.service.HistoricalPriceVolumnService;
 
 
-@Slf4j
 public interface IndicatorOverlayService {
 
     default List<PriceVolumnDelivery> getPriceVolumnDeliveryForSeries(
@@ -37,4 +36,4 @@ public interface IndicatorOverlayService {
      IndicatorResultHolder compute(String securitySymbol, LocalDate startDate, LocalDate endDate,
                                          IndicatorComputationOptions options);
 
-}`
+}

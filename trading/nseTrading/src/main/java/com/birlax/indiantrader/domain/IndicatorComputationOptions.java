@@ -4,8 +4,15 @@
 package com.birlax.indiantrader.domain;
 
 import com.birlax.indiantrader.indicator.util.IndicatorUtil.PriceType;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
-
+@JsonAutoDetect
+@Data
+@Builder
+@AllArgsConstructor
 public class IndicatorComputationOptions {
 
     private Integer fastLeg;

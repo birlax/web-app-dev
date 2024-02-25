@@ -54,8 +54,9 @@ public class SecurityService {
 
         Set<String> retrieveColumns = new HashSet<>();
         retrieveColumns.add("symbol");
-        Security security = new Security();
-        security.setSymbol(symbol);
+        Security security = Security.builder()
+                .symbol(symbol)
+                .build();
 
         List<Security> securities = temporalService.searchRecords(Arrays.asList(security), retrieveColumns,
                 Security.class);
