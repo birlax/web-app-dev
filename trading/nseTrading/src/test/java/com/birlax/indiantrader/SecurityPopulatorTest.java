@@ -2,34 +2,43 @@ package com.birlax.indiantrader;
 
 import com.birlax.dbCommonUtils.service.impl.SingleTemporalServiceImpl;
 import com.birlax.dbCommonUtils.util.ReflectionHelper;
-import com.birlax.etlCommonUtils.domain.DataSourceType;
-import com.birlax.etlCommonUtils.domain.FieldDataType;
-import com.birlax.etlCommonUtils.domain.RecordFieldConfig;
-import com.birlax.etlCommonUtils.domain.RecordParserConfig;
-import com.birlax.etlCommonUtils.parser.RecordParserExtractionService;
-import com.birlax.etlCommonUtils.util.CSVFileDocumentHelper;
-import com.birlax.indiantrader.domain.Security;
-import jakarta.inject.Inject;
+import com.birlax.feedcapture.CSVFileDocumentParserService;
+import com.birlax.feedcapture.RecordParserExtractionService;
+import com.birlax.feedcapture.etlCommonUtils.domain.DataSourceType;
+import com.birlax.feedcapture.etlCommonUtils.domain.FieldDataType;
+import com.birlax.feedcapture.etlCommonUtils.domain.RecordFieldConfig;
+import com.birlax.feedcapture.etlCommonUtils.domain.RecordParserConfig;
+import com.birlax.indiantrader.capitalmarket.Security;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class SecurityPopulatorTest extends BaseIntegerationTest {
 
     private final String baseFileLocation = "/home/birlax/Desktop/Downloads_Win/nseData/2018";
-    @Inject
+
+    @Autowired
     private SingleTemporalServiceImpl temporalService;
+
+    @Autowired
+    private CSVFileDocumentParserService csvFileDocumentParserService;
+
+    @Autowired
+    private RecordParserExtractionService recordParserExtractionService;
 
     @Test
     public void test() throws IOException, InstantiationException, IllegalAccessException {
 
         String fileName = "/LDE_EQUITIES_LAST_1_MONTH.csv";
-        List<Map<Integer, String>> rawData = CSVFileDocumentHelper.parser(baseFileLocation + fileName,
+        List<Map<Integer, String>> rawData = csvFileDocumentParserService.parser(baseFileLocation + fileName,
                 DataSourceType.FILE);
 
-        List<Map<String, Object>> data = RecordParserExtractionService.rawParser(rawData, getParserConfig());
+        List<Map<String, Object>> data = recordParserExtractionService.rawParser(rawData, getParserConfig());
 
         List<Security> securities = new ArrayList<>();
         int spn = 1649;
@@ -54,8 +63,7 @@ public class SecurityPopulatorTest extends BaseIntegerationTest {
 
         boolean ignoreParserExceptions = false;
 
-        RecordParserConfig recordParserConfig = new RecordParserConfig(parserGeneratedUniqueRecordIdFieldName,
-                recordsFields, ignoreParserExceptions);
-        return recordParserConfig;
+        return  new RecordParserConfig(parserGeneratedUniqueRecordIdFieldName,
+                ignoreParserExceptions, recordsFields);
     }
 }

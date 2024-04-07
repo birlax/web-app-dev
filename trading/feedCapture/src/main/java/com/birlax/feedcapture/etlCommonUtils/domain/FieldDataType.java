@@ -1,4 +1,4 @@
-/** */
+
 package com.birlax.feedcapture.etlCommonUtils.domain;
 
 import lombok.Getter;

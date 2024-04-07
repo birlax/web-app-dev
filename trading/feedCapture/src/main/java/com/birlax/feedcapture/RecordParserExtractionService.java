@@ -5,7 +5,6 @@ import com.birlax.dbCommonUtils.util.BirlaxUtil;
 import com.birlax.feedcapture.etlCommonUtils.domain.FieldDataType;
 import com.birlax.feedcapture.etlCommonUtils.domain.RecordFieldConfig;
 import com.birlax.feedcapture.etlCommonUtils.domain.RecordParserConfig;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -1,70 +1,70 @@
-/**
- *
- */
+
 package com.birlax.indiantrader.trading.strategy;
 
-import jakarta.inject.Inject;
+import com.birlax.indiantrader.patterndetection.PriceType;
+import com.birlax.indiantrader.report.DailyBuySellReport;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Deque;
 import java.util.List;
 
 import com.birlax.dbCommonUtils.util.BirlaxUtil;
 import com.birlax.indiantrader.BaseIntegerationTest;
-import com.birlax.indiantrader.domain.Direction;
-import com.birlax.indiantrader.domain.IndicatorCautionType;
-import com.birlax.indiantrader.domain.IndicatorComputationOptions;
-import com.birlax.indiantrader.domain.IndicatorEventType;
-import com.birlax.indiantrader.domain.IndicatorResultHolder;
-import com.birlax.indiantrader.domain.IndicatorSignalType;
-import com.birlax.indiantrader.domain.PriceVolumnDelivery;
-import com.birlax.indiantrader.domain.Security;
-import com.birlax.indiantrader.domain.SmoothCurve;
-import com.birlax.indiantrader.indicator.events.BuySellEvent;
-import com.birlax.indiantrader.indicator.events.GenericNotificationEvent;
-import com.birlax.indiantrader.indicator.events.SignalRack;
-import com.birlax.indiantrader.indicator.util.IndicatorUtil;
-import com.birlax.indiantrader.indicator.util.IndicatorUtil.PriceType;
-import com.birlax.indiantrader.oscillator.RelativeStrengthIndex;
-import com.birlax.indiantrader.overlay.ExponentialMovingAverage;
-import com.birlax.indiantrader.overlay.MACD;
-import com.birlax.indiantrader.overlay.SimpleMovingAverage;
-import com.birlax.indiantrader.service.HistoricalPriceVolumnService;
-import com.birlax.indiantrader.service.NSEFuturesAndOptionsService;
-import com.birlax.indiantrader.service.SecurityService;
-import com.birlax.indiantrader.service.backtest.BuySellActionGeneratorService;
-import com.birlax.indiantrader.service.backtest.EvaluateBuySellActionService;
+import com.birlax.indiantrader.patterndetection.Direction;
+import com.birlax.indiantrader.patterndetection.IndicatorCautionType;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorComputationOptions;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorEventType;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorResultHolder;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorSignalType;
+import com.birlax.indiantrader.capitalmarket.PriceVolumnDelivery;
+import com.birlax.indiantrader.capitalmarket.Security;
+import com.birlax.indiantrader.patterndetection.SmoothCurve;
+import com.birlax.indiantrader.patterndetection.events.BuySellEvent;
+import com.birlax.indiantrader.patterndetection.events.GenericNotificationEvent;
+import com.birlax.indiantrader.patterndetection.events.SignalRack;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorUtil;
+import com.birlax.indiantrader.patterndetection.oscillator.RelativeStrengthIndex;
+import com.birlax.indiantrader.patterndetection.overlay.ExponentialMovingAverage;
+import com.birlax.indiantrader.patterndetection.overlay.MACD;
+import com.birlax.indiantrader.patterndetection.overlay.SimpleMovingAverage;
+import com.birlax.indiantrader.capitalmarket.HistoricalPriceVolumnService;
+import com.birlax.indiantrader.fno.NSEFuturesAndOptionsService;
+import com.birlax.indiantrader.capitalmarket.SecurityService;
+import com.birlax.indiantrader.report.BuySellActionGeneratorService;
+import com.birlax.indiantrader.report.EvaluateBuySellActionService;
 import org.junit.jupiter.api.Test;
-
 
 public class StrategyOneTest extends BaseIntegerationTest {
 
-    @Inject
+    @Autowired
     private RelativeStrengthIndex rsi;
 
-    @Inject
+    @Autowired
     private MACD macd;
 
-    @Inject
+    @Autowired
     private ExponentialMovingAverage exponentialMovingAverage;
 
-    @Inject
+    @Autowired
     private SimpleMovingAverage simpleMovingAverage;
 
-    @Inject
+    @Autowired
     private SecurityService securityService;
 
-    @Inject
+    @Autowired
     private NSEFuturesAndOptionsService nseFuturesAndOptionsService;
 
-    @Inject
+    @Autowired
     private HistoricalPriceVolumnService historicalPriceVolumnService;
 
-    @Inject
+    @Autowired
     private BuySellActionGeneratorService buySellActionGeneratorService;
 
-    @Inject
+    @Autowired
     private EvaluateBuySellActionService evaluateBuySellActions;
+
+    @Autowired
+    private DailyBuySellReport dailyBuySellReport;
 
     public void testRSIBaseBUY(Security sec, boolean printHeader) {
         String securitySymbol = sec.getSymbol();
@@ -100,7 +100,7 @@ public class StrategyOneTest extends BaseIntegerationTest {
         Double[] ema12 = holder.getResultList(optionsEMA.getNameForComputation(ExponentialMovingAverage.EMA));
         Double[] ema26 = holder.getResultList(optionsEMA.getNameForComputation(ExponentialMovingAverage.EMA));
         Double[] rsiV = holder.getResultList(optionsRSI.getNameForComputation(RelativeStrengthIndex.RSI));
-        // IndicatorUtil.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
+        dailyBuySellReport.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
 
         Direction[] dirOfSMA50 = IndicatorUtil.getDirectionByLookBack(sma50, 20, 1.0, 12);
 
@@ -166,7 +166,7 @@ public class StrategyOneTest extends BaseIntegerationTest {
         }
         IndicatorResultHolder macdResults = macd.compute(data, holder, options12);
 
-        // IndicatorUtil.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
+        dailyBuySellReport.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
         int shortViewOnMACD = 3;
         int longerViewOnHistogram = 9;
         SignalRack signals = macd.getBuySellSignals(shortViewOnMACD, longerViewOnHistogram, macdResults,

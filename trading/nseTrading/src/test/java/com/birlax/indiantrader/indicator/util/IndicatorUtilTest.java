@@ -1,9 +1,9 @@
-/**
- *
- */
+
 package com.birlax.indiantrader.indicator.util;
 
 import java.util.Arrays;
+
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorUtil;
 import org.junit.jupiter.api.Test;
 
 

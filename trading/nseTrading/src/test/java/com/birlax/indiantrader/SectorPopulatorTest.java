@@ -1,20 +1,17 @@
-/**
- *
- */
+
 package com.birlax.indiantrader;
 
-import jakarta.inject.Inject;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.birlax.dbCommonUtils.service.impl.SingleTemporalServiceImpl;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class SectorPopulatorTest extends BaseIntegerationTest {
 
-    @Inject
+    @Autowired
     private SingleTemporalServiceImpl temporalService;
 
     @Test

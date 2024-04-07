@@ -1,38 +1,41 @@
-/**
- *
- */
+
 package com.birlax.indiantrader.oscillator;
 
 import com.birlax.dbCommonUtils.util.BirlaxUtil;
 import com.birlax.indiantrader.BaseIntegerationTest;
-import com.birlax.indiantrader.domain.IndicatorComputationOptions;
-import com.birlax.indiantrader.domain.IndicatorResultHolder;
-import com.birlax.indiantrader.domain.PriceVolumnDelivery;
-import com.birlax.indiantrader.domain.Security;
-import com.birlax.indiantrader.indicator.util.IndicatorUtil;
-import com.birlax.indiantrader.indicator.util.IndicatorUtil.PriceType;
-import com.birlax.indiantrader.overlay.SimpleMovingAverage;
-import com.birlax.indiantrader.service.HistoricalPriceVolumnService;
-import com.birlax.indiantrader.service.SecurityService;
-import jakarta.inject.Inject;
+import com.birlax.indiantrader.patterndetection.PriceType;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorComputationOptions;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorResultHolder;
+import com.birlax.indiantrader.capitalmarket.PriceVolumnDelivery;
+import com.birlax.indiantrader.capitalmarket.Security;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorUtil;
+import com.birlax.indiantrader.patterndetection.oscillator.MoneyFlowIndex;
+import com.birlax.indiantrader.patterndetection.overlay.SimpleMovingAverage;
+import com.birlax.indiantrader.capitalmarket.HistoricalPriceVolumnService;
+import com.birlax.indiantrader.capitalmarket.SecurityService;
 import java.time.LocalDate;
 import java.util.List;
-import org.junit.jupiter.api.Test;
 
+import com.birlax.indiantrader.report.DailyBuySellReport;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MoneyFlowIndexTest extends BaseIntegerationTest {
 
-    @Inject
+    @Autowired
     private MoneyFlowIndex moneyFlowIndex;
 
-    @Inject
+    @Autowired
     private SimpleMovingAverage simpleMovingAverage;
 
-    @Inject
+    @Autowired
     private SecurityService securityService;
 
-    @Inject
+    @Autowired
     private HistoricalPriceVolumnService historicalPriceVolumnService;
+
+    @Autowired
+    private DailyBuySellReport dailyBuySellReport;
 
     public void test(Security sec, boolean printHeader) {
         String securitySymbol = sec.getSymbol();
@@ -85,7 +88,7 @@ public class MoneyFlowIndexTest extends BaseIntegerationTest {
         Double[] smaOfMFI = holder.getResultList("MFI(RAW_MONEY_FLOW|14)");
         simpleMovingAverage.compute(smaOfMFI, holder, options);
 
-        IndicatorUtil.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
+        dailyBuySellReport.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
     }
 
     @Test
