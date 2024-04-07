@@ -1,0 +1,6 @@
+package com.birlax.indiantrader.patterndetection;
+
+public enum PriceType {
+
+    OPENING, CLOSING, HIGH, LOW, HIGH_LOW_AVG, HIGH_LOW_CLOSE_AVG, TYPICAL_PRICE, OPEN_HIGH_LOW_CLOSE_AVG, VWAP, NO_TOTAL_TRADE, TOTAL_TRADED_QTY, RAW_MONEY_FLOW
+}

@@ -1,19 +1,18 @@
-/**
- *
- */
+
 package com.birlax.indiantrader.service;
 
 import com.birlax.dbCommonUtils.util.BirlaxUtil;
 import com.birlax.indiantrader.BaseIntegerationTest;
-import jakarta.inject.Inject;
+import com.birlax.indiantrader.capitalmarket.PriceBandDetectionService;
 import java.io.IOException;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class PriceBandDetectionServiceTest extends BaseIntegerationTest {
 
-    @Inject
+    @Autowired
     private PriceBandDetectionService priceBandDetectionService;
 
     @Test

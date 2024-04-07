@@ -1,17 +1,13 @@
-/**
- *
- */
+
 package com.birlax.indiantrader;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
-
-import com.birlax.indiantrader.domain.IndicatorComputationOptions;
-import com.birlax.indiantrader.domain.IndicatorResultHolder;
-import com.birlax.indiantrader.domain.PriceVolumnDelivery;
-import com.birlax.indiantrader.service.HistoricalPriceVolumnService;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorComputationOptions;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorResultHolder;
+import com.birlax.indiantrader.capitalmarket.PriceVolumnDelivery;
+import com.birlax.indiantrader.capitalmarket.HistoricalPriceVolumnService;
 
 
 public interface IndicatorOverlayService {

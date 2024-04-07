@@ -1,41 +1,43 @@
-/**
- *
- */
+
 package com.birlax.indiantrader.oscillator;
 
-import jakarta.inject.Inject;
+import com.birlax.indiantrader.patterndetection.PriceType;
+import com.birlax.indiantrader.patterndetection.oscillator.RelativeStrengthIndex;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 
 import com.birlax.dbCommonUtils.util.BirlaxUtil;
 import com.birlax.indiantrader.BaseIntegerationTest;
-import com.birlax.indiantrader.domain.IndicatorComputationOptions;
-import com.birlax.indiantrader.domain.IndicatorResultHolder;
-import com.birlax.indiantrader.domain.PriceVolumnDelivery;
-import com.birlax.indiantrader.domain.Security;
-import com.birlax.indiantrader.indicator.util.IndicatorUtil;
-import com.birlax.indiantrader.indicator.util.IndicatorUtil.PriceType;
-import com.birlax.indiantrader.service.HistoricalPriceVolumnService;
-import com.birlax.indiantrader.service.NSEFuturesAndOptionsService;
-import com.birlax.indiantrader.service.SecurityService;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorComputationOptions;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorResultHolder;
+import com.birlax.indiantrader.capitalmarket.PriceVolumnDelivery;
+import com.birlax.indiantrader.capitalmarket.Security;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorUtil;
+import com.birlax.indiantrader.capitalmarket.HistoricalPriceVolumnService;
+import com.birlax.indiantrader.fno.NSEFuturesAndOptionsService;
+import com.birlax.indiantrader.capitalmarket.SecurityService;
+import com.birlax.indiantrader.report.DailyBuySellReport;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class RelativeStrengthIndexTest extends BaseIntegerationTest {
 
-    @Inject
+    @Autowired
     private RelativeStrengthIndex rsi;
 
-    @Inject
+    @Autowired
     private SecurityService securityService;
 
-    @Inject
+    @Autowired
     private NSEFuturesAndOptionsService nseFuturesAndOptionsService;
 
-    @Inject
+    @Autowired
     private HistoricalPriceVolumnService historicalPriceVolumnService;
+
+    @Autowired
+    private DailyBuySellReport dailyBuySellReport;
 
     public void test(Security sec, boolean printHeader) {
         String securitySymbol = sec.getSymbol();
@@ -58,7 +60,7 @@ public class RelativeStrengthIndexTest extends BaseIntegerationTest {
 
         rsi.compute(priceVolumnDeliveries, rawMoney, holder, options14);
 
-        IndicatorUtil.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
+        dailyBuySellReport.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
     }
 
     @Test

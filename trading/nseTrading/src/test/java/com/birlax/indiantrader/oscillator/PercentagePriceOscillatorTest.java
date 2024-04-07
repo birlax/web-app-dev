@@ -1,21 +1,20 @@
-/**
- *
- */
+
 package com.birlax.indiantrader.oscillator;
 
 import com.birlax.indiantrader.BaseIntegerationTest;
-import com.birlax.indiantrader.service.SecurityService;
-import jakarta.inject.Inject;
+import com.birlax.indiantrader.patterndetection.oscillator.PercentagePriceOscillator;
+import com.birlax.indiantrader.capitalmarket.SecurityService;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class PercentagePriceOscillatorTest extends BaseIntegerationTest {
 
-    @Inject
+    @Autowired
     private PercentagePriceOscillator percentagePriceOscillator;
 
-    @Inject
+    @Autowired
     private SecurityService securityService;
 
     @Test

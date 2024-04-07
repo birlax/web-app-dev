@@ -1,36 +1,37 @@
-/**
- *
- */
+
 package com.birlax.indiantrader.overlay;
 
-import jakarta.inject.Inject;
+import com.birlax.indiantrader.patterndetection.PriceType;
+import com.birlax.indiantrader.patterndetection.overlay.SimpleMovingAverage;
+import com.birlax.indiantrader.report.DailyBuySellReport;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import com.birlax.dbCommonUtils.util.BirlaxUtil;
 import com.birlax.indiantrader.BaseIntegerationTest;
-import com.birlax.indiantrader.domain.IndicatorComputationOptions;
-import com.birlax.indiantrader.domain.IndicatorResultHolder;
-import com.birlax.indiantrader.domain.PriceVolumnDelivery;
-import com.birlax.indiantrader.domain.Security;
-import com.birlax.indiantrader.indicator.util.IndicatorUtil;
-import com.birlax.indiantrader.indicator.util.IndicatorUtil.PriceType;
-import com.birlax.indiantrader.service.HistoricalPriceVolumnService;
-import com.birlax.indiantrader.service.SecurityService;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorComputationOptions;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorResultHolder;
+import com.birlax.indiantrader.capitalmarket.PriceVolumnDelivery;
+import com.birlax.indiantrader.capitalmarket.Security;
+import com.birlax.indiantrader.patterndetection.indicator.IndicatorUtil;
+import com.birlax.indiantrader.capitalmarket.HistoricalPriceVolumnService;
+import com.birlax.indiantrader.capitalmarket.SecurityService;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class SimpleMovingAverageTest extends BaseIntegerationTest {
 
-    @Inject
+    @Autowired
     private SimpleMovingAverage simpleMovingAverage;
 
-    @Inject
+    @Autowired
     private SecurityService securityService;
 
-    @Inject
+    @Autowired
     private HistoricalPriceVolumnService historicalPriceVolumnService;
+
+    @Autowired
+    private DailyBuySellReport dailyBuySellReport;
 
     // @Test
     public void test(Security sec, boolean printHeader) {
@@ -54,7 +55,7 @@ public class SimpleMovingAverageTest extends BaseIntegerationTest {
         Double[] dataAvgPrice = IndicatorUtil.transform(priceVolumnDeliveries, holder, optionsAvgPrice20);
         simpleMovingAverage.compute(dataAvgPrice, holder, optionsAvgPrice20);
 
-        IndicatorUtil.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
+        dailyBuySellReport.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
     }
 
     @Test

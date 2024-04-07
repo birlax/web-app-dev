@@ -1,12 +1,10 @@
-/**
- *
- */
+
 package com.birlax.indiantrader.service;
 
-import jakarta.inject.Inject;
+import com.birlax.indiantrader.capitalmarket.HistoricalPriceVolumnService;
+import com.birlax.indiantrader.capitalmarket.SecurityService;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,18 +12,18 @@ import java.util.stream.Collectors;
 
 import com.birlax.dbCommonUtils.util.BirlaxUtil;
 import com.birlax.indiantrader.BaseIntegerationTest;
-import com.birlax.indiantrader.domain.PriceVolumnDelivery;
-import com.birlax.indiantrader.domain.Security;
+import com.birlax.indiantrader.capitalmarket.PriceVolumnDelivery;
+import com.birlax.indiantrader.capitalmarket.Security;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class HistoricalPriceVolumnServiceTest extends BaseIntegerationTest {
 
-    @Inject
+    @Autowired
     private HistoricalPriceVolumnService historicalPriceVolumnService;
 
-    @Inject
+    @Autowired
     private SecurityService securityService;
 
     private final String baseFileLocation = "/home/birlax/Desktop/Downloads_Win/nseData/2018/July";
