@@ -10,22 +10,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class PriceBandDetectionService {
 
+    @Autowired
     private HistoricalPriceVolumnService historicalPriceVolumnService;
 
-    /**
-     * @param securitySymbol
-     * @param startDate
-     *            analysis start-date, if null take data starting from being for the time.
-     * @param endDate
-     *            analysis end-date, mandatory.
-     * @return
-     */
+
     public List<PriceVolumnDelivery> detectPriceBand(String securitySymbol, LocalDate startDate, LocalDate endDate) {
 
         //
@@ -46,7 +41,7 @@ public class PriceBandDetectionService {
 
         // System.out.println(priceVol);
         if (priceVol.size() < 1) {
-            throw new IllegalArgumentException("Analysis Date-Ragen period is less than 30.");
+            throw new IllegalArgumentException("Analysis Date-Range period is less than 30.");
         }
         List<Pair<Double, Double>> ranges = RangeGeneratorUtil.getRanges(0, 8000, 100);
 

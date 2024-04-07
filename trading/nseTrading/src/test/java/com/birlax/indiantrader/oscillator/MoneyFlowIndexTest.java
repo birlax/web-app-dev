@@ -19,7 +19,9 @@ import java.util.List;
 import com.birlax.indiantrader.report.DailyBuySellReport;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.jdbc.Sql;
 
+@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS, scripts = "/data-setup-native.sql")
 public class MoneyFlowIndexTest extends BaseIntegerationTest {
 
     @Autowired
@@ -96,7 +98,7 @@ public class MoneyFlowIndexTest extends BaseIntegerationTest {
     public void testReportAll() {
 
         // List<Security> securities = securityService.getAllSecurities();
-        Security sec = securityService.getSecurityBySymbol("DHFL");
+        Security sec = securityService.getSecurityBySymbol("HEG");
         boolean printHeader = true;
         // for (Security sec : securities) {
         test(sec, printHeader);

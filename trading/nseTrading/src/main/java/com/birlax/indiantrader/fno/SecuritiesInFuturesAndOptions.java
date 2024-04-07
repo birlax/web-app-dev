@@ -38,7 +38,7 @@ public class SecuritiesInFuturesAndOptions implements SingleTemporalDAO {
 
     @Override
     public String getFullyQualifiedTableName() {
-        return "trade.nse_futures_and_options_list";
+        return "trade.nse_historical_price_data";
     }
 
 

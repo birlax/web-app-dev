@@ -8,8 +8,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.jdbc.Sql;
 
-
+@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS, scripts = "/data-setup-native.sql")
 public class PriceBandDetectionServiceTest extends BaseIntegerationTest {
 
     @Autowired
@@ -19,7 +20,7 @@ public class PriceBandDetectionServiceTest extends BaseIntegerationTest {
     public void test() throws IOException, InstantiationException, IllegalAccessException {
 
         String securitySymbol = "HEG";
-        LocalDate startDate = BirlaxUtil.getDateFromString("20180510");
+        LocalDate startDate = BirlaxUtil.getDateFromString("20180410");
         LocalDate endDate = BirlaxUtil.getDateFromString("20180525");
         priceBandDetectionService.detectPriceBand(securitySymbol, startDate, endDate);
     }

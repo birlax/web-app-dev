@@ -4,19 +4,17 @@ package com.birlax.indiantrader.capitalmarket;
 import com.birlax.dbCommonUtils.service.impl.SingleTemporalServiceImpl;
 import com.birlax.indiantrader.capitalmarket.Security;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @Service
 public class SecurityService {
 
-
+    @Autowired
     private SingleTemporalServiceImpl temporalService;
 
     @RequestMapping(path = "/getAllSecurities", produces = { "application/json" })
@@ -28,15 +26,7 @@ public class SecurityService {
         retrieveColumns.add("spn");
 
         List<Security> securities = temporalService.fetchAllRecords(retrieveColumns, Security.class);
-        securities.sort((a, b) -> {
-            if (a.getSpn() < b.getSpn()) {
-                return -1;
-            }
-            if (a.getSpn() > b.getSpn()) {
-                return 1;
-            }
-            return 0;
-        });
+        securities.sort( Comparator.comparing(Security::getSpn));
         log.info("Found Securities to Sync : {} ", securities.size());
         return securities;
     }

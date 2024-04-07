@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -13,9 +14,11 @@ import java.util.*;
 @JsonAutoDetect
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PriceVolumnDelivery implements SingleTemporalDAO {
 
-    private int spn;
+    private String spn;
 
     private String series;
 

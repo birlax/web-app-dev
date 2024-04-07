@@ -10,6 +10,7 @@ import com.birlax.feedcapture.etlCommonUtils.domain.RecordFieldConfig;
 import com.birlax.feedcapture.etlCommonUtils.domain.RecordParserConfig;
 import com.birlax.indiantrader.capitalmarket.Security;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class SecurityPopulatorTest extends BaseIntegerationTest {
-
-    private final String baseFileLocation = "/home/birlax/Desktop/Downloads_Win/nseData/2018";
 
     @Autowired
     private SingleTemporalServiceImpl temporalService;
@@ -34,16 +33,19 @@ public class SecurityPopulatorTest extends BaseIntegerationTest {
     @Test
     public void test() throws IOException, InstantiationException, IllegalAccessException {
 
-        String fileName = "/LDE_EQUITIES_LAST_1_MONTH.csv";
-        List<Map<Integer, String>> rawData = csvFileDocumentParserService.parser(baseFileLocation + fileName,
-                DataSourceType.FILE);
+        ClassLoader classLoader = getClass().getClassLoader();
+        String resourceName = "LDE_EQUITIES_LAST_1_MONTH.csv";
+        File file = new File(classLoader.getResource(resourceName).getFile());
+        String absolutePath = file.getAbsolutePath();
+
+        List<Map<Integer, String>> rawData = csvFileDocumentParserService.parser(absolutePath , DataSourceType.FILE);
 
         List<Map<String, Object>> data = recordParserExtractionService.rawParser(rawData, getParserConfig());
 
         List<Security> securities = new ArrayList<>();
         int spn = 1649;
         for (Map<String, Object> map : data) {
-            map.put("spn", ++spn);
+            map.put("spn", ++spn + "");
             securities.add(ReflectionHelper.getDomainObject(map, Security.class));
         }
         temporalService.mergeRecords(securities);

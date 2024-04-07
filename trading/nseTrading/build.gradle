@@ -14,6 +14,8 @@ repositories {
 
 dependencies {
 
+    ext['junit-jupiter.version'] = '5.7.1'
+
     implementation 'co.birlax:databasecommon:1.0-SNAPSHOT'
     implementation 'co.birlax:feedcapture:2.0-SNAPSHOT'
 
@@ -55,8 +57,10 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework:spring-test:6.1.2'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'org.mockito:mockito-junit-jupiter'
+    testImplementation 'org.mockito:mockito-junit-jupiter'
 
 
 }

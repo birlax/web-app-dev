@@ -20,8 +20,9 @@ import com.birlax.indiantrader.capitalmarket.SecurityService;
 import com.birlax.indiantrader.report.DailyBuySellReport;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.jdbc.Sql;
 
-
+@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS, scripts = "/data-setup-native.sql")
 public class RelativeStrengthIndexTest extends BaseIntegerationTest {
 
     @Autowired
