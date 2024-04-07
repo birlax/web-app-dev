@@ -1,14 +1,15 @@
 package com.birlax.indiantrader;
 
 import com.birlax.dbCommonUtils.spring.DbCommonUtilsApplicationContext;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = {
+@SpringBootApplication(scanBasePackages = {
         "com.birlax.indiantrader",
-         "com.birlax.feedcapture",
-        "com.birlax.dbCommonUtils",
+        "com.birlax.feedcapture",
+        "com.birlax.dbCommonUtils"
 })
 public class IndianTraderAppContext {
 

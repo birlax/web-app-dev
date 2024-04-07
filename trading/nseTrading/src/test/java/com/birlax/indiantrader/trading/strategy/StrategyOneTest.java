@@ -33,7 +33,9 @@ import com.birlax.indiantrader.capitalmarket.SecurityService;
 import com.birlax.indiantrader.report.BuySellActionGeneratorService;
 import com.birlax.indiantrader.report.EvaluateBuySellActionService;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.jdbc.Sql;
 
+@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS, scripts = "/data-setup-native.sql")
 public class StrategyOneTest extends BaseIntegerationTest {
 
     @Autowired

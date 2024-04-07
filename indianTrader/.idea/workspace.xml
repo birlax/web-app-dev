@@ -5,75 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="647daace-bde1-481d-8563-096ef231461b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../trading/databaseCommon/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/ActionType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/PriceType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/SmoothCurve.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/report/DailyBuySellReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/indianTrader_war.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/indianTrader_war_exploded.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/indianTrader.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/indianTrader.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_birlax_dbCommonUtils_TRUNK_SNAPSHOT.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_birlax_etlCommonUtils_TRUNK_SNAPSHOT.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_4_0_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjrt_1_8_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_25.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/resources/data-setup-native.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/feedCapture/src/main/java/com/birlax/feedcapture/RecordParserExtractionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/feedCapture/src/main/java/com/birlax/feedcapture/RecordParserExtractionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/feedCapture/src/main/java/com/birlax/feedcapture/etlCommonUtils/domain/FieldDataType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/feedCapture/src/main/java/com/birlax/feedcapture/etlCommonUtils/domain/FieldDataType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/feedCapture/src/main/java/com/birlax/feedcapture/etlCommonUtils/domain/RecordFieldConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/feedCapture/src/main/java/com/birlax/feedcapture/etlCommonUtils/domain/RecordFieldConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/feedCapture/src/main/java/com/birlax/feedcapture/etlCommonUtils/domain/RecordParserConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/feedCapture/src/main/java/com/birlax/feedcapture/etlCommonUtils/domain/RecordParserConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/IndicatorOverlayService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/IndicatorOverlayService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/candle/OpeningAbovePreviousHigh.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/candle/OpeningAbovePreviousHigh.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/domain/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/RangeGeneratorUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/domain/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/Direction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/domain/IndicatorCautionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/IndicatorCautionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/domain/IndicatorComputationOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/indicator/IndicatorComputationOptions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/domain/IndicatorEventType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/indicator/IndicatorEventType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/domain/IndicatorResultHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/indicator/IndicatorResultHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/domain/IndicatorSignalType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/indicator/IndicatorSignalType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/domain/PriceVolumnDelivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/capitalmarket/PriceVolumnDelivery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/domain/Sector.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/capitalmarket/Sector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/domain/SecuritiesInFuturesAndOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/fno/SecuritiesInFuturesAndOptions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/domain/Security.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/capitalmarket/Security.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/domain/SmoothCurve.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/indicator/events/BuySellEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/events/BuySellEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/indicator/events/GenericNotificationEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/events/GenericNotificationEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/indicator/events/SignalRack.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/events/SignalRack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/indicator/util/IndicatorUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/indicator/IndicatorUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/oscillator/MoneyFlowIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/oscillator/MoneyFlowIndex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/oscillator/PercentagePriceOscillator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/oscillator/PercentagePriceOscillator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/oscillator/RelativeStrengthIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/oscillator/RelativeStrengthIndex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/overlay/ExponentialMovingAverage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/overlay/ExponentialMovingAverage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/overlay/MACD.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/overlay/MACD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/overlay/SimpleMovingAverage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/patterndetection/overlay/SimpleMovingAverage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/service/HistoricalPriceVolumnService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/capitalmarket/HistoricalPriceVolumnService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/service/NSEFuturesAndOptionsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/fno/NSEFuturesAndOptionsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/service/PriceBandDetectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/capitalmarket/PriceBandDetectionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/service/SecurityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/capitalmarket/SecurityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/service/backtest/BuySellActionGeneratorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/report/BuySellActionGeneratorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/service/backtest/EvaluateBuySellActionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/report/EvaluateBuySellActionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/spring/IndianTraderAppContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/IndianTraderAppContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/spring/IndianTraderDataAccessContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/IndianTraderDataAccessContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/spring/TradingApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/TradingApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/IndianTraderAppContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/IndianTraderAppContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/capitalmarket/SecurityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/capitalmarket/SecurityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/fno/NSEFuturesAndOptionsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/main/java/com/birlax/indiantrader/fno/NSEFuturesAndOptionsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/BaseIntegerationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/BaseIntegerationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/SectorPopulatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/SectorPopulatorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/SecurityPopulatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/SecurityPopulatorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/indicator/util/IndicatorUtilTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/indicator/util/IndicatorUtilTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/oscillator/MoneyFlowIndexTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/oscillator/MoneyFlowIndexTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/oscillator/PercentagePriceOscillatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/oscillator/PercentagePriceOscillatorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/oscillator/RelativeStrengthIndexTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/oscillator/RelativeStrengthIndexTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/overlay/ExponentialMovingAverageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/overlay/ExponentialMovingAverageTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/overlay/MACDTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/overlay/MACDTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/overlay/SimpleMovingAverageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/overlay/SimpleMovingAverageTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/service/HistoricalPriceVolumnServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/service/HistoricalPriceVolumnServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/service/NSEFuturesAndOptionsServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/service/NSEFuturesAndOptionsServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/service/PriceBandDetectionServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/service/PriceBandDetectionServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/trading/strategy/StrategyOneTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/trading/strategy/StrategyOneTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/trading/strategy/StrategyTwoSingleCandleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../trading/nseTrading/src/test/java/com/birlax/indiantrader/trading/strategy/StrategyTwoSingleCandleTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,9 +24,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2aZzXAcyrc855MjLJ03Pjw3FHDm" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -102,7 +42,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "NORJIRA__Feb-25__One",
+    "git-widget-placeholder": "April__7th",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/brijeshshukla/Desktop/BirlaxCodeRepos/web-app-dev/indianTrader",
     "node.js.detected.package.eslint": "true",

@@ -12,19 +12,21 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @JsonAutoDetect
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Sector implements SingleTemporalDAO {
 
     private int industryId;
 
     private int sectorId;
 
-    private int urlId;
+    private String urlId;
 
     private String sectorNameMajor;
 
@@ -45,7 +47,7 @@ public class Sector implements SingleTemporalDAO {
 
     @Override
     public String getFullyQualifiedTableName() {
-        return "reference.sector";
+        return "sec_master.sector";
     }
 
 }

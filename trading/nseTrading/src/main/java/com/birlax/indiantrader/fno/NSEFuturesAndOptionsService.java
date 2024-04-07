@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import com.birlax.dbCommonUtils.service.impl.SingleTemporalServiceImpl;
 import com.birlax.dbCommonUtils.util.ReflectionHelper;
 import com.birlax.indiantrader.capitalmarket.Security;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -23,11 +24,13 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class NSEFuturesAndOptionsService {
 
-
+    @Autowired
     private NSEFuturesAndOptionsService nseFuturesAndOptionsService;
 
+    @Autowired
     private SingleTemporalServiceImpl temporalService;
 
+    @Autowired
     private SecurityService securityService;
 
 //    public void syncFuturesAndOptionsFromFile(String fileName) throws IOException {

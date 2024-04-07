@@ -17,7 +17,9 @@ import com.birlax.indiantrader.capitalmarket.Security;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.jdbc.Sql;
 
+@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS, scripts = "/data-setup-native.sql")
 public class HistoricalPriceVolumnServiceTest extends BaseIntegerationTest {
 
     @Autowired
