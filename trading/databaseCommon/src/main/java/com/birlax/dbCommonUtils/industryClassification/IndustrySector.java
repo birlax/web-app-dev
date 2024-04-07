@@ -37,7 +37,6 @@ public class IndustrySector implements SingleTemporalDAO {
 
   @Override
   public String getFullyQualifiedTableName() {
-    // return "public.sector";
-    return "trade.nse_historical_price_data";
+    return "sec_master.sector";
   }
 }

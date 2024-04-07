@@ -7,14 +7,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
 @Service
 public class DailyBuySellReport {
 
-    public void printReport(Security security, LocalDate resultDateOnOrAfter, boolean printHeader,
-                                   List<PriceVolumnDelivery> priceVolumnDeliveries, IndicatorResultHolder holder) {
+    public void printReport(Security security, LocalDateTime resultDateOnOrAfter, boolean printHeader,
+                            List<PriceVolumnDelivery> priceVolumnDeliveries, IndicatorResultHolder holder) {
 
         String header = "Index,Spn,Security,Series,TradeDate,OpeningPrice,HighPrice,LowPrice,ClosingPrice,AveragePrice,TotalTradedQty,";
 

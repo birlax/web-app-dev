@@ -52,7 +52,7 @@ public class ExponentialMovingAverageTest extends BaseIntegerationTest {
 
         exponentialMovingAverage.compute(data, holder, options12);
 
-        dailyBuySellReport.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
+        dailyBuySellReport.printReport(sec, resultDate.atStartOfDay(), printHeader, priceVolumnDeliveries, holder);
 
     }
 

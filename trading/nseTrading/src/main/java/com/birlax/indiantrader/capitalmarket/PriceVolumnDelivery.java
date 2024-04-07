@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @JsonAutoDetect
@@ -22,7 +23,7 @@ public class PriceVolumnDelivery implements SingleTemporalDAO {
 
     private String series;
 
-    private LocalDate tradeDate;
+    private LocalDateTime tradeDate;
 
     private Double previousClosePrice;
 
