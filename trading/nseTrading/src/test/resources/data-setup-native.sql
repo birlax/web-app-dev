@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS trade.nse_historical_price_data
 ;
 
 CREATE TABLE IF NOT EXISTS trade.nse_historical_price_data(
-                                                              id VARCHAR
+    id VARCHAR
     , symbol VARCHAR
     , industry_id VARCHAR
     , spn VARCHAR
@@ -40,21 +40,30 @@ DROP TABLE IF EXISTS sec_master.sector
 CREATE TABLE IF NOT EXISTS sec_master.sector (
     id VARCHAR
     , spn VARCHAR
-    , industry_id VARCHAR
+    , industry_id int
     , sector_name_major VARCHAR
     , sector_name_minor VARCHAR
-    , sector_id VARCHAR
+    , sector_id int
     , sub_sector_name VARCHAR
     , url_id VARCHAR
-)
+    , validity_begin TIMESTAMP(3)
+    , validity_end TIMESTAMP(3)
+    )
 ;
 
 
+INSERT INTO sec_master.sector
+(id, spn, industry_id, sector_name_major, sector_name_minor, sub_sector_name, sector_id, url_id, validity_begin , validity_end)
+VALUES
+    ('123', '124',123, 'Beverages', 'Chai/Coffee', 'Tea',  128, 'abc' , '2018-03-21' , '3099-01-01') ,
+    ('124', '125',123, 'Beverages', 'Chai/Coffee', 'Coffee', 129, 'abc', '2018-03-21' , '3099-01-01')
 ;
+
+
 DROP TABLE IF EXISTS sec_master.securities
 ;
 CREATE TABLE IF NOT EXISTS sec_master.securities (
-    id VARCHAR
+                                                     id VARCHAR
     , spn VARCHAR
     , symbol VARCHAR
     , isin VARCHAR

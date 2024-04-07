@@ -3,6 +3,7 @@ package com.birlax.indiantrader.trading.strategy;
 
 import com.birlax.dbCommonUtils.util.BirlaxUtil;
 import com.birlax.indiantrader.BaseIntegerationTest;
+import com.birlax.indiantrader.fno.NSEFuturesAndOptionsService;
 import com.birlax.indiantrader.patterndetection.PriceType;
 import com.birlax.indiantrader.patterndetection.candle.OpeningAbovePreviousHigh;
 import com.birlax.indiantrader.capitalmarket.Security;
@@ -17,7 +18,6 @@ import com.birlax.indiantrader.patterndetection.events.SignalRack;
 import com.birlax.indiantrader.patterndetection.indicator.IndicatorUtil;
 import com.birlax.indiantrader.patterndetection.IndicatorCautionType;
 import com.birlax.indiantrader.capitalmarket.HistoricalPriceVolumnService;
-import com.birlax.indiantrader.fno.NSEFuturesAndOptionsService;
 import com.birlax.indiantrader.capitalmarket.SecurityService;
 import com.birlax.indiantrader.report.BuySellActionGeneratorService;
 import com.birlax.indiantrader.report.DailyBuySellReport;
@@ -30,8 +30,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.jdbc.SqlMergeMode;
 
 @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS, scripts = "/data-setup-native.sql")
 public class StrategyTwoSingleCandleTest extends BaseIntegerationTest {
@@ -80,7 +78,7 @@ public class StrategyTwoSingleCandleTest extends BaseIntegerationTest {
         openingAbovePreviousHigh.compute(closingPrice, priceVolumnDeliveries, holder, 2, percentage, resultName);
 
         Double[] rsi = holder.getResultList(resultName);
-        dailyBuySellReport.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
+        dailyBuySellReport.printReport(sec, resultDate.atStartOfDay(), printHeader, priceVolumnDeliveries, holder);
 
         SignalRack signalRack = new SignalRack();
         for (int i = 0; i < rsi.length; i++) {

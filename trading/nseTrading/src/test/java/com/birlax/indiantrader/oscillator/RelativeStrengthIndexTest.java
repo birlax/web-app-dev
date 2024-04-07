@@ -1,6 +1,7 @@
 
 package com.birlax.indiantrader.oscillator;
 
+import com.birlax.indiantrader.fno.NSEFuturesAndOptionsService;
 import com.birlax.indiantrader.patterndetection.PriceType;
 import com.birlax.indiantrader.patterndetection.oscillator.RelativeStrengthIndex;
 import java.time.LocalDate;
@@ -15,7 +16,6 @@ import com.birlax.indiantrader.capitalmarket.PriceVolumnDelivery;
 import com.birlax.indiantrader.capitalmarket.Security;
 import com.birlax.indiantrader.patterndetection.indicator.IndicatorUtil;
 import com.birlax.indiantrader.capitalmarket.HistoricalPriceVolumnService;
-import com.birlax.indiantrader.fno.NSEFuturesAndOptionsService;
 import com.birlax.indiantrader.capitalmarket.SecurityService;
 import com.birlax.indiantrader.report.DailyBuySellReport;
 import org.junit.jupiter.api.Test;
@@ -61,7 +61,7 @@ public class RelativeStrengthIndexTest extends BaseIntegerationTest {
 
         rsi.compute(priceVolumnDeliveries, rawMoney, holder, options14);
 
-        dailyBuySellReport.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
+        dailyBuySellReport.printReport(sec, resultDate.atStartOfDay(), printHeader, priceVolumnDeliveries, holder);
     }
 
     @Test
