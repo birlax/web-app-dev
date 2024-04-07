@@ -58,25 +58,26 @@ public class SingleTemporalServiceTest extends BaseIntegrationTest {
         Set<String> column = new HashSet<>();
         column.add("sector_name_minor");
         List<Map<String, Object>> data = singleTemporalService.searchRecords(List.of(s1, s2), column);
+        System.out.println(data);
         Assertions.assertEquals(4, data.size());
     }
 
     @Test
     public void testSearchRecordsByDateRange() {
-        List<IndustrySector> records = new ArrayList<>();
-        IndustrySector s = IndustrySector.builder().spn(156).build();
-        records.add(s);
+
+        IndustrySector s = IndustrySector.builder().spn(124).build();
+
         Set<String> searchByColumns = new HashSet<>();
         searchByColumns.add("spn");
 
-        Set<String> retrieveColumns = new HashSet<>();
-        retrieveColumns.add("close_price");
-        retrieveColumns.add("open_price");
+        List<IndustrySector> records = List.of(s);
+
+        Set<String> retrieveColumns = Set.of("sector_name_major", "sector_name_minor", "validity_begin", "validity_end");
 
         LocalDate startDate = BirlaxUtil.getDateFromString("20180320");
         LocalDate endDate = BirlaxUtil.getDateFromString("20180323");
 
-        String effectiveDateColName = "trade_date";
+        String effectiveDateColName = "validity_begin";
         System.out.println(
                 singleTemporalService.searchRecordsForDateRange(
                         records, searchByColumns, retrieveColumns, effectiveDateColName, startDate, endDate));

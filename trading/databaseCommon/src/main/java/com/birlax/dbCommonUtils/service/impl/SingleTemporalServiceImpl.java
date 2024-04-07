@@ -298,11 +298,10 @@ public class SingleTemporalServiceImpl implements TemporalService {
 
 
     @Override
-    public <T extends SingleTemporalDAO> List<Map<String, Object>> searchRecordsForDateRange(List<T> records,
-                                                                                             Set<String> searchByColumns, Set<String> retrieveColumns, String effectiveDateColName,
-                                                                                             LocalDate startDate,
-                                                                                             LocalDate endDate) {
+    public <T extends SingleTemporalDAO> List<Map<String, Object>> searchRecordsForDateRange(
+            List<T> records, Set<String> searchByColumns, Set<String> retrieveColumns, String effectiveDateColName, LocalDate startDate, LocalDate endDate) {
 
+        Set<String> retrieveColumnCopy = new HashSet<>(retrieveColumns);
         validation(records);
 
         String fullyQualifiedParentTableName = records.iterator().next().getFullyQualifiedTableName();
@@ -334,16 +333,16 @@ public class SingleTemporalServiceImpl implements TemporalService {
                 fullyQualifiedParentTableName, dataList);
         // Columns which are already part of filter remove them from default view to have distinct column in result
         defaultColumnsInObjectView.removeAll(searchByColumns);
-        retrieveColumns.add(effectiveDateColName);
-        retrieveColumns.removeAll(searchByColumns);
+        retrieveColumnCopy.add(effectiveDateColName);
+        retrieveColumnCopy.removeAll(searchByColumns);
         List<Map<String, Object>> searchedRecords = singleTemporalMapper.searchRecordsForDateRange(tempTableName,
-                fullyQualifiedParentTableName, searchByColumns, retrieveColumns, effectiveDateColName, startDate,
+                fullyQualifiedParentTableName, searchByColumns, retrieveColumnCopy, effectiveDateColName, startDate,
                 endDate);
         stagingUtilDao.dropTempTable(tempTableName);
         log.debug(
                 "Completed searching for \n Records : {}, \n Found records : {}, \n Filtered by : {}, \n From table : {} \n Retrieved Colum: {} :",
                 records.size(), searchedRecords.size(), searchByColumns, fullyQualifiedParentTableName,
-                retrieveColumns);
+                retrieveColumnCopy);
         return searchedRecords;
     }
 
