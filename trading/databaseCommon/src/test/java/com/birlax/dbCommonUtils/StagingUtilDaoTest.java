@@ -81,7 +81,7 @@ public class StagingUtilDaoTest extends BaseIntegrationTest {
     String onlyVARCHARColumnInTable = "sector_name_major";
     columnNames.add(onlyVARCHARColumnInTable);
     // Create temp table.
-    String fullyQualifiedParentTableName = "public.sector";
+    String fullyQualifiedParentTableName = "sec_master.sector";
     String tempTableName =
         stagingUtilDao.createTempStageTable(columnNames, fullyQualifiedParentTableName);
     // Test that table was created and had the column with type VARCHAR
@@ -104,7 +104,7 @@ public class StagingUtilDaoTest extends BaseIntegrationTest {
     String onlyVARCHARColumnInTable = "sector_name_major";
     createTableColName.add(onlyVARCHARColumnInTable);
     // Create temp table.
-    String fullyQualifiedParentTableName = "public.sector";
+    String fullyQualifiedParentTableName = "sec_master.sector";
     List<Map<String, Object>> dataRecords = new ArrayList<>();
     Map<String, Object> record = new HashMap<>();
     record.put("sector_id", 1);
