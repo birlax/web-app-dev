@@ -11,14 +11,16 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @JsonAutoDetect
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Security implements SingleTemporalDAO {
 
-    private int spn;
+    private String spn;
 
     private String isin;
 

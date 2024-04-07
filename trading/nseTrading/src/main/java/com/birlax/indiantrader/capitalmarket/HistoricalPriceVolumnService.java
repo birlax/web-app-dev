@@ -4,6 +4,7 @@ import com.birlax.dbCommonUtils.service.impl.SingleTemporalServiceImpl;
 import com.birlax.dbCommonUtils.util.ReflectionHelper;
 import com.birlax.feedcapture.etlCommonUtils.NSE24MonthHistoricalPriceVolumeDeliverySource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +21,13 @@ import java.util.stream.Collectors;
 @Slf4j
 public class HistoricalPriceVolumnService {
 
+    @Autowired
     private SingleTemporalServiceImpl temporalService;
 
+    @Autowired
     private SecurityService securityService;
 
+    @Autowired
     private NSE24MonthHistoricalPriceVolumeDeliverySource nse24MonthHistoricalPriceVolumeDeliverySource;
 
 //    public void syncPriceVolumnDeliveryForAllSecuritiesSingleDay(String fileName) throws IOException {
@@ -51,7 +55,7 @@ public class HistoricalPriceVolumnService {
         List<PriceVolumnDelivery> priceVolumnDeliveries = temporalService.fetchAllRecords(retrieveColumns,
                 PriceVolumnDelivery.class);
         log.info("Already synced securities  : {} ", priceVolumnDeliveries.size());
-        Set<Integer> spns = priceVolumnDeliveries.stream().map(a -> a.getSpn()).collect(Collectors.toSet());
+        Set<String> spns = priceVolumnDeliveries.stream().map(a -> a.getSpn()).collect(Collectors.toSet());
         for (Security security : securities) {
             if (spns.contains(security.getSpn())) {
                 continue;
@@ -167,6 +171,7 @@ public class HistoricalPriceVolumnService {
                 Arrays.asList(priceVolumnDelivery), searchByColumns, retrieveColumns, "trade_date", startDate, endDate,
                 PriceVolumnDelivery.class);
 
+        log.info("Received data size : [{}]", priceVolumnDeliveries.size());
         return priceVolumnDeliveries;
     }
 

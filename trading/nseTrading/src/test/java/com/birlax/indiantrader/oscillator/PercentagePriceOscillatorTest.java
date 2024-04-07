@@ -4,10 +4,8 @@ package com.birlax.indiantrader.oscillator;
 import com.birlax.indiantrader.BaseIntegerationTest;
 import com.birlax.indiantrader.patterndetection.oscillator.PercentagePriceOscillator;
 import com.birlax.indiantrader.capitalmarket.SecurityService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
 
 public class PercentagePriceOscillatorTest extends BaseIntegerationTest {
 
@@ -18,7 +16,6 @@ public class PercentagePriceOscillatorTest extends BaseIntegerationTest {
     private SecurityService securityService;
 
     @Test
-    @Disabled
     public void test() {
         String securitySymbol = "IBVENTURES";
         int lagDuration = 9;
