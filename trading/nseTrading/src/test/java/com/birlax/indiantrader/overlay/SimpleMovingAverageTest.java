@@ -55,7 +55,7 @@ public class SimpleMovingAverageTest extends BaseIntegerationTest {
         Double[] dataAvgPrice = IndicatorUtil.transform(priceVolumnDeliveries, holder, optionsAvgPrice20);
         simpleMovingAverage.compute(dataAvgPrice, holder, optionsAvgPrice20);
 
-        dailyBuySellReport.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
+        dailyBuySellReport.printReport(sec, resultDate.atStartOfDay(), printHeader, priceVolumnDeliveries, holder);
     }
 
     @Test

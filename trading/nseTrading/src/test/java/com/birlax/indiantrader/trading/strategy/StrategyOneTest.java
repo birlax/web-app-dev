@@ -1,6 +1,7 @@
 
 package com.birlax.indiantrader.trading.strategy;
 
+import com.birlax.indiantrader.fno.NSEFuturesAndOptionsService;
 import com.birlax.indiantrader.patterndetection.PriceType;
 import com.birlax.indiantrader.report.DailyBuySellReport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,6 @@ import com.birlax.indiantrader.patterndetection.overlay.ExponentialMovingAverage
 import com.birlax.indiantrader.patterndetection.overlay.MACD;
 import com.birlax.indiantrader.patterndetection.overlay.SimpleMovingAverage;
 import com.birlax.indiantrader.capitalmarket.HistoricalPriceVolumnService;
-import com.birlax.indiantrader.fno.NSEFuturesAndOptionsService;
 import com.birlax.indiantrader.capitalmarket.SecurityService;
 import com.birlax.indiantrader.report.BuySellActionGeneratorService;
 import com.birlax.indiantrader.report.EvaluateBuySellActionService;
@@ -102,7 +102,7 @@ public class StrategyOneTest extends BaseIntegerationTest {
         Double[] ema12 = holder.getResultList(optionsEMA.getNameForComputation(ExponentialMovingAverage.EMA));
         Double[] ema26 = holder.getResultList(optionsEMA.getNameForComputation(ExponentialMovingAverage.EMA));
         Double[] rsiV = holder.getResultList(optionsRSI.getNameForComputation(RelativeStrengthIndex.RSI));
-        dailyBuySellReport.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
+        dailyBuySellReport.printReport(sec, resultDate.atStartOfDay(), printHeader, priceVolumnDeliveries, holder);
 
         Direction[] dirOfSMA50 = IndicatorUtil.getDirectionByLookBack(sma50, 20, 1.0, 12);
 
@@ -168,7 +168,7 @@ public class StrategyOneTest extends BaseIntegerationTest {
         }
         IndicatorResultHolder macdResults = macd.compute(data, holder, options12);
 
-        dailyBuySellReport.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
+        dailyBuySellReport.printReport(sec, resultDate.atStartOfDay(), printHeader, priceVolumnDeliveries, holder);
         int shortViewOnMACD = 3;
         int longerViewOnHistogram = 9;
         SignalRack signals = macd.getBuySellSignals(shortViewOnMACD, longerViewOnHistogram, macdResults,

@@ -2,6 +2,7 @@
 package com.birlax.indiantrader.patterndetection.events;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.birlax.indiantrader.patterndetection.ActionType;
 import com.birlax.indiantrader.patterndetection.IndicatorCautionType;
@@ -12,7 +13,7 @@ public class BuySellEvent {
 
     private int index;
 
-    private LocalDate date;
+    private LocalDateTime date;
 
     private ActionType eventType;
 
@@ -24,8 +25,8 @@ public class BuySellEvent {
 
     private IndicatorCautionType cautionType;
 
-    public BuySellEvent(int index, LocalDate date, IndicatorSignalType signalType, IndicatorCautionType cautionType,
-            double previousLongestBullBearCycle, ActionType eventType, String comments) {
+    public BuySellEvent(int index, LocalDateTime date, IndicatorSignalType signalType, IndicatorCautionType cautionType,
+                        double previousLongestBullBearCycle, ActionType eventType, String comments) {
         super();
         this.index = index;
         this.date = date;
@@ -54,7 +55,7 @@ public class BuySellEvent {
     /**
      * @return the date
      */
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return this.date;
     }
 
@@ -62,7 +63,7 @@ public class BuySellEvent {
      * @param date
      *            the date to set
      */
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

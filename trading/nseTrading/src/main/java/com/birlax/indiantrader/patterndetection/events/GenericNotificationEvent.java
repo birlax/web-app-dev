@@ -2,6 +2,7 @@
 package com.birlax.indiantrader.patterndetection.events;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.birlax.indiantrader.patterndetection.IndicatorCautionType;
 import com.birlax.indiantrader.patterndetection.indicator.IndicatorEventType;
@@ -12,7 +13,7 @@ public class GenericNotificationEvent {
 
     private int index;
 
-    private LocalDate date;
+    private LocalDateTime date;
 
     private IndicatorSignalType signalType;
 
@@ -22,7 +23,7 @@ public class GenericNotificationEvent {
 
     private String comments;
 
-    public GenericNotificationEvent(int index, LocalDate date, IndicatorSignalType signalType,
+    public GenericNotificationEvent(int index, LocalDateTime date, IndicatorSignalType signalType,
             IndicatorCautionType cautionType, IndicatorEventType eventType, String comments) {
         super();
         this.index = index;
@@ -51,7 +52,7 @@ public class GenericNotificationEvent {
     /**
      * @return the date
      */
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return this.date;
     }
 
@@ -59,7 +60,7 @@ public class GenericNotificationEvent {
      * @param date
      *            the date to set
      */
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

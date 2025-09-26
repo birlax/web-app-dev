@@ -3,6 +3,7 @@ package com.birlax.indiantrader.overlay;
 
 import com.birlax.dbCommonUtils.util.BirlaxUtil;
 import com.birlax.indiantrader.BaseIntegerationTest;
+import com.birlax.indiantrader.fno.NSEFuturesAndOptionsService;
 import com.birlax.indiantrader.patterndetection.PriceType;
 import com.birlax.indiantrader.patterndetection.indicator.IndicatorComputationOptions;
 import com.birlax.indiantrader.patterndetection.indicator.IndicatorResultHolder;
@@ -11,7 +12,6 @@ import com.birlax.indiantrader.capitalmarket.Security;
 import com.birlax.indiantrader.patterndetection.indicator.IndicatorUtil;
 import com.birlax.indiantrader.patterndetection.overlay.MACD;
 import com.birlax.indiantrader.capitalmarket.HistoricalPriceVolumnService;
-import com.birlax.indiantrader.fno.NSEFuturesAndOptionsService;
 import com.birlax.indiantrader.report.DailyBuySellReport;
 import java.time.LocalDate;
 import java.util.List;
@@ -55,7 +55,7 @@ public class MACDTest extends BaseIntegerationTest {
         }
         macd.compute(data, holder, options12);
 
-        dailyBuySellReport.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
+        dailyBuySellReport.printReport(sec, resultDate.atStartOfDay(), printHeader, priceVolumnDeliveries, holder);
 
     }
 

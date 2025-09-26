@@ -1,11 +1,15 @@
 package com.birlax.dbCommonUtils.industryClassification;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.birlax.dbCommonUtils.service.SingleTemporalDAO;
 import com.birlax.dbCommonUtils.util.ReflectionHelper;
+
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.*;
 
 @Builder
 @Data
@@ -37,7 +41,7 @@ public class IndustrySector implements SingleTemporalDAO {
 
   @Override
   public String getFullyQualifiedTableName() {
-    // return "public.sector";
-    return "trade.nse_historical_price_data";
+    return "sec_master.sector";
   }
+
 }

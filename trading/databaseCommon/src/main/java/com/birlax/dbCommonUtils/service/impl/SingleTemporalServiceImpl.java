@@ -207,9 +207,7 @@ public class SingleTemporalServiceImpl implements TemporalService {
         return DigestUtils.md5DigestAsHex(stringBuilder.toString().getBytes(StandardCharsets.UTF_8));
     }
 
-    /**
-     * @param records
-     */
+
     private <T extends SingleTemporalDAO> void validation(List<T> records) {
 
         if (records == null || records.isEmpty()) {
@@ -235,24 +233,18 @@ public class SingleTemporalServiceImpl implements TemporalService {
         return list;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.birlax.dbCommonUtils.service.TemporalService#searchRecordsForDomain(java.util.List, java.util.Set)
-     */
+
     @Override
     public <T extends SingleTemporalDAO> List<T> searchRecords(List<T> records, Set<String> searchByColumns,
-            Class<?> clazz) {
+                                                               Class<?> clazz) {
         List<Map<String, Object>> data = searchRecords(records, searchByColumns);
         return mapToObjectConvertor(data, clazz);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.birlax.dbCommonUtils.service.TemporalService#getRecordsByKey(java.util.List)
-     */
+
     @Override
     public <T extends SingleTemporalDAO> List<Map<String, Object>> searchRecords(List<T> records,
-            Set<String> searchByColumns) {
+                                                                                 Set<String> searchByColumns) {
 
         validation(records);
 
@@ -280,15 +272,12 @@ public class SingleTemporalServiceImpl implements TemporalService {
         List<Map<String, Object>> searchedRecords = singleTemporalMapper.searchRecords(tempTableName,
                 fullyQualifiedParentTableName, searchByColumns, defaultColumnsInObjectView);
         stagingUtilDao.dropTempTable(tempTableName);
-        log.debug("Completed searching records : {}, found records : {}, filtered by : {}, from table : {}",
+        log.info("Completed searching records : {}, found records : {}, filtered by : {}, from table : {}",
                 records.size(), searchedRecords.size(), searchByColumns, fullyQualifiedParentTableName);
         return searchedRecords;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.birlax.dbCommonUtils.service.TemporalService#searchRecordsForDomain(java.util.List, java.util.Set)
-     */
+
     @Override
     public <T extends SingleTemporalDAO> List<T> fetchAllRecords(Set<String> retrieveColumns, Class<?> clazz) {
         List<Map<String, Object>> data = singleTemporalMapper.getAllRecords(getDatabaseTableFromPOJO(clazz),
@@ -296,15 +285,10 @@ public class SingleTemporalServiceImpl implements TemporalService {
         return mapToObjectConvertor(data, clazz);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.birlax.dbCommonUtils.service.TemporalService#searchRecordsForDateRange(java.util.List, java.util.Set,
-     * java.lang.String, java.util.Date, java.util.Date, java.lang.Class)
-     */
     @Override
     public <T extends SingleTemporalDAO> List<T> searchRecordsForDateRange(List<T> records, Set<String> searchByColumns,
-            Set<String> retrieveColumns, String effectiveDateColName, LocalDate startDate, LocalDate endDate,
-            Class<?> clazz) {
+                                                                           Set<String> retrieveColumns, String effectiveDateColName, LocalDate startDate, LocalDate endDate,
+                                                                           Class<?> clazz) {
 
         List<Map<String, Object>> data = searchRecordsForDateRange(records, searchByColumns, retrieveColumns,
                 effectiveDateColName, startDate, endDate);
@@ -312,17 +296,12 @@ public class SingleTemporalServiceImpl implements TemporalService {
         return mapToObjectConvertor(data, clazz);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.birlax.dbCommonUtils.service.TemporalService#searchRecordsForDateRange(java.util.List, java.util.Set,
-     * java.util.Set, java.lang.String, java.util.Date, java.util.Date)
-     */
-    @Override
-    public <T extends SingleTemporalDAO> List<Map<String, Object>> searchRecordsForDateRange(List<T> records,
-            Set<String> searchByColumns, Set<String> retrieveColumns, String effectiveDateColName,
-            LocalDate startDate,
-            LocalDate endDate) {
 
+    @Override
+    public <T extends SingleTemporalDAO> List<Map<String, Object>> searchRecordsForDateRange(
+            List<T> records, Set<String> searchByColumns, Set<String> retrieveColumns, String effectiveDateColName, LocalDate startDate, LocalDate endDate) {
+
+        Set<String> retrieveColumnCopy = new HashSet<>(retrieveColumns);
         validation(records);
 
         String fullyQualifiedParentTableName = records.iterator().next().getFullyQualifiedTableName();
@@ -354,23 +333,20 @@ public class SingleTemporalServiceImpl implements TemporalService {
                 fullyQualifiedParentTableName, dataList);
         // Columns which are already part of filter remove them from default view to have distinct column in result
         defaultColumnsInObjectView.removeAll(searchByColumns);
-        retrieveColumns.add(effectiveDateColName);
-        retrieveColumns.removeAll(searchByColumns);
+        retrieveColumnCopy.add(effectiveDateColName);
+        retrieveColumnCopy.removeAll(searchByColumns);
         List<Map<String, Object>> searchedRecords = singleTemporalMapper.searchRecordsForDateRange(tempTableName,
-                fullyQualifiedParentTableName, searchByColumns, retrieveColumns, effectiveDateColName, startDate,
+                fullyQualifiedParentTableName, searchByColumns, retrieveColumnCopy, effectiveDateColName, startDate,
                 endDate);
         stagingUtilDao.dropTempTable(tempTableName);
         log.debug(
                 "Completed searching for \n Records : {}, \n Found records : {}, \n Filtered by : {}, \n From table : {} \n Retrieved Colum: {} :",
                 records.size(), searchedRecords.size(), searchByColumns, fullyQualifiedParentTableName,
-                retrieveColumns);
+                retrieveColumnCopy);
         return searchedRecords;
     }
 
-    /**
-     * @param clazz
-     * @return
-     */
+
     private <T extends SingleTemporalDAO> String getDatabaseTableFromPOJO(Class<?> clazz) {
         T cls = null;
         try {

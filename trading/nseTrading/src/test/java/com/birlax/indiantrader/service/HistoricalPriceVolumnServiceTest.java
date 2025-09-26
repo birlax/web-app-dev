@@ -5,6 +5,7 @@ import com.birlax.indiantrader.capitalmarket.HistoricalPriceVolumnService;
 import com.birlax.indiantrader.capitalmarket.SecurityService;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -134,7 +135,7 @@ public class HistoricalPriceVolumnServiceTest extends BaseIntegerationTest {
             List<PriceVolumnDelivery> priceVolumnDeliveries = historicalPriceVolumnService
                     .getPriceVolumnForSecurity(sec.getSymbol(), null, startDate, endDate);
 
-            Set<LocalDate> tdDates = priceVolumnDeliveries.stream().map(a -> a.getTradeDate()).collect(Collectors.toSet());
+            Set<LocalDateTime> tdDates = priceVolumnDeliveries.stream().map(a -> a.getTradeDate()).collect(Collectors.toSet());
             if (tdDates.contains(startDate) && tdDates.contains(mid)) {
                 System.out.println("\n --- All good for : " + sec + " -- Nothing to sync.....\n ");
                 continue;

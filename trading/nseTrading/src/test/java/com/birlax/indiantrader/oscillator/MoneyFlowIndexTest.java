@@ -90,7 +90,7 @@ public class MoneyFlowIndexTest extends BaseIntegerationTest {
         Double[] smaOfMFI = holder.getResultList("MFI(RAW_MONEY_FLOW|14)");
         simpleMovingAverage.compute(smaOfMFI, holder, options);
 
-        dailyBuySellReport.printReport(sec, resultDate, printHeader, priceVolumnDeliveries, holder);
+        dailyBuySellReport.printReport(sec, resultDate.atStartOfDay(), printHeader, priceVolumnDeliveries, holder);
     }
 
     @Test
